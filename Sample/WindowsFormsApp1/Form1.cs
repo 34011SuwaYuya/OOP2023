@@ -20,7 +20,7 @@ namespace WindowsFormsApp1 {
 
         private void button1_Click(object sender, EventArgs e) {
             BackColor = Color.SpringGreen;
-            btButton.BackColor = Color.BurlyWood;
+            btOne.BackColor = Color.BurlyWood;
 
             //int ans = int.Parse(tbNum1.Text) + int.Parse(tbNum2.Text);
             //tbAns.Text = ans.ToString();
@@ -29,6 +29,7 @@ namespace WindowsFormsApp1 {
             int num2 = int.Parse(tbNum2.Text);
             int sum = num1 + num2;
             tbAns.Text = sum.ToString();
+
 
         }
 
@@ -41,6 +42,25 @@ namespace WindowsFormsApp1 {
 
         private void label1_Click(object sender, EventArgs e) {
 
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e) {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e) {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e) {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e) {
+            BackColor = Color.Firebrick;
+            btPow.BackColor = Color.Gold;
+            int ans2 = (int)Math.Pow((double)nudX.Value, (double)nudY.Value);
+            tbResult.Text = ans2.ToString();
         }
     }
 }
