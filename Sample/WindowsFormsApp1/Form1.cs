@@ -23,8 +23,14 @@ namespace WindowsFormsApp1 {
             BackColor = Color.SpringGreen;
             btButton.BackColor = Color.BurlyWood;
 
-            int ans = int.Parse(tbNum1.Text) + int.Parse(tbNum2.Text);
-            tbAns.Text = ans.ToString();
+            //int ans = int.Parse(tbNum1.Text) + int.Parse(tbNum2.Text);
+            //tbAns.Text = ans.ToString();
+
+            int num1 = int.Parse(tbNum1.Text);
+            int num2 = int.Parse(tbNum2.Text);
+            int sum = num1 + num2;
+            tbAns.Text = sum.ToString();
+
         }
 
       
