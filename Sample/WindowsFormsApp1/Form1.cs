@@ -19,7 +19,6 @@ namespace WindowsFormsApp1 {
         }
 
         private void button1_Click(object sender, EventArgs e) {
-            //tbNum1.Text = "楽しいC#！！！";
             BackColor = Color.SpringGreen;
             btButton.BackColor = Color.BurlyWood;
 
