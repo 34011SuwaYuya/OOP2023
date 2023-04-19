@@ -30,10 +30,21 @@ namespace BallApp {
 
         //method
         public void Move() {    //外部からアクセスするものは大文字にすることが多い
+           
+            if (posX > 730 || posX < 0)        // > か　>= で考える
+            {
+                moveX = -moveX;
+            }
+
+            if (posY > 520 || posY < 0)
+            {
+                moveY = -moveY;
+            }
             posX += moveX;
             posY += moveY;
-
+            Console.WriteLine("x = {0}, y = {1}", PosX, PosY);
         }
+
 
     }
 }

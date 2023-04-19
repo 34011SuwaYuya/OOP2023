@@ -34,7 +34,7 @@ namespace BallApp {
             pb.Parent = this;
 
             moveTimer = new Timer();
-            moveTimer.Interval = 1000;      //タイマーのインターバル（ｍｓ）
+            moveTimer.Interval = 100;      //タイマーのインターバル（ｍｓ）
 
             moveTimer.Start();
             moveTimer.Tick += MoveTimer_Tick;
@@ -42,7 +42,7 @@ namespace BallApp {
         }
 
         private void MoveTimer_Tick(object sender, EventArgs e) {
-            soccerBall.Move();
+            soccerBall.Move();  //移動のメッセージを送る
             pb.Location = new Point((int)soccerBall.PosX, (int)soccerBall.PosY);
         }
     }
