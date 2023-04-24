@@ -6,59 +6,47 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BallApp {
-    class SoccerBall {
-        //フィールド
+    class SoccerBall :Obj {
 
-        
-        private Image image;    
-        private double posX;    //x座標
-        private double posY;    //y座標
+        private double moveX; //移動量(x方向)
+        private double moveY;
 
-
-        private double moveX ; //移動量(x方向)
-        private double moveY ;
         Random rdm = new Random();
 
+        public SoccerBall(double xp, double yp):base(xp,yp, @"pic\soccer_ball.png")
 
-        //コンストラクタ
-        public SoccerBall(double pointX, double pointY) {
-            while (moveX == 0)
             {
-                moveX = rdm.Next(-50, 50);
-            }
-
-            while (moveY == 0)
+            while (MoveX == 0)
             {
-                moveY = rdm.Next(-50, 50);
+                MoveX = rdm.Next(-50, 50);
             }
-
-
-            Image = Image.FromFile(@"pic\soccer_ball.png");
-            PosX = pointX;
-            PosY = pointY;
+            
+            while (MoveY == 0)
+            {
+                MoveY = rdm.Next(-50, 50);
+            }
+            Count++;
         }
 
-        //プロパティ
-        public double PosX { get => posX; set => posX = value; }
-        public double PosY { get => posY; set => posY = value; }
-        public Image Image { get => image; set => image = value; }
+        public double MoveY1 { get => MoveY; set => MoveY = value; }
+        public double MoveX1 { get => MoveX; set => MoveX = value; }
+        public double MoveX { get => moveX; set => moveX = value; }
+        public double MoveY { get => moveY; set => moveY = value; }
 
-        //method
-        public void Move() {    //外部からアクセスするものは大文字にすることが多い
-           
-            if (posX > 730 || posX < 0)        
+        public override void Move() {    //外部からアクセスするものは大文字にすることが多い
+
+            if (PosX > 730 || PosX < 0)
             {
-                moveX = -moveX;
+                MoveX = -MoveX;
             }
 
-            if (posY > 520 || posY < 0)
+            if (PosY > 520 || PosY < 0)
             {
-                moveY = -moveY;
+                MoveY = -MoveY;
             }
-            posX += moveX;
-            posY += moveY;
+            PosX += MoveX;
+            PosY += MoveY;
         }
-
 
     }
 }
