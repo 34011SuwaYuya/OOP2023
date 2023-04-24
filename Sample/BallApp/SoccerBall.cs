@@ -57,7 +57,6 @@ namespace BallApp {
             }
             posX += moveX;
             posY += moveY;
-            Console.WriteLine("x = {0}, y = {1}", PosX, PosY);
         }
 
 

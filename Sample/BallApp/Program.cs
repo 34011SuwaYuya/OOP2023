@@ -26,8 +26,7 @@ namespace BallApp {
             this.Text = "BallGame";
 
             this.MouseClick += Program_MouseClick;
-
-
+            
 
 
             moveTimer = new Timer();
@@ -55,6 +54,7 @@ namespace BallApp {
             pbs.Add(pb);
 
             moveTimer.Start();
+            this.Text = "BallGame 現在：" + balls.Count;
         }
 
         private void MoveTimer_Tick(object sender, EventArgs e) {       //タイマータイムアウト時のイベントハンドラ
