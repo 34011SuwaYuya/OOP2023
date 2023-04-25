@@ -7,14 +7,16 @@ using System.Threading.Tasks;
 
 namespace BallApp {
     class SoccerBall :Obj {
+      
 
         public SoccerBall(double xp, double yp) : base(xp, yp, @"pic\soccer_ball.png"){
             
 
 
             base.defaultMoveConfig();
-            Count++;
+    
         }
+
 
         public override void Move() {    //外部からアクセスするものは大文字にすることが多い
 

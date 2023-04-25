@@ -7,13 +7,11 @@ using System.Drawing;
 
 namespace BallApp {
     class TennisBall:Obj {
-
+        
         
         public TennisBall(double xp, double yp) : base(xp, yp, @"pic\tennis_ball.png") {
             base.defaultMoveConfig();
-            Count++;
         }
-
 
         public override void Move() {
             if (PosX > 730 || PosX < 0)
