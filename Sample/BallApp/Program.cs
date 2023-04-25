@@ -11,6 +11,7 @@ namespace BallApp {
 
         private Timer moveTimer;        //タイマー用
         private SoccerBall soccerBall;
+        private TennisBall tennisBall;
         private PictureBox pb;
 
         private List<Obj> balls = new List<Obj>();    //ボールインスタンス格納用
@@ -30,49 +31,57 @@ namespace BallApp {
             moveTimer = new Timer();
             moveTimer.Interval = 10;      //タイマーのインターバル（ｍｓ）
             moveTimer.Tick += MoveTimer_Tick;       //デリゲート登録
-
         }
+
 
         private void Program_MouseClick(object sender, MouseEventArgs e) {  //イベントハンドラー
-            //左クリックでサッカーボール生成時用
-            //ボールインスタンス生成
+            if (e.Button == MouseButtons.Left)
+            {
+                //左クリックでサッカーボール生成時用
+                //ボールインスタンス生成
 
-            soccerBall = new SoccerBall(e.X, e.Y);
-            pb = new PictureBox();
-            //画像を表示するコントロール
-            pb.Image = soccerBall.Image;
-            pb.Location = new Point((int)soccerBall.PosX, (int)soccerBall.PosY);
-            pb.Size = new Size(50, 50);     //画像の表示サイズ
-            pb.SizeMode = PictureBoxSizeMode.StretchImage;  //画像の表示モード
-            pb.Parent = this;
+                soccerBall = new SoccerBall(e.X, e.Y);
+                pb = new PictureBox();
+                //画像を表示するコントロール
+                pb.Image = soccerBall.Image;
+                pb.Location = new Point((int)soccerBall.PosX, (int)soccerBall.PosY);
+                pb.Size = new Size(50, 50);     //画像の表示サイズ
+                pb.SizeMode = PictureBoxSizeMode.StretchImage;  //画像の表示モード
+                pb.Parent = this;
 
-            balls.Add(soccerBall);
-            pbs.Add(pb);
+                balls.Add(soccerBall);
+                pbs.Add(pb);
 
-            moveTimer.Start();
-            this.Text = "BallGame 現在：" + balls.Count;
+                moveTimer.Start();
+                this.Text = "BallGame 現在：" + balls.Count;
+            }
+            else if(e.Button == MouseButtons.Right)
+            {
+                //右クリックでテニスボール作成時
+                //ボールインスタンス生成
+
+                tennisBall = new TennisBall(e.X, e.Y);
+                pb = new PictureBox();
+                //画像を表示するコントロール
+                pb.Image = tennisBall.Image;
+                pb.Location = new Point((int)tennisBall.PosX, (int)tennisBall.PosY);
+                pb.Size = new Size(25, 25);     //画像の表示サイズ
+                pb.SizeMode = PictureBoxSizeMode.StretchImage;  //画像の表示モード
+                pb.Parent = this;
+
+                balls.Add(tennisBall);
+                pbs.Add(pb);
+
+                moveTimer.Start();
+                this.Text = "BallGame 現在：" + balls.Count;
+            }
+            else
+            {
+
+            }
+           
         }
-        /*
-        private void Program_MouseClick(object sender, MouseEventArgs e) {  //イベントハンドラー
-            //右クリックでテニスボール作成時
-            //ボールインスタンス生成
-
-            soccerBall = new SoccerBall(e.X, e.Y);
-            pb = new PictureBox();
-            //画像を表示するコントロール
-            pb.Image = soccerBall.Image;
-            pb.Location = new Point((int)soccerBall.PosX, (int)soccerBall.PosY);
-            pb.Size = new Size(50, 50);     //画像の表示サイズ
-            pb.SizeMode = PictureBoxSizeMode.StretchImage;  //画像の表示モード
-            pb.Parent = this;
-
-            balls.Add(soccerBall);
-            pbs.Add(pb);
-
-            moveTimer.Start();
-            this.Text = "BallGame 現在：" + balls.Count;
-        }
-        */
+        
         private void MoveTimer_Tick(object sender, EventArgs e) {       //タイマータイムアウト時のイベントハンドラ
             for (int i = 0; i < balls.Count; i++)
             {

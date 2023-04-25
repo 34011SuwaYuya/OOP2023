@@ -8,30 +8,13 @@ using System.Threading.Tasks;
 namespace BallApp {
     class SoccerBall :Obj {
 
-        private double moveX; //移動量(x方向)
-        private double moveY;
-
-        Random rdm = new Random();
-
-        public SoccerBall(double xp, double yp):base(xp,yp, @"pic\soccer_ball.png")
-
-            {
-            while (MoveX == 0)
-            {
-                MoveX = rdm.Next(-50, 50);
-            }
+        public SoccerBall(double xp, double yp) : base(xp, yp, @"pic\soccer_ball.png"){
             
-            while (MoveY == 0)
-            {
-                MoveY = rdm.Next(-50, 50);
-            }
+
+
+            base.defaultMoveConfig();
             Count++;
         }
-
-        public double MoveY1 { get => MoveY; set => MoveY = value; }
-        public double MoveX1 { get => MoveX; set => MoveX = value; }
-        public double MoveX { get => moveX; set => moveX = value; }
-        public double MoveY { get => moveY; set => moveY = value; }
 
         public override void Move() {    //外部からアクセスするものは大文字にすることが多い
 
