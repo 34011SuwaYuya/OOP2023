@@ -10,17 +10,16 @@ namespace BallApp {
     class Program :Form {       //Formクラスを継承している
 
         private Timer moveTimer;        //タイマー用
-        private Obj ball;
+
+        private Ball ball;
         private PictureBox pb;
 
-        private List<Obj> balls = new List<Obj>();    //ボールインスタンス格納用
-        private List<PictureBox> pbs = new List<PictureBox>();      //画像表示用
+        Bar bar = new Bar(300);
+        private PictureBox pbBar;
 
-        private int tennisNum;
-        private int soccerNum;
+        private List<Ball> objects = new List<Ball>();    //ボールインスタンス格納用 Barインスタンスは格納しない
+        private List<PictureBox> pbs = new List<PictureBox>();      //画像表示用 Barインスタンスは格納しない
 
-        public int TennisNum { get => tennisNum; set => tennisNum = value; }
-        public int SoccerNum { get => soccerNum; set => soccerNum = value; }
 
         static void Main(string[] args) {
             Application.Run(new Program());
@@ -31,20 +30,34 @@ namespace BallApp {
             this.BackColor = Color.Green;
             this.Text = "BallGame ";
 
+
+            //Barを表示する
+            
+            pbBar = new PictureBox();
+            pbBar.Size = new Size(150, 10);
+            pbBar.Image = bar.Image;
+            pbBar.Location = new Point((int)bar.PosX, (int)bar.PosY);
+            pbBar.SizeMode = PictureBoxSizeMode.StretchImage;  //画像の表示モード
+            pbBar.Parent = this;
+
+
+
             this.MouseClick += Program_MouseClick;
             this.KeyDown += Program_KeyDown;
 
             moveTimer = new Timer();
-            moveTimer.Interval = 10;      //タイマーのインターバル（ｍｓ）
+            moveTimer.Interval = 500;      //タイマーのインターバル（ｍｓ）
             moveTimer.Tick += MoveTimer_Tick;       //デリゲート登録
         }
 
+        //キーが押されたときのイベントハンドラ
         private void Program_KeyDown(object sender, KeyEventArgs e) {
-
-
+            bar.Move(e.KeyData);
+            pbBar.Location = new Point((int)bar.PosX, (int)bar.PosY);
         }
 
         private void Program_MouseClick(object sender, MouseEventArgs e) {  //イベントハンドラー
+
             pb = new PictureBox();
             if (e.Button == MouseButtons.Left)
             {
@@ -52,7 +65,6 @@ namespace BallApp {
                 //ボールインスタンス生成
 
                 ball = new SoccerBall(e.X, e.Y);
-                soccerNum++;
                 pb.Size = new Size(50, 50);     //画像の表示サイズ
             }
             else if(e.Button == MouseButtons.Right)
@@ -61,13 +73,15 @@ namespace BallApp {
                 //ボールインスタンス生成
 
                 ball = new TennisBall(e.X, e.Y);
-                tennisNum++;
                 pb.Size = new Size(25, 25);     //画像の表示サイズ
             }
             else
             {
 
             }
+
+
+
             //画像を表示するコントロール
             pb.Image = ball.Image;
             pb.Location = new Point((int)ball.PosX, (int)ball.PosY);
@@ -75,23 +89,25 @@ namespace BallApp {
             pb.SizeMode = PictureBoxSizeMode.StretchImage;  //画像の表示モード
             pb.Parent = this;
 
-            balls.Add(ball);
+            objects.Add(ball);
             pbs.Add(pb);
 
             moveTimer.Start();
-            this.Text = "BallGame テニス：" + TennisNum + " サッカー："+ soccerNum;
+            this.Text = "BallGame テニス：" + TennisBall.Count + " サッカー：" + SoccerBall.Count;
         }
         
         private void MoveTimer_Tick(object sender, EventArgs e) {       //タイマータイムアウト時のイベントハンドラ
-            for (int i = 0; i < balls.Count; i++)
+
+
+            for (int i = 0; i < objects.Count; i++)
             {
-                balls[i].Move();  //移動のメッセージを送る
-                pbs[i].Location = new Point((int)balls[i].PosX, (int)balls[i].PosY);
+                objects[i].Move();  //移動のメッセージを送る
+                pbs[i].Location = new Point((int)objects[i].PosX, (int)objects[i].PosY);
             }
 
             //foreach (var it in balls)
             //{
-            //    it.Move(); it は一つ一つのsoccerballインスタンス
+            //    it.move(); it は一つ一つのsoccerballインスタンス
             //}
         }
     }
