@@ -46,7 +46,7 @@ namespace BallApp {
             this.KeyDown += Program_KeyDown;
 
             moveTimer = new Timer();
-            moveTimer.Interval = 500;      //タイマーのインターバル（ｍｓ）
+            moveTimer.Interval = 5;      //タイマーのインターバル（ｍｓ）
             moveTimer.Tick += MoveTimer_Tick;       //デリゲート登録
         }
 
@@ -62,7 +62,6 @@ namespace BallApp {
             if (e.Button == MouseButtons.Left)
             {
                 //左クリックでサッカーボール生成時用
-                //ボールインスタンス生成
 
                 ball = new SoccerBall(e.X, e.Y);
                 pb.Size = new Size(50, 50);     //画像の表示サイズ
@@ -70,7 +69,6 @@ namespace BallApp {
             else if(e.Button == MouseButtons.Right)
             {
                 //右クリックでテニスボール作成時
-                //ボールインスタンス生成
 
                 ball = new TennisBall(e.X, e.Y);
                 pb.Size = new Size(25, 25);     //画像の表示サイズ
@@ -79,8 +77,6 @@ namespace BallApp {
             {
 
             }
-
-
 
             //画像を表示するコントロール
             pb.Image = ball.Image;
@@ -98,13 +94,11 @@ namespace BallApp {
         
         private void MoveTimer_Tick(object sender, EventArgs e) {       //タイマータイムアウト時のイベントハンドラ
 
-
             for (int i = 0; i < objects.Count; i++)
             {
-                objects[i].Move();  //移動のメッセージを送る
+                objects[i].Move(pbBar,pbs[i]);  //移動のメッセージを送る
                 pbs[i].Location = new Point((int)objects[i].PosX, (int)objects[i].PosY);
             }
-
             //foreach (var it in balls)
             //{
             //    it.move(); it は一つ一つのsoccerballインスタンス

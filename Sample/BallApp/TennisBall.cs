@@ -17,8 +17,14 @@ namespace BallApp {
 
         public static int Count { get => count; set => count = value; }
 
-        public override void Move() {
-            if (PosY > 520 || PosY < 0)
+        public override void Move(PictureBox pbBar, PictureBox pbBall) {
+            //Barの存在を長方形として認識
+            Rectangle rBar = new Rectangle(pbBar.Location.X, pbBar.Location.Y, pbBar.Width, pbBar.Height);
+
+            //Ballの存在を長方形として認識
+            Rectangle rBall = new Rectangle(pbBall.Location.X, pbBall.Location.Y, pbBall.Width, pbBall.Height);
+
+            if (PosY > 520 || PosY < 0 || rBall.IntersectsWith(rBar))
             {
                 MoveY = -MoveY;
             }
@@ -27,7 +33,6 @@ namespace BallApp {
                 MoveX = -MoveX;
             }
 
-            
             PosX += MoveX;
             PosY += MoveY;
         }
