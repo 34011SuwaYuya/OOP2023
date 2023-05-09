@@ -59,7 +59,7 @@ namespace ProductSample {
 
             TimeSpan interval = today - birthDay;
 
-            Console.WriteLine("生まれてから今日までの間は" + interval.Days + "日");
+            Console.WriteLine("あなたは生まれてから今日まで" + interval.Days + "日目です");
 
         }
     }
