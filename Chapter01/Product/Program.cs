@@ -44,58 +44,40 @@ namespace ProductSample {
             int day;
 
             Console.WriteLine("誕生日を入力");
+            //西暦を入力
             Console.Write("西暦：");
             year = int.Parse(Console.ReadLine());
-
+            //月を入力
             Console.Write("月：");
             month = int.Parse(Console.ReadLine());
-
-
+            //日を入力
             Console.Write("日：");
             day = int.Parse(Console.ReadLine());
 
             DateTime birthDay = new DateTime(year, month, day);
             DateTime today = DateTime.Today;
 
-            DayOfWeek dayOfWeek = birthDay.DayOfWeek;
-            string str = "〇〇";
-            str = NewMethod(dayOfWeek);
-
+            //演習2
             TimeSpan interval = today - birthDay;
+
+            //演習3
+            DayOfWeek dayOfWeek = birthDay.DayOfWeek;   //dayOfWeekは英語で曜日が出る Tuesday
+            string str = "〇〇";
+            str = dayReturn(dayOfWeek);
+
 
             Console.WriteLine("あなたは生まれてから今日まで" + interval.Days + "日目です");
             Console.WriteLine("あなたは" + str + "に生まれました。");
-
+        
         }
 
-        private static string NewMethod(DayOfWeek dayOfWeek) {
+        #region dayReturnメソッド
+        private static string dayReturn(DayOfWeek dayOfWeek) {
             string str = "";
-            switch ((int)dayOfWeek)
-            {
-                case 0:
-                    str = "日曜日";
-                    break;
-                case 1:
-                    str = "月曜日";
-                    break;
-                case 2:
-                    str = "火曜日";
-                    break;
-                case 3:
-                    str = "水曜日";
-                    break;
-                case 4:
-                    str = "木曜日";
-                    break;
-                case 5:
-                    str = "金曜日";
-                    break;
-                case 6:
-                    str = "土曜日";
-                    break;
-            }
-
+            string[] days = { "日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日", };
+            str = days[(int)dayOfWeek];
             return str;
         }
+        #endregion 
     }
 }
