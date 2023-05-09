@@ -57,6 +57,7 @@ namespace ProductSample {
             DateTime birthDay = new DateTime(year, month, day);
             DateTime today = DateTime.Today;
 
+
             //演習2
             TimeSpan interval = today - birthDay;
 
