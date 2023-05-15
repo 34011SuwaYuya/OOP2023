@@ -16,7 +16,7 @@ namespace SalesCalculator {
             IDictionary<string, int> amountPerStore_Ver2 = sales.GetPerStoreSales_Ver2();
 
             foreach (KeyValuePair<string, int> obj in amountPerStore) {
-                Console.WriteLine("{0} {1}", obj.Key, obj.Value);
+                Console.WriteLine("{0} {1:#,000}", obj.Key, obj.Value);
             }
 
 
