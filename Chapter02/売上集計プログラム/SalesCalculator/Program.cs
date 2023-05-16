@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 namespace SalesCalculator {
     class Program {
         static void Main(string[] args) {
-            SalesCounter sales = new SalesCounter(ReadSales(@"data\Sales.csv"));
+            //SalesCounter sales = new SalesCounter(ReadSales(@"data\Sales.csv"));
             //SalesCounter sales = new SalesCounter(SalesCounter.ReadSales(@"data\Sales.csv"));
             //SalesCounter内のReadSalesメソッドを呼び出して、そこからコンストラクタを呼び出す　内容は11行と同じ
+            SalesCounter sales = new SalesCounter(@"data\Sales.csv");
 
             Dictionary<string, int> amountPerStore = sales.GetPerStoreSales();
             IDictionary<string, int> amountPerStore_Ver2 = sales.GetPerStoreSales_Ver2();
@@ -22,7 +23,9 @@ namespace SalesCalculator {
 
         }
 
+        /*
         //売上データを読み込みSaleオブジェクトのリストを返す
+        //SalesCounterクラスにメソッドを移行
         static List<Sale> ReadSales(string filePath) {
             List<Sale> sales = new List<Sale>();
             string[] lines = File.ReadAllLines(filePath);
@@ -38,5 +41,6 @@ namespace SalesCalculator {
             return sales;
 
         }
+        */
     }
 }

@@ -18,7 +18,7 @@ namespace Quiz_2 {
             songs[2] = s3;
             Console.WriteLine("1");
             foreach (Song song in songs) {
-                Console.WriteLine(song);
+                Console.WriteLine("タイトル：{0}  アーティスト:{1}  時間:{2:00}:{3:00}" , song.Title, song.ArtistName , song.Minutes , song.Seconds);
             }
 
         }
