@@ -9,14 +9,27 @@ namespace SalesCalculator {
 
     class SalesCounter {
         private List<Sale> _sales;
-        //private IEnumerable<Sale> _sales;
-
 
         public SalesCounter(string filPath) {
             _sales = ReadSales(filPath);
         }
 
         public Dictionary<string, int> GetPerStoreSales() {
+        //public IDictionary<string, int> GetPerStoreSales_Ver2() {
+           
+            /*商品名ごとに集計するバージョン
+             *Dictionary<string, int> dict = new Dictionary<string, int>();
+            foreach (Sale sale in _sales) {
+                if (dict.ContainsKey(sale.ProductCategory)) {
+                    dict[sale.ProductCategory] += sale.Amount;
+                }
+                else {
+                    dict[sale.ProductCategory] = sale.Amount;
+                }
+            }
+            return dict;
+            */
+            
             Dictionary<string, int> dict = new Dictionary<string, int>();
             foreach (Sale sale in _sales) {
                 if (dict.ContainsKey(sale.ShopName)) {
@@ -26,31 +39,13 @@ namespace SalesCalculator {
                     dict[sale.ShopName] = sale.Amount;
                 }
             }
-
             return dict;
-
-        }
-        public IDictionary<string, int> GetPerStoreSales_Ver2() {
-            Dictionary<string, int> dict = new Dictionary<string, int>();
-            foreach (Sale sale in _sales) {
-                if (dict.ContainsKey(sale.ShopName)) {
-                    dict[sale.ShopName] += sale.Amount;
-                }
-                else {
-                    dict[sale.ShopName] = sale.Amount;
-                }
-            }
-
-            return dict;
-
+             
         }
 
 
-
-
-
-        public static List<Sale> ReadSales(string filePath) {
-            //private static IEnumerable<Sale> ReadSales(string filePath) {
+        private List<Sale> ReadSales(string filePath) {
+            //private IEnumerable<Sale> ReadSales(string filePath) {
             List<Sale> sales = new List<Sale>();
             string[] lines = File.ReadAllLines(filePath);
             foreach (string line in lines) {
@@ -65,8 +60,5 @@ namespace SalesCalculator {
             return sales;
 
         }
-
-
-
     }
 }
