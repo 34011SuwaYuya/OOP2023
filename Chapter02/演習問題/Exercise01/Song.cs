@@ -14,9 +14,9 @@ namespace Exercise01 {
         public int Minutes { get; set; }
         public int Seconds { get; set; }
 
-        public Song(string title, string artistName, int length) {
+        public Song(string title, string artistname, int length) {
             Title = title;
-            ArtistName = artistName;
+            ArtistName = artistname;
             Length = length;
             SetLength();
 
@@ -27,5 +27,16 @@ namespace Exercise01 {
             Seconds = Length % 60;
 
         }
+
+        public void PrintSongData() {
+            //Console.WriteLine("タイトル：{0}  アーティスト:{1}  時間:{2:00}:{3:00}", Title, ArtistName, Minutes, Seconds);
+            //TimeSpan構造体を使うと楽に時間分秒が計算できる
+            
+            Console.WriteLine("{0}, {1}, {2:m\\:ss}", Title, ArtistName, TimeSpan.FromSeconds(Length));
+            
+        }
+
+        
+
     }
 }
