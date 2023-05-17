@@ -47,12 +47,13 @@ namespace Exercise01 {
 
         public static void PrintSongs(IEnumerable<Song> songs) {
             
-            /*
+            
             foreach (var song in songs) {
-                song.PrintSongData();
-            }
-            */
+                //song.PrintSongData();
                 Console.WriteLine("{0}, {1}, {2:m\\:ss}", song.Title, song.ArtistName, TimeSpan.FromSeconds(song.Length));
+            }
+            
+                
             
 
         }
