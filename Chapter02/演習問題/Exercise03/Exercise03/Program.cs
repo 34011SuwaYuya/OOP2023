@@ -10,10 +10,20 @@ namespace Exercise03 {
 
             SalesCounter sales = new SalesCounter(@"data\Sales.csv");
 
+            IDictionary<string, int> salesDictionary;
+            if (args[0] == "product") {
+                salesDictionary = sales.GetPerProductCategory();
+            }
+            else if (args[0] == "store"){
+                salesDictionary = sales.GetPerStoreSales();
+            }
+            else {
+                salesDictionary = null;
+            }
 
-            IDictionary<string, int> amountPerProduct = sales.GetPerProductCategory();
+            
 
-            foreach (KeyValuePair<string, int> obj in amountPerProduct) {
+            foreach (KeyValuePair<string, int> obj in salesDictionary) {
                 Console.WriteLine("{0} {1:#,000}", obj.Key, obj.Value);
             }
         }
