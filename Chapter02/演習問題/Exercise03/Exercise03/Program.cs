@@ -13,13 +13,13 @@ namespace Exercise03 {
             IDictionary<string, int> salesDictionary;
             Console.WriteLine("1:店舗別売り上げ");
             Console.WriteLine("2:商品カテゴリー別売り上げ");
-
+            String num = Console.ReadLine();
             //分岐はcaseが望ましい
-            if (args[0] == "1") {
+            if (num == "1") {
                 
                 salesDictionary = sales.GetPerStoreSales();
             }
-            else if (args[0] == "2"){
+            else if (num == "2"){
                 salesDictionary = sales.GetPerProductCategory();
             }
             else {
