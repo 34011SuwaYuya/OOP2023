@@ -10,16 +10,32 @@ namespace Exercise03 {
 
             SalesCounter sales = new SalesCounter(@"data\Sales.csv");
 
-            IDictionary<string, int> salesDictionary;
+            
+            Console.WriteLine("**売上集計**");
             Console.WriteLine("1:店舗別売り上げ");
             Console.WriteLine("2:商品カテゴリー別売り上げ");
-            String num = Console.ReadLine();
+            Console.WriteLine(">");
+            String number = Console.ReadLine();
+
+
             //分岐はcaseが望ましい
-            if (num == "1") {
+            /*
+            switch (num) {
+                case "1":
+                    salesDictionary = sales.GetPerStoreSales();
+                    break;
+                case "2":
+                    salesDictionary = sales.GetPerProductCategory();
+                    break;
+            }
+            */
+
+            IDictionary<string, int> salesDictionary;
+            if (number == "1") {
                 
                 salesDictionary = sales.GetPerStoreSales();
             }
-            else if (num == "2"){
+            else if (number == "2"){
                 salesDictionary = sales.GetPerProductCategory();
             }
             else {
