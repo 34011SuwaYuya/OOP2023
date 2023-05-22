@@ -19,7 +19,7 @@ namespace typeLambda {
             Console.WriteLine(name);
 
 
-            int index = list.Find
+            //int index = list.FindAll();
             Console.WriteLine();
             
             
