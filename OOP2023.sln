@@ -39,6 +39,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ラムダ式", "ラムダ�
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Main0522", "YoshuChap03\ラムダ式\Main0522\Main0522.csproj", "{9A0DD8F3-D7D5-4C5F-9488-FFA2AB9F9994}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Section03", "Section03\Section03.csproj", "{6C737D27-D221-4164-9BE1-54C5C72A910E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +87,10 @@ Global
 		{9A0DD8F3-D7D5-4C5F-9488-FFA2AB9F9994}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A0DD8F3-D7D5-4C5F-9488-FFA2AB9F9994}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A0DD8F3-D7D5-4C5F-9488-FFA2AB9F9994}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C737D27-D221-4164-9BE1-54C5C72A910E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C737D27-D221-4164-9BE1-54C5C72A910E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C737D27-D221-4164-9BE1-54C5C72A910E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C737D27-D221-4164-9BE1-54C5C72A910E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -103,6 +109,7 @@ Global
 		{E1EBCA93-E7F3-4B31-BF80-EB6B43E8BCD7} = {37B0D2FE-E751-4D12-A86E-E56E20DBA357}
 		{DF83603B-578C-4D78-BBF7-7388474C7AEA} = {AA10AF18-041A-4548-8506-75FE3EDD5655}
 		{9A0DD8F3-D7D5-4C5F-9488-FFA2AB9F9994} = {DF83603B-578C-4D78-BBF7-7388474C7AEA}
+		{6C737D27-D221-4164-9BE1-54C5C72A910E} = {37B0D2FE-E751-4D12-A86E-E56E20DBA357}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9359DAC5-F795-40AA-9CEE-813EA798D837}
