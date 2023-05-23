@@ -18,7 +18,25 @@ namespace Section03 {
                 "Hong Kong",
             };
 
+            var existence = list.Exists(s => s[0] == 'B');
+            Console.WriteLine(existence);
 
+            var name = list.Find(s => s.Length == 6);
+            Console.WriteLine("6文字：" + name);
+
+            var names = list.ConvertAll(s => s.ToLower());
+            foreach(var s in names) {
+                Console.WriteLine(s);
+            }
+
+
+            int index = list.FindIndex(s => s == "Berlin");
+            Console.WriteLine(index);
+
+            var removeCount = list.RemoveAll(s => s.Contains("on"));
+            Console.WriteLine(removeCount);
+
+            list.ForEach(s => Console.WriteLine(s));
         }
     }
 }
