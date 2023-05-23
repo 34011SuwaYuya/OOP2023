@@ -10,10 +10,18 @@ namespace Section01 {
 
 
         static void Main(string[] args) {
-            var numbers = new[] { 5, 3, 9, 6, 7, 5, 8, 1, 0, 5, 10, 4 };
-            int count = numbers.Count( n => n % 2 == 0);
+            var numbers = new[] { 5, 3, 9, 6,};
+           
+            int count = numbers.Count( n => n % 5 == 0 && n > 0);
+            int sum = numbers.Sum();
+
+            var evenSum = numbers.Where(n => n % 2 == 1).Sum();
+            //sum = evenNums.Sum();
 
             Console.WriteLine(count);
+            Console.WriteLine(evenSum);
+
+
         }
 
     }

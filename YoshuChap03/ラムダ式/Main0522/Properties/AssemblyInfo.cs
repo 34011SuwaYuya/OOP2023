@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // アセンブリに関する一般情報は以下の属性セットをとおして制御されます。
 // 制御されます。アセンブリに関連付けられている情報を変更するには、
 // これらの属性値を変更します。
-[assembly: AssemblyTitle("typeLambda")]
+[assembly: AssemblyTitle("Main0522")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("typeLambda")]
+[assembly: AssemblyProduct("Main0522")]
 [assembly: AssemblyCopyright("Copyright ©  2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // このプロジェクトが COM に公開される場合、次の GUID が typelib の ID になります
-[assembly: Guid("f48a73cf-30db-498f-9239-a4b12115cbc5")]
+[assembly: Guid("9a0dd8f3-d7d5-4c5f-9488-ffa2ab9f9994")]
 
 // アセンブリのバージョン情報は次の 4 つの値で構成されています:
 //
