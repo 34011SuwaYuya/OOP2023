@@ -24,6 +24,8 @@ namespace Main0524 {
             Console.WriteLine("------");
 
             names[0] = "Osaka";
+            //元のリストであるnamesが書き換えられても、書き換え前に作ったqueryには反映されないはず
+            //しかし、遅延実行の関係でnamesが書き換えられてからqueryが作られる
             foreach (var item in query) {
                 Console.WriteLine(item);
             }
