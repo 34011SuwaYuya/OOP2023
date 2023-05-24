@@ -69,9 +69,12 @@ namespace Exercise02 {
 
         private static void Exercise2_4(List<string> names) {
             Console.WriteLine("***** 3.4 *****");
-            var namesStartB = names.Where(s => s.StartsWith("B")).Select(s => s + "," + s.Length);
-            foreach (var nu in namesStartB) {
-                Console.WriteLine(nu);
+            //var namesStartB = names.Where(s => s.StartsWith("B")).Select(s => s + "," + s.Length);
+            var namesStartB = names.Where(s => s.StartsWith("B")).Select(s =>new {s , s.Length });
+            //newでインスタンスを作成して配列化できる
+
+            foreach (var item in namesStartB) {
+                Console.WriteLine("{0},{1}",item.s , item.Length);
             }
         }
     }
