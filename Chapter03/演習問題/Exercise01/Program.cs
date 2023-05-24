@@ -29,7 +29,7 @@ namespace Exercise01 {
         private static void Exercise1_1(List<int> numbers) {
             if (numbers.Exists(n => n % 8 == 0 || n % 9 == 0)) {
                 Console.WriteLine("存在しています");
-            }
+            }　
             else {
                 Console.WriteLine("存在していません");
             }
@@ -43,11 +43,20 @@ namespace Exercise01 {
         private static void Exercise1_3(List<int> numbers) {
             List<int> query = numbers.Where(n => n >= 50).ToList();
             query.ForEach(n => Console.WriteLine(n));
+
+            //numbers.Where(n => n >= 50).ToList().ForEach(s => Console.WriteLine(s)) ;
         }
 
         private static void Exercise1_4(List<int> numbers) {
             List<int> query = numbers.Select(n => n * 2).ToList();
             query.ForEach(n => Console.WriteLine(n));
+
+
+            //foreach (var item in numbers.Select(n => n * 2).ToList()) {
+            //    Console.WriteLine();
+            //}
+
+
         }
     }
 }
