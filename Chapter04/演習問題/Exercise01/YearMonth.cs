@@ -29,21 +29,24 @@ namespace Exercise01 {
 
 
         //4.1.3
-        public YearMonth addOneMonth() {
-            YearMonth newOne;
+        public YearMonth AddOneMonth() {
             if(this.Month == 12) {
-                newOne = new YearMonth(++Year, 1);
+                return  new YearMonth(Year + 1 , 1);
+                //Year++すると元のYearまでプラス１される
             }
             else {
-                newOne = new YearMonth(Year, ++Month);
+                return new YearMonth(Year, Month + 1);
             }
-            return newOne;
+
+            //return new YearMonth(Month == 12 ? Year + 1 : Year, Month == 12 ? 1 : Month + 1);
+            //同義ではあるがわかりにくい
         }
 
         //4.1.4
         public override string ToString() {
             return Year + "年" + Month + "月";
         }
+        override
     }
       
 }

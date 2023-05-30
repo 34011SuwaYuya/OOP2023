@@ -11,16 +11,20 @@ namespace Exercise02 {
 
             var ym = new YearMonth(2023, 5);
             Console.WriteLine(ym);
+            var ymNext = ym.AddOneMonth();
+            Console.WriteLine(ymNext);
             
-            YearMonth[] yearMonthArray = new YearMonth[] {
+           var yms = new YearMonth[] {
                 new YearMonth(1999, 12),
                 new YearMonth(2000, 3),
                 new YearMonth(2001, 9),
                 new YearMonth(2023, 1),
                 new YearMonth(2023,5),
             };
-            
-               
+
+            Array.ForEach(yms, s => Console.WriteLine(s));
+
+
         }
     }
 }
