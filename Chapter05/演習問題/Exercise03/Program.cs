@@ -54,7 +54,8 @@ namespace Exercise03 {
             StringBuilder sb = new StringBuilder();
 
             foreach (var item in words) {
-                sb.Append(item + " ");
+                sb.Append(item);
+                sb.Append(" ");
             }
             Console.WriteLine(sb.ToString().TrimEnd());
         }
