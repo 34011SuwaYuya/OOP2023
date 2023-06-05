@@ -28,7 +28,8 @@ namespace Exercise03 {
 
         private static void Exercise3_1(string text) {
             int blankNum = text.Count(c => c == ' ');
-            Console.WriteLine(blankNum);
+            Console.WriteLine("空白数：{0}", blankNum);
+            //Console.WriteLine(text.Count(c => c == ' '));
         }
 
         private static void Exercise3_2(string text) {
@@ -39,7 +40,7 @@ namespace Exercise03 {
 
         private static void Exercise3_3(string text) {
             var words = text.Split(' ');
-            Console.WriteLine(words.Length);
+            Console.WriteLine("単語数：{0}" , words.Length);
         }
 
         private static void Exercise3_4(string text) {
@@ -50,14 +51,37 @@ namespace Exercise03 {
         }
 
         private static void Exercise3_5(string text) {
-            var words = text.Split(' ');
+            var words = text.Split(' ').ToArray();
+            //.ToArray()で即時実行する
+
+            //長さが０の場合には何もしない
+            if(words.Length > 0) {
+
+            }
+
+
             StringBuilder sb = new StringBuilder();
 
             foreach (var item in words) {
                 sb.Append(item);
-                sb.Append(" ");
+                sb.Append(' ');
             }
-            Console.WriteLine(sb.ToString().TrimEnd());
+
+            string str2 = sb.ToString().TrimEnd();
+            //trimendは現在のstringを変更せず新しいstringを返す
+            //stringBuilderをわざわざ使う意味がない
+            Console.WriteLine(str2);
+
+
+            /*
+             * スキップを使えばforeach内の途中から使える
+            StringBuilder sb = new StringBuilder(words[0]);
+            foreach (var item in words.Skip(1)) {
+                sb.Append(' ');
+                sb.Append(item);
+            }
+            Console.WriteLine(sb.ToString())
+            */
         }
     }
 }
