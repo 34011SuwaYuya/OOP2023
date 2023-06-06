@@ -72,7 +72,7 @@ namespace Exercise04 {
         }
 
         private static string[] lineDecompose(string line) {
-            
+
             var words = line.Split(';');
 
             int equalPoint;
