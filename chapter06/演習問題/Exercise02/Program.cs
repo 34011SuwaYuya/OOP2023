@@ -54,7 +54,7 @@ namespace Exercise02 {
         }
 
         private static void Exercise2_2(List<Book> books) {
-            var targetBooksNum = books.Where(x => x.Title.Contains("C#")).Count();
+            var targetBooksNum = books.Count(x => x.Title.Contains("C#"));
             Console.WriteLine(targetBooksNum);
         }
 
