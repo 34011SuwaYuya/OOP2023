@@ -31,8 +31,18 @@ namespace Section01 {
             //var priceSortedBooks = books.OrderBy(x => x.Price);
             books.OrderByDescending(x => x.Price).ToList().ForEach(x => Console.WriteLine(x.Price));
 
+            Console.WriteLine();
             Console.WriteLine("物語をタイトルに含む");
             books.Where(x => x.Title.Contains("物語")).OrderByDescending(x => x.Price).ToList().ForEach(x => Console.WriteLine("{0} : {1}", x.Title, x.Price));
+
+            Console.WriteLine();
+            Console.WriteLine("タイトルに「物語」という文字列が含まれている書籍の平均ページ数を出力");
+            Console.WriteLine(books.Where(x => x.Title.Contains("物語")).Average(x => x.Pages) + "ページ");
+
+            Console.WriteLine();
+            Console.WriteLine("タイトルが長い順にタイトルを出力");
+            books.OrderByDescending(x => x.Title.Length).ToList().ForEach(x => Console.WriteLine(x.Title + ":" +x.Price));
+
         }
     }
 }
