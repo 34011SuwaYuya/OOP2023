@@ -43,6 +43,8 @@ namespace Section01 {
             Console.WriteLine("タイトルが長い順にタイトルを出力");
             books.OrderByDescending(x => x.Title.Length).ToList().ForEach(x => Console.WriteLine(x.Title + ":" +x.Price));
 
+
+            Console.WriteLine("ooo");
         }
     }
 }
