@@ -39,34 +39,53 @@ namespace Exercise02 {
             Console.WriteLine("-----");
 
             Exercise2_7(books);
+            Console.WriteLine("-----");
+            Console.WriteLine();
         }
 
         private static void Exercise2_1(List<Book> books) {
-            throw new NotImplementedException();
+            
+            //where句はIEnumerableをリターンする
+            var theBooks = books.Where(x => x.Title == "ワンダフル・C#ライフ");
+            foreach (var item in theBooks) {
+                Console.WriteLine($"{item.Title}  :  {item.Pages}");
+            }
+
         }
 
         private static void Exercise2_2(List<Book> books) {
-            throw new NotImplementedException();
+            var targetBooksNum = books.Where(x => x.Title.Contains("C#")).Count();
+            Console.WriteLine(targetBooksNum);
         }
 
         private static void Exercise2_3(List<Book> books) {
-            throw new NotImplementedException();
+            var averagePages = books.Where(x => x.Title.Contains("C#")).Average(x => x.Pages);
+            Console.WriteLine(averagePages);
         }
 
         private static void Exercise2_4(List<Book> books) {
-            throw new NotImplementedException();
+            var theTitle = books.Find(x => x.Price >= 4000).Title;
+            Console.WriteLine(theTitle);
         }
 
         private static void Exercise2_5(List<Book> books) {
-            throw new NotImplementedException();
+            var theTarget = books.Where(x => x.Price < 4000).Max(x => x.Pages);
+            Console.WriteLine(theTarget);
         }
 
         private static void Exercise2_6(List<Book> books) {
-            throw new NotImplementedException();
+            var theBooks = books.Where(x => x.Pages >= 400).OrderByDescending(x => x.Price);
+            foreach (var item in theBooks) {
+                Console.WriteLine($"{item.Title} : {item.Price} : {item.Pages}");
+            }
         }
 
         private static void Exercise2_7(List<Book> books) {
-            throw new NotImplementedException();
+            var targetBooks = books.Where(x => x.Title.Contains("C#") && x.Pages <= 500);
+            foreach (var item in targetBooks) {
+                Console.WriteLine($"{item.Title}");
+            }
+
         }
     }
     class Book {
