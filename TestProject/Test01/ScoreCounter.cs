@@ -12,7 +12,7 @@ namespace Test01 {
         }
 
         //メソッドの概要： 
-        //科目ごとの点数を集計してIDitcionaryとしてリストのような形で返す
+        //科目ごとの点数を集計して合計点を返す
         public IDictionary<string, int> GetPerStudentScore() {
 
             var dict = new SortedDictionary<string, int>();
@@ -31,8 +31,8 @@ namespace Test01 {
         }
 
         //メソッドの概要： 
-        //filePathで受け取ったパスからStudentのリストを作り、そのリストを返す
-        //１行ずつ読んでは、Studentの中身としてStudentのコンストラクタを呼び出す
+        //パスで指定したデータを読み取り、一覧にして返す
+        
         private static IEnumerable<Student> ReadScore(string filePath) {
             var students = new List<Student>();
             var lines = File.ReadAllLines(filePath);
