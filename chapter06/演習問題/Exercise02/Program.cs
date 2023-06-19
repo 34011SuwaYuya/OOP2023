@@ -64,7 +64,7 @@ namespace Exercise02 {
         }
 
         private static void Exercise2_4(List<Book> books) {
-            var theTitle = books.Find(x => x.Price >= 4000).Title;
+            var theTitle = books.FirstOrDefault(x => x.Price >= 4000).Title;
             Console.WriteLine(theTitle);
         }
 
