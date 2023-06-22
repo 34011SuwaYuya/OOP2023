@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Section01 {
     class Program {
+
+        static Dictionary<string, string> _prefctures;
+
         static void Main(string[] args) {
 
             //var flowerDict = new Dictionary<string, int>() {
@@ -26,55 +29,65 @@ namespace Section01 {
 
             //県庁所在地の登録
             //キーボードで入力
-            
-            Dictionary<string, string> prefectureList = makeDict();
-
-            string searchedName;
+            string prefecture , city;
+            _prefctures = new Dictionary<string, string>();
 
             
-            while (true) {
-                Console.Write("県名を入力:");
-                searchedName = Console.ReadLine();
-
-                if (prefectureList.ContainsKey(searchedName)) {
-                    Console.WriteLine(prefectureList[searchedName] + "です");
-                }
-                else if (searchedName == "000") {
-                    Console.WriteLine("終了します");
-                    break;
-                }else {
-                    Console.WriteLine("そのような県名のデータはありません。");
-                }
-
-            }
-
-        }
-
-        private static Dictionary<string, string> makeDict() {
-            var prefectureList = new Dictionary<string, string>();
-            string prefecture, city;
-
             while (true) {
                 Console.Write("県名：");
                 prefecture = Console.ReadLine();
 
 
-                if (prefectureList.ContainsKey(prefecture)) {
+                if (_prefctures.ContainsKey(prefecture)) {
                     Console.WriteLine("既に登録済みです。");
                     continue;
-                }
-                else if (prefecture == "999") {
+                }else if (prefecture == "999") {
                     break;
                 }
 
                 Console.Write("所在地：");
                 city = Console.ReadLine();
 
-                prefectureList[prefecture] = city;
+                _prefctures[prefecture] = city;
             }
 
-            return prefectureList;
+
+
+            Console.Write("1:一覧表示 2:県名指定");
+            string num = Console.ReadLine();
+            if (num == "1") {
+                showAll();
+            }
+            else if(num == "2") {
+                showOne();
+            }
+        }
+
+        public static void showAll() {
+            foreach (var item in _prefctures) {
+                Console.WriteLine("{0}({1})", item.Key, item.Value);
+            }
+        }
+
+        public static void showOne() {
+            string searchedName;
+
+            Console.Write("県名を入力:");
+            searchedName = Console.ReadLine();
+
+            if (_prefctures.ContainsKey(searchedName)) {
+                Console.WriteLine(_prefctures[searchedName] + "です");
+            }
+            else {
+                Console.WriteLine("そのような県名のデータはありません。");
+            }
         }
 
     }
+
+    class CityInfo {
+        public string City{ get; set; }
+        public int Population{ get; set; }
+    }
+
 }
