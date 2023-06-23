@@ -11,6 +11,7 @@ namespace Section01 {
 
         static void Main(string[] args) {
 
+            #region flower
             //var flowerDict = new Dictionary<string, int>() {
             //    ["sunflower"] = 400,
             //    ["pansy"] = 300,
@@ -26,6 +27,7 @@ namespace Section01 {
 
             //Console.WriteLine("あさがおの価格は{0}円です。", flowerDict["morning glory"]);
 
+            #endregion
 
             //県庁所在地の登録
             //キーボードで入力
@@ -70,14 +72,21 @@ namespace Section01 {
                 population = int.Parse(Console.ReadLine());
 
 
-                _prefectureDict[prefecture] = new CityInfo(city, population);
+                _prefectureDict[prefecture] = new CityInfo {
+                    City = city,
+                    Population = population,
+                
+                };
             }
+                
         }
 
 
         public static void showAll() {
-            foreach (var item in _prefectureDict) {
-                Console.WriteLine("{0}({1}) : {2}人", item.Key, item.Value.City, item.Value.Population);
+            
+
+            foreach (var item in _prefectureDict.OrderByDescending(x => x.Value.Population)) {
+                Console.WriteLine("{0}({1}) : {2:#,0}人", item.Key, item.Value.City, item.Value.Population);
             }
         }
 
@@ -88,7 +97,7 @@ namespace Section01 {
             searchedName = Console.ReadLine();
 
             if (_prefectureDict.ContainsKey(searchedName)) {
-                Console.WriteLine($"{searchedName} : {_prefectureDict[searchedName].City} : 人口（{_prefectureDict[searchedName].Population}");
+                Console.WriteLine("{0}({1}) : {2:#,0}人", searchedName, _prefectureDict[searchedName].City, _prefectureDict[searchedName].Population);
             }
             else {
                 Console.WriteLine("そのような県名のデータはありません。");
