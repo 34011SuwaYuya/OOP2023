@@ -44,6 +44,16 @@ namespace Exercise02 {
             }
         }
 
+        //7.2.4 文字数を指定して対象の要素を返す
+        public IEnumerable<KeyValuePair<string,string>> FindSpecific(int num) {
+            foreach (var item in _dict) {
+                if (item.Key.Length == num) {
+                    yield return item;
+                }
+            }
+        }
+
+
         //7.2.1
         public int Count() {
             return _dict.Count;
