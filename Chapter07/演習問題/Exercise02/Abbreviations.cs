@@ -55,12 +55,11 @@ namespace Exercise02 {
 
 
         //7.2.1
-        public int Count() {
-            return _dict.Count;
-        }
+        public int Count { get => _dict.Count ;  }
 
 
         //7.2.2
+        /*
         public bool Remove(string abb) {
             if (_dict.ContainsKey(abb)) {
                 _dict.Remove(abb);
@@ -68,7 +67,10 @@ namespace Exercise02 {
             }else {
                 return false;
             }
+        }       */
 
+        public bool Remove(string abb) {
+            return _dict.Remove(abb);
         }
 
 

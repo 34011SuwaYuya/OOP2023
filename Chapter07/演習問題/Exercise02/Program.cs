@@ -9,15 +9,29 @@ namespace Exercise02 {
         static void Main(string[] args) {
             var abbr = new Abbreviations();
 
-            Console.WriteLine("7.2.3");
-            Console.WriteLine(abbr.Count());
-            Console.WriteLine(abbr.Remove("APEC"));
+            abbr.Add("IOC", "国際オリンピック委員会");
+            abbr.Add("NPT", "核拡散防止条約");
 
+            //7.2.3 Countの呼び出し
             Console.WriteLine(abbr.Count());
             Console.WriteLine();
 
-            var specificAbbr = abbr.FindSpecific(3);
-            foreach (var item in specificAbbr) {
+
+            Console.WriteLine("削除前の要素数" + abbr.Count);
+            //Remove呼び出し
+            if (abbr.Remove("NPT")){
+                Console.WriteLine("削除後" + abbr.Count);
+            }
+            if (!abbr.Remove("NPT")) {
+                Console.WriteLine("削除できません");
+            }
+            Console.WriteLine();
+
+
+            Console.WriteLine("削除後の要素数" + abbr.Count());
+            Console.WriteLine();
+
+            foreach (var item in abbr.FindSpecific(3)) {
                 Console.WriteLine("{0} = {1}", item.Key, item.Value);
             }
 
