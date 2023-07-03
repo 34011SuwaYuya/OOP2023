@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace Exercise01 {
     class Program {
         static void Main(string[] args) {
-            //var dateTime = new DateTime(2019, 1, 15, 19, 48, 32);
+            //var dateTime = new DateTime(2028, 1, 15, 19, 48, 32);
             DateTime dateTime = DateTime.Now;
             DisplayDatePattern1(dateTime);
             DisplayDatePattern2(dateTime);
@@ -31,7 +32,13 @@ namespace Exercise01 {
             //平成31年　1月15日（火曜日)
             var culture = new CultureInfo("ja-JP");
             culture.DateTimeFormat.Calendar = new JapaneseCalendar();
-            Console.WriteLine(dateTime.ToString("ggyy年M月d日(dddd)"), culture.DateTimeFormat.GetDayName(dateTime.DayOfWeek));
+            Console.WriteLine(dateTime.ToString("ggyy年MM月dd日(dddd)", culture), culture.DateTimeFormat.GetDayName(dateTime.DayOfWeek));
+
+            Console.WriteLine("zeroサプレス");
+            //ゼロサプレス
+            var str = Regex.Replace(dateTime.ToString("ggyy年MM月dd日", culture), @"0(\d)", "$1");
+            Console.WriteLine(str);
+
         }
 
         private static void DisplayDatePattern3_2(DateTime date) {
