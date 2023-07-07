@@ -32,26 +32,36 @@ namespace CarReportSystem {
 
         //追加ボタンのイベントハンドラー
         private void btAdd_Click(object sender, EventArgs e) {
-
-           
-
-            
-
             carReports.Add(new CarReport{
                date = dtpDate.Value, Author = cbAuthor.Text, CarName = cbCarName.Text, Report = tbReport.Text
             }
             );
         }
 
-        private void btModify_Click(object sender, EventArgs e) {
-
-        }
-
-        private void btDelete_Click(object sender, EventArgs e) {
-
-        }
-
         private CarReport.MakerGroup getSelectedMaker() {
+
+            if (rbHonda.Checked) {
+                return CarReport.MakerGroup.トヨタ;
+            }
+            else if (rbNissan.Checked) {
+                return CarReport.MakerGroup.日産;
+            }
+            else if (rbHonda.Checked) {
+                return CarReport.MakerGroup.ホンダ;
+            }
+            else if (rbImported.Checked) {
+                return CarReport.MakerGroup.輸入;
+            }
+            else if (rbSubaru.Checked) {
+                return CarReport.MakerGroup.スバル;
+            }
+            else if (rbSuzuki.Checked) {
+                return CarReport.MakerGroup.スズキ;
+            }
+            else if (rbDaihatsu.Checked) {
+                return CarReport.MakerGroup.ダイハツ;
+            }
+
 
             return CarReport.MakerGroup.その他;
 

@@ -37,7 +37,7 @@ namespace CarReportSystem {
             ホンダ = 5,
             輸入,
             スバル,
-            スズキSuzuki,
+            スズキ,
             ダイハツ,
             その他,
         }
