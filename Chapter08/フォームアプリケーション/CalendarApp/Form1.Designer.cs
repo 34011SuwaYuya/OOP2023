@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Windows.Forms;
 
 namespace CalendarApp {
     partial class Form1 {
@@ -26,6 +27,7 @@ namespace CalendarApp {
         /// コード エディターで変更しないでください。
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.dtp = new System.Windows.Forms.DateTimePicker();
             this.btDayCalc = new System.Windows.Forms.Button();
@@ -38,6 +40,9 @@ namespace CalendarApp {
             this.btForward = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.timeTEXT = new System.Windows.Forms.TextBox();
+            this.btAge = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.tmTimeDisplay = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // label1
@@ -76,11 +81,10 @@ namespace CalendarApp {
             // tbMessage
             // 
             this.tbMessage.Font = new System.Drawing.Font("MS UI Gothic", 20F);
-            this.tbMessage.Location = new System.Drawing.Point(288, 122);
+            this.tbMessage.Location = new System.Drawing.Point(288, 55);
             this.tbMessage.Name = "tbMessage";
             this.tbMessage.Size = new System.Drawing.Size(500, 34);
             this.tbMessage.TabIndex = 3;
-            this.tbMessage.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // btBackYear
             // 
@@ -154,12 +158,35 @@ namespace CalendarApp {
             // 
             // timeTEXT
             // 
-            this.timeTEXT.Font = new System.Drawing.Font("MS UI Gothic", 20F);
+            this.timeTEXT.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.timeTEXT.Location = new System.Drawing.Point(195, 342);
             this.timeTEXT.Name = "timeTEXT";
-            this.timeTEXT.Size = new System.Drawing.Size(300, 34);
+            this.timeTEXT.Size = new System.Drawing.Size(300, 23);
             this.timeTEXT.TabIndex = 11;
-            this.timeTEXT.TextChanged += new System.EventHandler(this.textBox1_TextChanged_1);
+            // 
+            // btAge
+            // 
+            this.btAge.Font = new System.Drawing.Font("MS UI Gothic", 12F);
+            this.btAge.Location = new System.Drawing.Point(139, 102);
+            this.btAge.Name = "btAge";
+            this.btAge.Size = new System.Drawing.Size(80, 30);
+            this.btAge.TabIndex = 2;
+            this.btAge.Text = "年齢計算";
+            this.btAge.UseVisualStyleBackColor = true;
+            this.btAge.Click += new System.EventHandler(this.btAge_Click);
+            // 
+            // textBox2
+            // 
+            this.textBox2.Font = new System.Drawing.Font("MS UI Gothic", 20F);
+            this.textBox2.Location = new System.Drawing.Point(288, 105);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(500, 34);
+            this.textBox2.TabIndex = 3;
+            // 
+            // tmTimeDisplay
+            // 
+            this.tmTimeDisplay.Interval = 500;
+            this.tmTimeDisplay.Tick += new System.EventHandler(this.tmTimeDisplay_Tick);
             // 
             // Form1
             // 
@@ -174,7 +201,9 @@ namespace CalendarApp {
             this.Controls.Add(this.btBackMonth);
             this.Controls.Add(this.btForwardYear);
             this.Controls.Add(this.btBackYear);
+            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.tbMessage);
+            this.Controls.Add(this.btAge);
             this.Controls.Add(this.btDayCalc);
             this.Controls.Add(this.dtp);
             this.Controls.Add(this.label1);
@@ -189,10 +218,9 @@ namespace CalendarApp {
 
         //最初に一度だけ呼ばれる
         private void Form1_Load(object sender, EventArgs e) {
-            timeTEXT.Text = DateTime.Now.ToString();
-        }
+            tmTimeDisplay.Start();
 
-        private void textBox1_TextChanged(object sender, EventArgs e) {
+            
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e) {
@@ -212,6 +240,9 @@ namespace CalendarApp {
         private System.Windows.Forms.Button btForward;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox timeTEXT;
+        private System.Windows.Forms.Button btAge;
+        private System.Windows.Forms.TextBox textBox2;
+        private Timer tmTimeDisplay;
     }
 }
 
