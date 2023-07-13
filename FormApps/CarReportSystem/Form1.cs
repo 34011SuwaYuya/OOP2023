@@ -18,6 +18,95 @@ namespace CarReportSystem {
             //dgvを書き換えるとcarReportsに反映される
         }
 
+        //追加ボタンのイベントハンドラー
+        private void btAdd_Click(object sender, EventArgs e) {
+
+            statusLabelDisp();
+            if (cbAuthor.Text == "") {
+                statusLabelDisp("記録者を入力してください");
+                return;
+            }
+            else if (cbCarName.Text == "") {
+                statusLabelDisp("車名を入力してください");
+                return;
+            }
+            else {
+                carReports.Add(new CarReport {
+                    date = dtpDate.Value,
+                    Author = cbAuthor.Text,
+                    Maker = getSelectedMaker(),
+                    CarName = cbCarName.Text,
+                    Report = tbReport.Text,
+                    CarImage = pbCarImage.Image,
+                });
+
+                btDeleteReport.Enabled = true;
+                btModifyReport.Enabled = true;
+
+                cbAuthor.Items.Add(cbAuthor.Text);
+                cbCarName.Items.Add(cbCarName.Text);
+                screenReset();
+            }
+        }
+
+
+        //編集ボタン
+        private void btModifyReport_Click(object sender, EventArgs e) {
+
+            statusLabelDisp();
+            if (cbAuthor.Text == "") {
+                statusLabelDisp("記録者を入力してください"); return;
+            }
+            else if (cbCarName.Text.Equals("")) {
+                //if (String.IsNullOrEmpty(cbCarName.Text))
+                //if (cbAuthor.Text == "")
+
+                statusLabelDisp("車名を入力してください");
+                return;
+            }
+            else {
+                carReports[dgvCarReports.CurrentRow.Index] = new CarReport {
+                    date = dtpDate.Value,
+                    Author = cbAuthor.Text,
+                    Maker = getSelectedMaker(),
+                    CarName = cbCarName.Text,
+                    Report = tbReport.Text,
+                    CarImage = pbCarImage.Image,
+                };
+                cbAuthor.Items.Add(cbAuthor.Text);
+                cbCarName.Items.Add(cbCarName.Text);
+                deleteModifyInvalidCheck();
+                screenReset();
+            }
+
+            //carReports[dgvCarReports.CurrentRow.Index].date = dtpDate.Value;
+            //carReports[dgvCarReports.CurrentRow.Index].date = dtpDate.Value; こんな風に他の属性も変える方法もある
+            //carReports[dgvCarReports.CurrentRow.Index].date = dtpDate.Value;
+            //carReports[dgvCarReports.CurrentRow.Index].date = dtpDate.Value;
+            //dgvCarReports.Refresh();
+            
+        }
+
+        //削除ボタン
+        private void btDeleteReport_Click(object sender, EventArgs e) {
+            carReports.RemoveAt(dgvCarReports.CurrentRow.Index);
+            deleteModifyInvalidCheck();
+            screenReset();
+
+        }
+        private void 終了XToolStripMenuItem_Click(object sender, EventArgs e) {
+            Application.Exit();
+
+        }
+
+        private void deleteModifyInvalidCheck() {
+            if (carReports.Count < 1) {
+
+                btDeleteReport.Enabled = false;
+                btModifyReport.Enabled = false;
+            }
+        }
+
         //指定したメーカーのラジオボタンをセット
         private void changeMakerButton(CarReport.MakerGroup targetMaker) {
             switch (targetMaker) {
@@ -62,24 +151,18 @@ namespace CarReportSystem {
 
         }
 
-        //追加ボタンのイベントハンドラー
-        private void btAdd_Click(object sender, EventArgs e) {
-            carReports.Add(new CarReport{
-               date = dtpDate.Value, Author = cbAuthor.Text, Maker = getSelectedMaker() , CarName = cbCarName.Text, Report = tbReport.Text, CarImage = pbCarImage.Image, 
-            }
-            );
-        }
+
 
         private CarReport.MakerGroup getSelectedMaker() {
 
-            
+
             foreach (var item in gbMaker.Controls) {
                 int num;
                 //string str;
-                if(((RadioButton)item ).Checked) {
+                if (( (RadioButton)item ).Checked) {
 
                     num = int.Parse(( (RadioButton)item ).Tag.ToString());
-                    
+
                     return (CarReport.MakerGroup)num;
                     //str = ( (RadioButton)item ).Tag.ToString();
                     //return (CarReport.MakerGroup)Enum.ToObject(typeof(CarReport.MakerGroup),num );
@@ -87,14 +170,14 @@ namespace CarReportSystem {
                 }
             }
 
-           
+
 
             return CarReport.MakerGroup.データなし;
 
         }
 
         private void btImageOpen_Click(object sender, EventArgs e) {
-            
+
         }
 
         private void btImageOpen_Click_1(object sender, EventArgs e) {
@@ -102,37 +185,6 @@ namespace CarReportSystem {
             pbCarImage.Image = Image.FromFile(ofdImageFileOpen.FileName);
         }
 
-        //削除ボタン
-        private void btDeleteReport_Click(object sender, EventArgs e) {
-            if (dgvCarReports.RowCount >= 1) {
-                carReports.RemoveAt(dgvCarReports.CurrentRow.Index);
-            }
-            
-            
-        }
-
-        //編集ボタン
-        private void btModifyReport_Click(object sender, EventArgs e) {
-            if (carReports.Count >= 1) {
-                carReports[dgvCarReports.CurrentRow.Index] = new CarReport {
-                    date = dtpDate.Value,
-                    Author = cbAuthor.Text,
-                    Maker = getSelectedMaker(),
-                    CarName = cbCarName.Text,
-                    Report = tbReport.Text,
-                    CarImage = pbCarImage.Image,
-                };
-            }
-
-            
-
-            //carReports[dgvCarReports.CurrentRow.Index].date = dtpDate.Value;
-            //carReports[dgvCarReports.CurrentRow.Index].date = dtpDate.Value; こんな風に他の属性も変える方法もある
-            //carReports[dgvCarReports.CurrentRow.Index].date = dtpDate.Value;
-            //carReports[dgvCarReports.CurrentRow.Index].date = dtpDate.Value;
-            //dgvCarReports.Refresh();
-
-        }
 
         private void dgvCarReports_Click(object sender, EventArgs e) {
 
@@ -146,8 +198,44 @@ namespace CarReportSystem {
             pbCarImage.Image = targetData.CarImage;
         }
 
-        private void Form1_Load(object sender, EventArgs e) {
+        private void screenReset() {
+            dtpDate.Value = DateTime.Today;
+            cbAuthor.Text = null;
+            rbToyota.Checked = true;
+            rbToyota.Checked = false;
+            cbCarName.Text = null;
+            tbReport.Text = null;
+            pbCarImage.Image = null;
+            tsInfoText.Text = null;
+            //statusLabelDisp("");
 
+            dgvCarReports.ClearSelection();
+        }
+
+        //オプション引数
+        private void statusLabelDisp(string message ="") {
+            tsInfoText.Text = message;
+        }
+
+        private void Form1_Load(object sender, EventArgs e) {
+            
+        }
+
+        private void 保存SToolStripMenuItem_Click(object sender, EventArgs e) {
+
+        }
+
+        private void 画面の色の変更ToolStripMenuItem_Click(object sender, EventArgs e) {
+
+        }
+
+        private void バージョン情報ToolStripMenuItem_Click(object sender, EventArgs e) {
+            var vf= new VersionForm();
+            vf.ShowDialog();
+        }
+
+        private void 色設定ToolStripMenuItem_Click(object sender, EventArgs e) {
+            cdColor.ShowDialog();
         }
     }
 }
