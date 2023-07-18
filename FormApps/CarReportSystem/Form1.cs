@@ -93,7 +93,7 @@ namespace CarReportSystem {
             //carReports[dgvCarReports.CurrentRow.Index].date = dtpDate.Value;
             //carReports[dgvCarReports.CurrentRow.Index].date = dtpDate.Value;
             //dgvCarReports.Refresh();
-            
+
         }
 
         //削除ボタン
@@ -190,8 +190,11 @@ namespace CarReportSystem {
         }
 
         private void btImageOpen_Click_1(object sender, EventArgs e) {
-            ofdImageFileOpen.ShowDialog();
-            pbCarImage.Image = Image.FromFile(ofdImageFileOpen.FileName);
+            if (ofdImageFileOpen.ShowDialog() != DialogResult.Cancel) {
+                pbCarImage.Image = Image.FromFile(ofdImageFileOpen.FileName);
+            }
+            
+            
         }
 
 
@@ -222,12 +225,12 @@ namespace CarReportSystem {
         }
 
         //オプション引数
-        private void statusLabelDisp(string message ="") {
+        private void statusLabelDisp(string message = "") {
             tsInfoText.Text = message;
         }
 
         private void Form1_Load(object sender, EventArgs e) {
-            
+
         }
 
         private void 保存SToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -239,7 +242,7 @@ namespace CarReportSystem {
         }
 
         private void バージョン情報ToolStripMenuItem_Click(object sender, EventArgs e) {
-            var vf= new VersionForm();
+            var vf = new VersionForm();
             vf.ShowDialog();
         }
 
@@ -249,8 +252,19 @@ namespace CarReportSystem {
                 BackColor = cdColor.Color;
             }
 
-            
+
         }
+
+        private void btScaleChange_Click(object sender, EventArgs e) {
+            if ((int)pbCarImage.SizeMode == 4) {
+                pbCarImage.SizeMode = 0;
+            }
+            else {
+                pbCarImage.SizeMode++ ;
+            }
+
+            
+        } 
     }
 }
 
