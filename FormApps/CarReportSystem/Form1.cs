@@ -43,9 +43,18 @@ namespace CarReportSystem {
                 btDeleteReport.Enabled = true;
                 btModifyReport.Enabled = true;
 
-                cbAuthor.Items.Add(cbAuthor.Text);
-                cbCarName.Items.Add(cbCarName.Text);
+                cbHisotryAdd();
+
                 screenReset();
+            }
+        }
+
+        private void cbHisotryAdd() {
+            if (!cbAuthor.Items.Contains(cbAuthor.Text)) {
+                cbAuthor.Items.Add(cbAuthor.Text);
+            }
+            if (!cbCarName.Items.Contains(cbCarName.Text)) {
+                cbCarName.Items.Add(cbCarName.Text);
             }
         }
 
@@ -235,7 +244,12 @@ namespace CarReportSystem {
         }
 
         private void 色設定ToolStripMenuItem_Click(object sender, EventArgs e) {
-            cdColor.ShowDialog();
+            if (cdColor.ShowDialog() != DialogResult.OK) {
+
+                BackColor = cdColor.Color;
+            }
+
+            
         }
     }
 }
