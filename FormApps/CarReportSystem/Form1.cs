@@ -7,15 +7,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace CarReportSystem {
     public partial class Form1 : Form {
         BindingList<CarReport> carReports = new BindingList<CarReport>();
 
+        //設定情報
+        Settings settings = new Settings();
+
         public Form1() {
             InitializeComponent();
             dgvCarReports.DataSource = carReports;
             //dgvを書き換えるとcarReportsに反映される
+
+            //色の読み込み
+            using (var reader = XmlReader.Create("settings.xml")) {
+                var serializer = new XmlSerializer(typeof(Settings));
+                var settingFirst = serializer.Deserialize(reader) as Settings;
+                BackColor = Color.FromArgb(settingFirst.MainFormColor);
+            }
+
         }
 
         //追加ボタンのイベントハンドラー
@@ -247,9 +260,11 @@ namespace CarReportSystem {
         }
 
         private void 色設定ToolStripMenuItem_Click(object sender, EventArgs e) {
-            if (cdColor.ShowDialog() != DialogResult.OK) {
+
+            if (cdColor.ShowDialog() == DialogResult.OK) {
 
                 BackColor = cdColor.Color;
+                settings.MainFormColor = cdColor.Color.ToArgb();
             }
 
 
@@ -262,7 +277,7 @@ namespace CarReportSystem {
             else {
                 pbCarImage.SizeMode++ ;
             }
-
+                                            
             /*
             private int mode;
             mode = mode < 4 ? ++mode : 0;
@@ -275,6 +290,15 @@ namespace CarReportSystem {
 
             pbCarImage.SizeMode = (PictureBoxSizeMode)mode;
             */
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e) {
+
+            //設定ファイルのシリアル化
+            using (var writer = XmlWriter.Create("settings.xml")) {
+                var serializer = new XmlSerializer(settings.GetType());
+                serializer.Serialize(writer, settings);
+            }
         }
     }
 }
