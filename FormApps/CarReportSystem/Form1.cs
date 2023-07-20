@@ -45,7 +45,7 @@ namespace CarReportSystem {
 
                 cbHisotryAdd();
 
-                screenReset();
+                resetSelectedButton();
             }
         }
 
@@ -85,7 +85,7 @@ namespace CarReportSystem {
                 cbAuthor.Items.Add(cbAuthor.Text);
                 cbCarName.Items.Add(cbCarName.Text);
                 deleteModifyInvalidCheck();
-                screenReset();
+                resetSelectedButton();
             }
 
             //carReports[dgvCarReports.CurrentRow.Index].date = dtpDate.Value;
@@ -100,7 +100,7 @@ namespace CarReportSystem {
         private void btDeleteReport_Click(object sender, EventArgs e) {
             carReports.RemoveAt(dgvCarReports.CurrentRow.Index);
             deleteModifyInvalidCheck();
-            screenReset();
+            resetSelectedButton();
 
         }
         private void 終了XToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -210,7 +210,7 @@ namespace CarReportSystem {
             pbCarImage.Image = targetData.CarImage;
         }
 
-        private void screenReset() {
+        private void resetSelectedButton() {
             dtpDate.Value = DateTime.Today;
             cbAuthor.Text = null;
             rbToyota.Checked = true;
@@ -263,8 +263,19 @@ namespace CarReportSystem {
                 pbCarImage.SizeMode++ ;
             }
 
-            
-        } 
+            /*
+            private int mode;
+            mode = mode < 4 ? ++mode : 0;
+            mode = mode < 4 ? ((mode ==1) ? 3 : ++mode) : 0;
+            2重のif文の構文
+
+            private PictureBoxSizaMode mode;
+            mode = mode < PictureBoxSizeMode.CeterImage
+
+
+            pbCarImage.SizeMode = (PictureBoxSizeMode)mode;
+            */
+        }
     }
 }
 
