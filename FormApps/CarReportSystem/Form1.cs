@@ -22,13 +22,6 @@ namespace CarReportSystem {
             dgvCarReports.DataSource = carReports;
             //dgvを書き換えるとcarReportsに反映される
 
-            //色の読み込み
-            using (var reader = XmlReader.Create("settings.xml")) {
-                var serializer = new XmlSerializer(typeof(Settings));
-                var settingFirst = serializer.Deserialize(reader) as Settings;
-                BackColor = Color.FromArgb(settingFirst.MainFormColor);
-            }
-
         }
 
         //追加ボタンのイベントハンドラー
@@ -169,14 +162,7 @@ namespace CarReportSystem {
             //}
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e) {
-
-        }
-
-
-
         private CarReport.MakerGroup getSelectedMaker() {
-
 
             foreach (var item in gbMaker.Controls) {
                 int num;
@@ -192,15 +178,10 @@ namespace CarReportSystem {
                 }
             }
 
-
-
             return CarReport.MakerGroup.データなし;
 
         }
 
-        private void btImageOpen_Click(object sender, EventArgs e) {
-
-        }
 
         private void btImageOpen_Click_1(object sender, EventArgs e) {
             if (ofdImageFileOpen.ShowDialog() != DialogResult.Cancel) {
@@ -231,7 +212,7 @@ namespace CarReportSystem {
             cbCarName.Text = null;
             tbReport.Text = null;
             pbCarImage.Image = null;
-            tsInfoText.Text = null;
+            tsTimeDisp.Text = null;
             //statusLabelDisp("");
 
             dgvCarReports.ClearSelection();
@@ -239,13 +220,34 @@ namespace CarReportSystem {
 
         //オプション引数
         private void statusLabelDisp(string message = "") {
-            tsInfoText.Text = message;
+            tsTimeDisp.Text = message;
         }
 
         private void Form1_Load(object sender, EventArgs e) {
+            //情報表示領域のテキストを初期化
+            tsInfo.Text = "";
+            tmTimeUpdate.Start();
+            tsTimeDisp.BackColor = Color.Black;
+            tsTimeDisp.ForeColor = Color.White;
+
+
+            dgvCarReports.Columns[5].Visible = false;
+            btModifyReport.Enabled = false;
+            btDeleteReport.Enabled = false;
+
+            //設定ファイルを逆シリアル化して背景を設定
+            //色の読み込み
+            using (var reader = XmlReader.Create("settings.xml")) {
+                var serializer = new XmlSerializer(typeof(Settings));
+                var settingFirst = serializer.Deserialize(reader) as Settings;
+
+                BackColor = Color.FromArgb(settingFirst.MainFormColor);
+            }
+
 
         }
 
+        //保存ボタンを押したときに呼び出される
         private void 保存SToolStripMenuItem_Click(object sender, EventArgs e) {
 
         }
@@ -277,7 +279,8 @@ namespace CarReportSystem {
             else {
                 pbCarImage.SizeMode++ ;
             }
-                                            
+                                    
+            
             /*
             private int mode;
             mode = mode < 4 ? ++mode : 0;
@@ -299,6 +302,10 @@ namespace CarReportSystem {
                 var serializer = new XmlSerializer(settings.GetType());
                 serializer.Serialize(writer, settings);
             }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e) {
+            tsTimeDisp.Text = DateTime.Now.ToString("HH時mm分ss秒");
         }
     }
 }
