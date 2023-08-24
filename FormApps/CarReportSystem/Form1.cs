@@ -16,12 +16,15 @@ namespace CarReportSystem {
 
         //設定情報
         Settings settings = new Settings();
+       
 
         public Form1() {
             InitializeComponent();
             dgvCarReports.DataSource = carReports;
             //dgvを書き換えるとcarReportsに反映される
 
+            //settings.MainFormColor = 
+            
         }
 
         //追加ボタンのイベントハンドラー
@@ -241,7 +244,7 @@ namespace CarReportSystem {
                 var serializer = new XmlSerializer(typeof(Settings));
                 var settingFirst = serializer.Deserialize(reader) as Settings;
 
-                BackColor = Color.FromArgb(settingFirst.MainFormColor);
+                //BackColor = Color.FromArgb(settingFirst.MainFormColor);
             }
 
 
@@ -249,6 +252,10 @@ namespace CarReportSystem {
 
         //保存ボタンを押したときに呼び出される
         private void 保存SToolStripMenuItem_Click(object sender, EventArgs e) {
+            if (sfdCarReportSave.ShowDialog() == DialogResult.OK) {
+
+            }
+
 
         }
 
@@ -306,6 +313,16 @@ namespace CarReportSystem {
 
         private void timer1_Tick(object sender, EventArgs e) {
             tsTimeDisp.Text = DateTime.Now.ToString("HH時mm分ss秒");
+        }
+
+        private void openFileDialog2_FileOk(object sender, CancelEventArgs e) {
+
+        }
+
+        private void 開くEToolStripMenuItem_Click(object sender, EventArgs e) {
+            if (ofdCarReportOpen.ShowDialog() == DialogResult.OK) {
+
+            }
         }
     }
 }
