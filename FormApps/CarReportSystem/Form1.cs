@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -24,6 +26,31 @@ namespace CarReportSystem {
             //dgvを書き換えるとcarReportsに反映される
 
             settings.MainFormColor = BackColor.ToArgb ();
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e) {
+            //情報表示領域のテキストを初期化
+            tsInfo.Text = "";
+            tmTimeUpdate.Start ();
+            tsTimeDisp.BackColor = Color.Black;
+            tsTimeDisp.ForeColor = Color.White;
+
+
+            dgvCarReports.Columns[5].Visible = false;
+            btModifyReport.Enabled = false;
+            btDeleteReport.Enabled = false;
+
+            //設定ファイルを逆シリアル化して背景を設定
+            //色の読み込み
+            using (var reader = XmlReader.Create ( "settings.xml" )) {
+                var serializer = new XmlSerializer ( typeof ( Settings ) );
+                var settingFirst = serializer.Deserialize ( reader ) as Settings;
+
+                BackColor = Color.FromArgb ( settingFirst.MainFormColor );
+                settings.MainFormColor = BackColor.ToArgb ();
+
+            }
 
 
         }
@@ -53,20 +80,29 @@ namespace CarReportSystem {
                 btDeleteReport.Enabled = true;
                 btModifyReport.Enabled = true;
 
-                cbHisotryAdd();
+                cbHisotryAdd(cbAuthor.Text, cbCarName.Text);
 
                 resetSelectedButton();
             }
         }
+        private void cbHisotryAdd(string author, string carName) {
+            setCBAuthor ( author );
+            setCBCarName ( carName );
+        }
 
-        private void cbHisotryAdd() {
-            if (!cbAuthor.Items.Contains(cbAuthor.Text)) {
-                cbAuthor.Items.Add(cbAuthor.Text);
-            }
-            if (!cbCarName.Items.Contains(cbCarName.Text)) {
-                cbCarName.Items.Add(cbCarName.Text);
+        private void setCBAuthor(string author) {
+            if (!cbAuthor.Items.Contains ( author)) {
+                cbAuthor.Items.Add ( author);
             }
         }
+
+        private void setCBCarName(string carName) {
+            if (!cbAuthor.Items.Contains ( carName)) {
+                cbAuthor.Items.Add ( carName);
+            }
+        }
+
+        
 
 
         //編集ボタン
@@ -123,6 +159,11 @@ namespace CarReportSystem {
 
                 btDeleteReport.Enabled = false;
                 btModifyReport.Enabled = false;
+            }
+            else {
+
+                btDeleteReport.Enabled = true;
+                btModifyReport.Enabled = true;
             }
         }
 
@@ -197,15 +238,20 @@ namespace CarReportSystem {
 
 
         private void dgvCarReports_Click(object sender, EventArgs e) {
+            try {
 
-            CarReport targetData = carReports[dgvCarReports.CurrentRow.Index];
+                CarReport targetData = carReports[dgvCarReports.CurrentRow.Index];
 
-            dtpDate.Value = targetData.date;
-            cbAuthor.Text = targetData.Author;
-            changeMakerButton(targetData.Maker);
-            cbCarName.Text = targetData.CarName;
-            tbReport.Text = targetData.Report;
-            pbCarImage.Image = targetData.CarImage;
+                dtpDate.Value = targetData.date;
+                cbAuthor.Text = targetData.Author;
+                changeMakerButton ( targetData.Maker );
+                cbCarName.Text = targetData.CarName;
+                tbReport.Text = targetData.Report;
+                pbCarImage.Image = targetData.CarImage;
+            }
+            catch (Exception) {
+
+            }
         }
 
         private void resetSelectedButton() {
@@ -227,44 +273,8 @@ namespace CarReportSystem {
             tsTimeDisp.Text = message;
         }
 
-        private void Form1_Load(object sender, EventArgs e) {
-            //情報表示領域のテキストを初期化
-            tsInfo.Text = "";
-            tmTimeUpdate.Start();
-            tsTimeDisp.BackColor = Color.Black;
-            tsTimeDisp.ForeColor = Color.White;
 
 
-            dgvCarReports.Columns[5].Visible = false;
-            btModifyReport.Enabled = false;
-            btDeleteReport.Enabled = false;
-
-            //設定ファイルを逆シリアル化して背景を設定
-            //色の読み込み
-            using (var reader = XmlReader.Create("settings.xml")) {
-                var serializer = new XmlSerializer(typeof(Settings));
-                var settingFirst = serializer.Deserialize(reader) as Settings;
-
-                BackColor = Color.FromArgb ( settingFirst.MainFormColor );
-                settings.MainFormColor = BackColor.ToArgb ();
-                            
-            }
-
-
-        }
-
-        //保存ボタンを押したときに呼び出される
-        private void 保存SToolStripMenuItem_Click(object sender, EventArgs e) {
-            if (sfdCarReportSave.ShowDialog() == DialogResult.OK) {
-
-            }
-
-
-        }
-
-        private void 画面の色の変更ToolStripMenuItem_Click(object sender, EventArgs e) {
-
-        }
 
         private void バージョン情報ToolStripMenuItem_Click(object sender, EventArgs e) {
             var vf = new VersionForm();
@@ -316,7 +326,6 @@ namespace CarReportSystem {
             }
             catch (Exception) {
                 MessageBox.Show ( "設定ファイル読み込みエラー" );
-                throw;
             }
         }
 
@@ -324,9 +333,46 @@ namespace CarReportSystem {
             tsTimeDisp.Text = DateTime.Now.ToString("HH時mm分ss秒");
         }
 
+        //保存ボタンを押したときに呼び出される
+        private void 保存SToolStripMenuItem_Click(object sender, EventArgs e) {
+            try {
+                if (sfdCarReportSave.ShowDialog () == DialogResult.OK) {
+                    //バイナリ形式でシリアライズ
+                    var bf = new BinaryFormatter ();
+                    using (FileStream fs = File.Open ( sfdCarReportSave.FileName, FileMode.Create )) {
+                        bf.Serialize ( fs, carReports );
+                    }
+                }
+            }
+            catch (Exception ex) {
+                MessageBox.Show ( ex.Message );
+            }
+
+        }
 
         private void 開くEToolStripMenuItem_Click(object sender, EventArgs e) {
-            if (ofdCarReportOpen.ShowDialog() == DialogResult.OK) {
+            try {
+
+                if (ofdCarReportOpen.ShowDialog () == DialogResult.OK) {
+                    //バイナリ形式でデシリアライズ
+                    var bf = new BinaryFormatter ();
+                    using (FileStream fs = File.Open ( ofdCarReportOpen.FileName, FileMode.Open, FileAccess.Read )) {
+                        carReports = (BindingList<CarReport>)bf.Deserialize ( fs );
+                        dgvCarReports.DataSource = null;
+                        dgvCarReports.DataSource = carReports;
+                        dgvCarReports.Columns[5].Visible = false;
+                    }
+
+                    foreach (var item in carReports) {
+                        setCBAuthor ( item.Author );
+                        setCBCarName ( item.CarName );
+                    }
+                    resetSelectedButton ();
+                    deleteModifyInvalidCheck ();
+                }
+            }
+            catch (Exception ex) {
+                MessageBox.Show ( ex.Message );
 
             }
         }
