@@ -23,8 +23,9 @@ namespace CarReportSystem {
             dgvCarReports.DataSource = carReports;
             //dgvを書き換えるとcarReportsに反映される
 
-            //settings.MainFormColor = 
-            
+            settings.MainFormColor = BackColor.ToArgb ();
+
+
         }
 
         //追加ボタンのイベントハンドラー
@@ -244,7 +245,9 @@ namespace CarReportSystem {
                 var serializer = new XmlSerializer(typeof(Settings));
                 var settingFirst = serializer.Deserialize(reader) as Settings;
 
-                //BackColor = Color.FromArgb(settingFirst.MainFormColor);
+                BackColor = Color.FromArgb ( settingFirst.MainFormColor );
+                settings.MainFormColor = BackColor.ToArgb ();
+                            
             }
 
 
@@ -305,9 +308,15 @@ namespace CarReportSystem {
         private void Form1_FormClosed(object sender, FormClosedEventArgs e) {
 
             //設定ファイルのシリアル化
-            using (var writer = XmlWriter.Create("settings.xml")) {
-                var serializer = new XmlSerializer(settings.GetType());
-                serializer.Serialize(writer, settings);
+            try {
+                using (var writer = XmlWriter.Create ( "settings.xml" )) {
+                    var serializer = new XmlSerializer ( settings.GetType () );
+                    serializer.Serialize ( writer, settings );
+                }
+            }
+            catch (Exception) {
+                MessageBox.Show ( "設定ファイル読み込みエラー" );
+                throw;
             }
         }
 
@@ -315,9 +324,6 @@ namespace CarReportSystem {
             tsTimeDisp.Text = DateTime.Now.ToString("HH時mm分ss秒");
         }
 
-        private void openFileDialog2_FileOk(object sender, CancelEventArgs e) {
-
-        }
 
         private void 開くEToolStripMenuItem_Click(object sender, EventArgs e) {
             if (ofdCarReportOpen.ShowDialog() == DialogResult.OK) {
