@@ -37,6 +37,10 @@ namespace CarReportSystem {
             tsTimeDisp.ForeColor = Color.White;
 
 
+            dgvCarReports.RowHeadersVisible = false;
+            dgvCarReports.RowsDefaultCellStyle.BackColor = Color.AliceBlue; //全体に色を設定
+            dgvCarReports.AlternatingRowsDefaultCellStyle.BackColor = Color.FloralWhite;//奇数行の色を上書き設定
+
             dgvCarReports.Columns[5].Visible = false;
             btModifyReport.Enabled = false;
             btDeleteReport.Enabled = false;
@@ -97,13 +101,10 @@ namespace CarReportSystem {
         }
 
         private void setCBCarName(string carName) {
-            if (!cbAuthor.Items.Contains ( carName)) {
-                cbAuthor.Items.Add ( carName);
+            if (!cbCarName.Items.Contains ( carName)) {
+                cbCarName.Items.Add ( carName);
             }
         }
-
-        
-
 
         //編集ボタン
         private void btModifyReport_Click(object sender, EventArgs e) {
@@ -149,6 +150,7 @@ namespace CarReportSystem {
             resetSelectedButton();
 
         }
+
         private void 終了XToolStripMenuItem_Click(object sender, EventArgs e) {
             Application.Exit();
 
@@ -237,22 +239,7 @@ namespace CarReportSystem {
         }
 
 
-        private void dgvCarReports_Click(object sender, EventArgs e) {
-            try {
-
-                CarReport targetData = carReports[dgvCarReports.CurrentRow.Index];
-
-                dtpDate.Value = targetData.date;
-                cbAuthor.Text = targetData.Author;
-                changeMakerButton ( targetData.Maker );
-                cbCarName.Text = targetData.CarName;
-                tbReport.Text = targetData.Report;
-                pbCarImage.Image = targetData.CarImage;
-            }
-            catch (Exception) {
-
-            }
-        }
+        
 
         private void resetSelectedButton() {
             dtpDate.Value = DateTime.Today;
@@ -363,16 +350,37 @@ namespace CarReportSystem {
                         dgvCarReports.Columns[5].Visible = false;
                     }
 
+                    cbAuthor.Items.Clear ();
+                    cbCarName.Items.Clear ();
+
                     foreach (var item in carReports) {
                         setCBAuthor ( item.Author );
                         setCBCarName ( item.CarName );
                     }
+
                     resetSelectedButton ();
                     deleteModifyInvalidCheck ();
                 }
             }
             catch (Exception ex) {
                 MessageBox.Show ( ex.Message );
+
+            }
+        }
+
+        private void dgvCarReports_CellClick(object sender, DataGridViewCellEventArgs e) {
+            try {
+
+                CarReport targetData = carReports[dgvCarReports.CurrentRow.Index];
+
+                dtpDate.Value = targetData.date;
+                cbAuthor.Text = targetData.Author;
+                changeMakerButton ( targetData.Maker );
+                cbCarName.Text = targetData.CarName;
+                tbReport.Text = targetData.Report;
+                pbCarImage.Image = targetData.CarImage;
+            }
+            catch (Exception) {
 
             }
         }
