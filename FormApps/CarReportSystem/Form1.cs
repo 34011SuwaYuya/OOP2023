@@ -22,7 +22,7 @@ namespace CarReportSystem {
 
         public Form1() {
             InitializeComponent();
-            dgvCarReports.DataSource = carReports;
+            //dgvCarReports.DataSource = carReports;
             //dgvを書き換えるとcarReportsに反映される
 
             settings.MainFormColor = BackColor.ToArgb ();
@@ -30,6 +30,7 @@ namespace CarReportSystem {
         }
 
         private void Form1_Load(object sender, EventArgs e) {
+            
             //情報表示領域のテキストを初期化
             tsInfo.Text = "";
             tmTimeUpdate.Start ();
@@ -369,7 +370,7 @@ namespace CarReportSystem {
         }
 
         private void dgvCarReports_CellClick(object sender, DataGridViewCellEventArgs e) {
-            try {
+            /*try {
 
                 CarReport targetData = carReports[dgvCarReports.CurrentRow.Index];
 
@@ -382,7 +383,33 @@ namespace CarReportSystem {
             }
             catch (Exception) {
 
+            }*/
+            if (dgvCarReports.Rows.Count != 0) {
+                dtpDate.Value = (DateTime)dgvCarReports.CurrentRow.Cells[0].Value;
+                cbAuthor.Text = dgvCarReports.CurrentRow.Cells[1].Value.ToString ();
+                //setSelectedMaker ( (CarReport.MakerGroup)dgvCarReports.CurrentRow.Cells[2].Value );
+                cbCarName.Text = dgvCarReports.CurrentRow.Cells[3].Value.ToString ();
+                tbReport.Text = dgvCarReports.CurrentRow.Cells[4].Value.ToString ();
+                pbCarImage.Image = (Image)dgvCarReports.CurrentRow.Cells[5].Value;
+
+                btModifyReport.Enabled = true;     //修正ボタン有効
+                btDeleteReport.Enabled = true;     //削除ボタン有効
             }
+        }
+
+        private void carReportTableBindingNavigatorSaveItem_Click(object sender, EventArgs e) {
+            this.Validate ();
+            this.carReportTableBindingSource.EndEdit ();
+            this.tableAdapterManager.UpdateAll ( this.infosys202302DataSet );
+
+        }
+
+
+        //
+        private void button1_Click(object sender, EventArgs e) {
+            // TODO: このコード行はデータを 'infosys202302DataSet.CarReportTable' テーブルに読み込みます。必要に応じて移動、または削除をしてください。
+            this.carReportTableTableAdapter.Fill ( this.infosys202302DataSet.CarReportTable );
+            
         }
     }
 }
