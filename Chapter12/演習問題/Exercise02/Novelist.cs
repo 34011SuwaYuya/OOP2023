@@ -7,15 +7,16 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace Exercise02 {
-    [XmlRoot("novleist")]
+    [DataContract]
     class Novelist {
-        [XmlElement(ElementName  = "name")]
+
+        [DataMember(Name = "name")]
         public string Name { get; set; }
 
-        [XmlElement(ElementName = "birth")]
+        [DataMember ( Name = "birth" )]
         public string Birth { get; set; }
 
-        [XmlElement(ElementName = "masterpieces")]
+        [DataMember ( Name = "masterpieces" )]
         public string[] Masterpieces { get; set; }
 
         

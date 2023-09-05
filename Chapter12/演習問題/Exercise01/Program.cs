@@ -33,18 +33,25 @@ namespace Exercise01 {
             Employee emp1 = new Employee {
                 Id = 1,
                 Name = "Taro",
-                HireDate = DateTime.Now,
+                HireDate = new DateTime(2023, 9, 4),
             };
 
-            var settings = new XmlWriterSettings {
-                Encoding = new System.Text.UTF8Encoding ( false ),
-                Indent = true,
-                IndentChars = " ",
-            };
+            //var settings = new XmlWriterSettings {
+            //    Encoding = new System.Text.UTF8Encoding ( false ),
+            //    Indent = true,
+            //    IndentChars = " ",
+            //};
 
             using (var writer = XmlWriter.Create(v)) {
                 var serializer = new XmlSerializer ( emp1.GetType () );
                 serializer.Serialize ( writer, emp1 );
+            }
+
+            using (var reader = XmlReader.Create(v)) {
+                var serializer = new XmlSerializer (typeof(Employee));
+                var employee = serializer.Deserialize ( reader ) as Employee;
+                Console.WriteLine ( employee );
+
             }
 
         }
@@ -69,38 +76,56 @@ namespace Exercise01 {
                 employeeList = emps2
             };
 
+            var settings = new XmlWriterSettings {
+                Encoding = new System.Text.UTF8Encoding ( false ),
+                Indent = true,
+                IndentChars = " ",
+            };
 
-            using (var writer = XmlWriter.Create(v)) {
-                    var serializer = new XmlSerializer (employeeCollection.GetType());
-                serializer.Serialize ( writer, employeeCollection );
+            using (var writer = XmlWriter.Create(v, settings)) {
+                var serializer = new DataContractSerializer (emps2.GetType());
+                serializer.WriteObject ( writer, emps2 );
+
             }
 
-            
+            //using (var writer = XmlWriter.Create(v)) {
+            //        var serializer = new XmlSerializer (employeeCollection.GetType());
+            //    serializer.Serialize ( writer, employeeCollection );
+            //}
 
     }
 
         private static void Exercise1_3(string v) {
-            using (XmlReader reader = XmlReader.Create(v)) {
-                var serializer = new XmlSerializer ( typeof ( EmployeeCollection) );
-                var emps = serializer.Deserialize( reader ) as EmployeeCollection;
+            //using (XmlReader reader = XmlReader.Create(v)) {
+            //    var serializer = new XmlSerializer ( typeof ( EmployeeCollection) );
+            //    var emps = serializer.Deserialize( reader ) as EmployeeCollection;
 
-                foreach (var emp in emps.employeeList) {
-                    Console.WriteLine ( "ID :{0} Name :{1} HireDate :{2}" ,emp.Id , emp.Name, emp.HireDate);
+            //    foreach (var emp in emps.employeeList) {
+            //        Console.WriteLine ( "ID :{0} Name :{1} HireDate :{2}" ,emp.Id , emp.Name, emp.HireDate);
+            //    }
+            //}
+
+
+            using (XmlReader reader = XmlReader.Create(v)) {
+                var serializer = new DataContractSerializer ( typeof ( Employee[] ) );
+                var emps = serializer.ReadObject ( reader ) as Employee[];
+                foreach (var item in emps) {
+                    Console.WriteLine ( "{0}{1}{2}", item.Id, item.Name, item.HireDate );
                 }
             }
 
         }
 
         private static void Exercise1_4(string v) {
-            Employee[] emps = new Employee[] {
-                new Employee {
+            Employee2[] emps = new Employee2[] {
+                new Employee2 {
                     Id = 1000, Name = "千", HireDate = DateTime.Parse ( "2020/1/15" ),
                 },
-                new Employee {
+                new Employee2 {
                     Id = 2000 , Name = "二千", HireDate = DateTime.Parse ( "2021/1/15" )
                 },
 
-                new Employee {
+                new Employee2 {
                     Id = 3000, Name = "三千", HireDate = DateTime.Parse ( "2023/1/15" ) },
             };
 
@@ -111,7 +136,19 @@ namespace Exercise01 {
             }
 
         }
-        
+        [DataContract]
+        public class Employee2 {
+
+            public int Id { get; set; }
+
+            [DataMember ( Name = "name" )]
+            public string Name { get; set; }
+
+            [DataMember ( Name = "hireDate" )]
+            public DateTime HireDate { get; set; }
+
+
+        }
 
     }
     
