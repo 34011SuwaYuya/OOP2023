@@ -7,6 +7,7 @@ using System.IO;
 using System.Xml;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using System.Runtime.Serialization.Json;
 
 namespace Exercise02 {
     class Program {
@@ -15,16 +16,16 @@ namespace Exercise02 {
             var novelist = Exercise2_1 ( "sample.xml" );
             Exercise2_2 ( novelist, "novelist.json" );
 
-            //// これは確認のためのコード 12.2.1
-            //Console.WriteLine("{0} {1}", novelist.Name, novelist.Birth);
-            //foreach (var title in novelist.Masterpieces) {
-            //    Console.WriteLine(title);
-            //}
-            //Console.WriteLine();
+            // これは確認のためのコード 12.2.1
+            Console.WriteLine ( "{0} {1}", novelist.Name, novelist.Birth );
+            foreach (var title in novelist.Masterpieces) {
+                Console.WriteLine ( title );
+            }
+            Console.WriteLine ();
 
             //// これは確認のためのコード 12.2.2
-            //Console.WriteLine(File.ReadAllText("novelist.json"));
-            //Console.WriteLine();
+            Console.WriteLine ( File.ReadAllText ( "novelist.json" ) );
+            Console.WriteLine ();
         }
 
         private static Novelist Exercise2_1(string v) {
@@ -35,11 +36,19 @@ namespace Exercise02 {
                 return novelist;
 
             }
-
-
         }
 
         private static void Exercise2_2(object novelist, string v) {
+            using (var stream  = new FileStream(v , FileMode.Create, FileAccess.Write)) {
+
+                DataContractJsonSerializerSettings dataContractJsonSerializerSettings = new DataContractJsonSerializerSettings {
+                    DateTimeFormat = new DateTimeFormat ( "yyyy-MM-dd' T'HH:mm:ssZ" ),
+                    
+                };
+                var serializer = new DataContractJsonSerializer ( novelist.GetType () ,dataContractJsonSerializerSettings);
+                serializer.WriteObject ( stream, novelist );
+            }
+
 
         }
 
