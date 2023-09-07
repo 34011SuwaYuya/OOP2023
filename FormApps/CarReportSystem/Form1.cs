@@ -109,6 +109,10 @@ namespace CarReportSystem {
 
         //編集ボタン
         private void btModifyReport_Click(object sender, EventArgs e) {
+            this.Validate ();
+            carReportTableBindingSource.EndEdit ();
+            tableAdapterManager.UpdateAll ( infosys202302DataSet );
+
 
             statusLabelDisp();
             if (cbAuthor.Text == "") {
@@ -186,7 +190,7 @@ namespace CarReportSystem {
                     rbSubaru.Checked = true;
                     break;
                 case CarReport.MakerGroup.スズキ:
-                    rbSubaru.Checked = true;
+                    rbSuzuki.Checked = true;
                     break;
                 case CarReport.MakerGroup.ダイハツ:
                     rbDaihatsu.Checked = true;
@@ -385,12 +389,12 @@ namespace CarReportSystem {
 
             }*/
             if (dgvCarReports.Rows.Count != 0) {
-                dtpDate.Value = (DateTime)dgvCarReports.CurrentRow.Cells[0].Value;
-                cbAuthor.Text = dgvCarReports.CurrentRow.Cells[1].Value.ToString ();
-                //setSelectedMaker ( (CarReport.MakerGroup)dgvCarReports.CurrentRow.Cells[2].Value );
-                cbCarName.Text = dgvCarReports.CurrentRow.Cells[3].Value.ToString ();
-                tbReport.Text = dgvCarReports.CurrentRow.Cells[4].Value.ToString ();
-                pbCarImage.Image = (Image)dgvCarReports.CurrentRow.Cells[5].Value;
+                dtpDate.Value = (DateTime)dgvCarReports.CurrentRow.Cells[1].Value;
+                cbAuthor.Text = dgvCarReports.CurrentRow.Cells[2].Value.ToString ();
+                setSelectedMaker ( dgvCarReports.CurrentRow.Cells[3].Value.ToString());
+                cbCarName.Text = dgvCarReports.CurrentRow.Cells[4].Value.ToString ();
+                tbReport.Text = dgvCarReports.CurrentRow.Cells[5].Value.ToString ();
+                //pbCarImage.Image = (Image)dgvCarReports.CurrentRow.Cells[6].Value;
 
                 btModifyReport.Enabled = true;     //修正ボタン有効
                 btDeleteReport.Enabled = true;     //削除ボタン有効
@@ -404,11 +408,51 @@ namespace CarReportSystem {
 
         }
 
+        //DBのメーカー名をラジオボタンに反映させるメソッド
+        private void setMakerBT(string makerName) {
+            foreach (var item in CarReport.makerGroups()) {
+                
+            }
 
+        }
+
+        private void setSelectedMaker(string targetMaker) {
+            switch (targetMaker) {
+                case "トヨタ":
+                    rbToyota.Checked = true;
+                    break;
+                case "日産":
+                    rbNissan.Checked = true;
+                    break;
+                case "ホンダ":
+                    rbHonda.Checked = true;
+                    break;
+                case "スバル":
+                    rbSubaru.Checked = true;
+                    break;
+                case "スズキ":
+                    rbSuzuki.Checked = true;
+                    break;
+                case "ダイハツ":
+                    rbDaihatsu.Checked = true;
+                    break;
+                case "輸入車":
+                    rbImported.Checked = true;
+                    break;
+                case "その他":
+                    rbOther.Checked = true;
+                    break;
+                default:
+                    rbOther.Checked = true;
+                    break;
+            }
+
+
+        }
         //
         private void button1_Click(object sender, EventArgs e) {
             // TODO: このコード行はデータを 'infosys202302DataSet.CarReportTable' テーブルに読み込みます。必要に応じて移動、または削除をしてください。
-            this.carReportTableTableAdapter.Fill ( this.infosys202302DataSet.CarReportTable );
+            this.carReportTableTableAdapter.Fill( this.infosys202302DataSet.CarReportTable );
             
         }
     }

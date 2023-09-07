@@ -45,6 +45,15 @@ namespace CarReportSystem {
             データなし,
         }
 
+        public static List<MakerGroup> makerGroups() {
+            var arrayMaker = Enum.GetValues ( typeof ( MakerGroup ) );
+            List<MakerGroup> makers = new List<MakerGroup>();
+            foreach (var item in arrayMaker) {
+                makers.Add ( (MakerGroup)item );
+            }
+
+            return makers;
+        }
     }   
 
 }
