@@ -408,8 +408,9 @@ namespace CarReportSystem {
             this.btImageDelete.Name = "btImageDelete";
             this.btImageDelete.Size = new System.Drawing.Size(75, 23);
             this.btImageDelete.TabIndex = 12;
-            this.btImageDelete.Text = "削除";
+            this.btImageDelete.Text = "画像削除";
             this.btImageDelete.UseVisualStyleBackColor = true;
+            this.btImageDelete.Click += new System.EventHandler(this.btImageDelete_Click);
             // 
             // pbCarImage
             // 
