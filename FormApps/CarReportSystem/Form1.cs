@@ -353,6 +353,34 @@ namespace CarReportSystem {
             }
             dgvCarReports.ClearSelection ();
         }
+
+        private void groupBox1_Enter(object sender, EventArgs e) {
+
+        }
+
+        private void AuthorSearchBT_Click(object sender, EventArgs e) {
+            carReportTableTableAdapter.FillByAuthor (infosys202302DataSet.CarReportTable,tbAuthorSearch.Text);
+        }
+
+        private void CarNameSearchBT_Click(object sender, EventArgs e) {
+            carReportTableTableAdapter.FillByCarName ( infosys202302DataSet.CarReportTable, tbCarNameSearch.Text );
+        }
+
+        private void MakerSearchBT_Click(object sender, EventArgs e) {
+            carReportTableTableAdapter.FillByDate (infosys202302DataSet.CarReportTable, dtpFromSearch.Value.ToString());
+        }
+
+        private void ResetSearchBT_Click(object sender, EventArgs e) {
+            carReportTableTableAdapter.Fill (infosys202302DataSet.CarReportTable);
+            SearchGB_Clear ();
+        }
+
+        private void SearchGB_Clear() {
+            tbAuthorSearch.Text = null;
+            tbCarNameSearch.Text = null;
+            tbMakerSearch.Text = null;
+        }
+
     }
 }
 
