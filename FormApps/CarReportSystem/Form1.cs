@@ -257,39 +257,14 @@ namespace CarReportSystem {
 
         //保存ボタンを押したときに呼び出される
         private void 保存SToolStripMenuItem_Click(object sender, EventArgs e) {
+            connectToDataBase ();
         }
 
         private void btImageDelete_Click(object sender, EventArgs e) {
             pbCarImage.Image = null;
         }
         private void 開くEToolStripMenuItem_Click(object sender, EventArgs e) {
-            try {
-
-                if (ofdCarReportOpen.ShowDialog () == DialogResult.OK) {
-                    //バイナリ形式でデシリアライズ
-                    var bf = new BinaryFormatter ();
-                    using (FileStream fs = File.Open ( ofdCarReportOpen.FileName, FileMode.Open, FileAccess.Read )) {
-                        carReports = (BindingList<CarReport>)bf.Deserialize ( fs );
-                        dgvCarReports.DataSource = null;
-                        dgvCarReports.DataSource = carReports;
-                        dgvCarReports.Columns[5].Visible = false;
-                    }
-
-                    cbAuthor.Items.Clear ();
-                    cbCarName.Items.Clear ();
-
-                    foreach (var item in carReports) {
-                        setCBAuthor ( item.Author );
-                        setCBCarName ( item.CarName );
-                    }
-
-                    editItemClear ();
-                    deleteModifyButtonValidCheck ();
-                }
-            }
-            catch (Exception ex) {
-                MessageBox.Show ( ex.Message );
-            }
+            connectToDataBase ();
         }
 
         private void dgvCarReports_CellClick(object sender, DataGridViewCellEventArgs e) {
@@ -312,7 +287,6 @@ namespace CarReportSystem {
                 //    ByteArrayToImage((Byte[]) dgvCarReports.CurrentRow.Cells[6].Value) : null;
 
 
-                editItemClear ();
                 deleteModifyButtonValidCheck ();
 
                 btModifyReport.Enabled = true;     //修正ボタン有効
@@ -369,10 +343,10 @@ namespace CarReportSystem {
                     break;
             }
         }
-        //接続ボタンのイベントハンドラ
-        private void btConnection_Click(object sender, EventArgs e) {
+
+        private void connectToDataBase() {
             // TODO: このコード行はデータを 'infosys202302DataSet.CarReportTable' テーブルに読み込みます。必要に応じて移動、または削除をしてください。
-            this.carReportTableTableAdapter.Fill( this.infosys202302DataSet.CarReportTable );
+            this.carReportTableTableAdapter.Fill ( this.infosys202302DataSet.CarReportTable );
             foreach (var carReport in infosys202302DataSet.CarReportTable) {
                 setCBAuthor ( carReport.Author );
                 setCBCarName ( carReport.CarName );
