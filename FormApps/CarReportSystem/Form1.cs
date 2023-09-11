@@ -83,7 +83,8 @@ namespace CarReportSystem {
                 btDeleteReport.Enabled = true;
                 btModifyReport.Enabled = true;
 
-                cbHisotryAdd ( cbAuthor.Text, cbCarName.Text );
+                setCBAuthor ( cbAuthor.Text );
+                setCBCarName ( cbCarName .Text);
                 editItemClear ();
             }
         }
@@ -149,50 +150,6 @@ namespace CarReportSystem {
                 btDeleteReport.Enabled = true;
                 btModifyReport.Enabled = true;
             }
-        }
-
-        //指定したメーカーのラジオボタンをセット
-        private void changeMakerButton(CarReport.MakerGroup targetMaker) {
-            switch (targetMaker) {
-                case CarReport.MakerGroup.トヨタ:
-                    rbToyota.Checked = true;
-                    break;
-                case CarReport.MakerGroup.日産:
-                    rbNissan.Checked = true;
-                    break;
-                case CarReport.MakerGroup.ホンダ:
-                    rbHonda.Checked = true;
-                    break;
-                case CarReport.MakerGroup.スバル:
-                    rbSubaru.Checked = true;
-                    break;
-                case CarReport.MakerGroup.スズキ:
-                    rbSuzuki.Checked = true;
-                    break;
-                case CarReport.MakerGroup.ダイハツ:
-                    rbDaihatsu.Checked = true;
-                    break;
-                case CarReport.MakerGroup.輸入車:
-                    rbImported.Checked = true;
-                    break;
-                case CarReport.MakerGroup.その他:
-                    rbOther.Checked = true;
-                    break;
-                case CarReport.MakerGroup.データなし:
-                    break;
-                default:
-                    break;
-            }
-
-            //foreach (var item in gbMaker.Controls) {
-            //    if (int.Parse(( (RadioButton)item ).Tag.ToString()) == ( (int)targetMaker)) {
-            //        ( (RadioButton)item ).Checked = true;
-            //    }
-            //}
-        }
-        private void cbHisotryAdd(string author, string carName) {
-            setCBAuthor ( author );
-            setCBCarName ( carName );
         }
 
         private void setCBAuthor(string author) {
@@ -336,20 +293,7 @@ namespace CarReportSystem {
         }
 
         private void dgvCarReports_CellClick(object sender, DataGridViewCellEventArgs e) {
-            /*try {
-
-                CarReport targetData = carReports[dgvCarReports.CurrentRow.Index];
-
-                dtpDate.Value = targetData.date;
-                cbAuthor.Text = targetData.Author;
-                changeMakerButton ( targetData.Maker );
-                cbCarName.Text = targetData.CarName;
-                tbReport.Text = targetData.Report;
-                pbCarImage.Image = targetData.CarImage;
-            }
-            catch (Exception) {
-
-            }*/
+            
             if (dgvCarReports.Rows.Count != 0) {
                 dtpDate.Value = (DateTime)dgvCarReports.CurrentRow.Cells[1].Value;
                 cbAuthor.Text = dgvCarReports.CurrentRow.Cells[2].Value.ToString ();
@@ -357,13 +301,19 @@ namespace CarReportSystem {
                 cbCarName.Text = dgvCarReports.CurrentRow.Cells[4].Value.ToString ();
                 tbReport.Text = dgvCarReports.CurrentRow.Cells[5].Value.ToString ();
 
-                if (!dgvCarReports.CurrentRow.Cells[6].Value.Equals ( DBNull.Value )) {
+                if (!dgvCarReports.CurrentRow.Cells[6].Value.Equals ( DBNull.Value ) && ((Byte[])dgvCarReports.CurrentRow.Cells[6].Value).Length != 0) {
                     pbCarImage.Image = ByteArrayToImage ( (Byte[])dgvCarReports.CurrentRow.Cells[6].Value );
+                }
+                else {
+                    pbCarImage.Image = null;
                 }
 
                 //pbCarImage.Image = !dgvCarReports.CurrentRow.Cells[6].Value.Equals(DBNull.Value) ?
                 //    ByteArrayToImage((Byte[]) dgvCarReports.CurrentRow.Cells[6].Value) : null;
 
+
+                editItemClear ();
+                deleteModifyButtonValidCheck ();
 
                 btModifyReport.Enabled = true;     //修正ボタン有効
                 btDeleteReport.Enabled = true;     //削除ボタン有効
@@ -419,10 +369,14 @@ namespace CarReportSystem {
                     break;
             }
         }
-        //
-        private void button1_Click(object sender, EventArgs e) {
+        //接続ボタンのイベントハンドラ
+        private void btConnection_Click(object sender, EventArgs e) {
             // TODO: このコード行はデータを 'infosys202302DataSet.CarReportTable' テーブルに読み込みます。必要に応じて移動、または削除をしてください。
             this.carReportTableTableAdapter.Fill( this.infosys202302DataSet.CarReportTable );
+            foreach (var carReport in infosys202302DataSet.CarReportTable) {
+                setCBAuthor ( carReport.Author );
+                setCBCarName ( carReport.CarName );
+            }
             dgvCarReports.ClearSelection ();
         }
     }
