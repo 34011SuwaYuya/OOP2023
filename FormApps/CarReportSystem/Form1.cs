@@ -21,12 +21,13 @@ namespace CarReportSystem {
        
         public Form1() {
             InitializeComponent();
-            //dgvCarReports.DataSource = carReports;
-            //dgvを書き換えるとcarReportsに反映される
             settings.MainFormColor = BackColor.ToArgb ();
         }
 
         private void Form1_Load(object sender, EventArgs e) {
+
+            connectToDataBase ();
+
             //情報表示領域のテキストを初期化
             tsInfo.Text = "";
             tmTimeUpdate.Start ();
@@ -37,9 +38,6 @@ namespace CarReportSystem {
             dgvCarReports.RowsDefaultCellStyle.BackColor = Color.AliceBlue; //全体に色を設定
             dgvCarReports.AlternatingRowsDefaultCellStyle.BackColor = Color.FloralWhite;//奇数行の色を上書き設定
 
-            //dgvCarReports.Columns[0].Visible = false;
-            //dgvCarReports.Columns[5].Visible = false;
-            //dgvCarReports.Columns[6].Visible = false;
             btModifyReport.Enabled = false;
             btDeleteReport.Enabled = false;
 
@@ -380,6 +378,12 @@ namespace CarReportSystem {
         private void DateSearchBT_Click(object sender, EventArgs e) {
             carReportTableTableAdapter.FillByDateBetween ( infosys202302DataSet.CarReportTable, dtpFromSearch.Text, dtpUntilSearch.Text );
         }
+
+
+        private void orSearchBT_Click(object sender, EventArgs e) {
+            carReportTableTableAdapter.FillByOrCondition ( infosys202302DataSet.CarReportTable, dtpFromSearch.Text, dtpUntilSearch.Text, tbAuthorSearch.Text, tbMakerSearch.Text );
+        }
+
         private void SearchGB_Clear() {
             tbAuthorSearch.Text = null;
             tbCarNameSearch.Text = null;
@@ -387,7 +391,6 @@ namespace CarReportSystem {
             dtpFromSearch.Value = DateTime.Now;
         }
 
-        
     }
 }
 

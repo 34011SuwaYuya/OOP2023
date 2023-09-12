@@ -98,6 +98,7 @@ namespace CarReportSystem {
             this.carNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.reportDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.imageDataGridViewImageColumn = new System.Windows.Forms.DataGridViewImageColumn();
+            this.orSearchBT = new System.Windows.Forms.Button();
             this.gbMaker.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCarReports)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCarImage)).BeginInit();
@@ -541,6 +542,7 @@ namespace CarReportSystem {
             // 
             // gbSearch
             // 
+            this.gbSearch.Controls.Add(this.orSearchBT);
             this.gbSearch.Controls.Add(this.DateSearchBT);
             this.gbSearch.Controls.Add(this.dtpUntilSearch);
             this.gbSearch.Controls.Add(this.dtpFromSearch);
@@ -556,9 +558,9 @@ namespace CarReportSystem {
             this.gbSearch.Controls.Add(this.label9);
             this.gbSearch.Controls.Add(this.tbAuthorSearch);
             this.gbSearch.Controls.Add(this.label8);
-            this.gbSearch.Location = new System.Drawing.Point(374, 328);
+            this.gbSearch.Location = new System.Drawing.Point(374, 306);
             this.gbSearch.Name = "gbSearch";
-            this.gbSearch.Size = new System.Drawing.Size(309, 172);
+            this.gbSearch.Size = new System.Drawing.Size(309, 194);
             this.gbSearch.TabIndex = 19;
             this.gbSearch.TabStop = false;
             this.gbSearch.Text = "検索";
@@ -580,7 +582,7 @@ namespace CarReportSystem {
             // 
             // ResetSearchBT
             // 
-            this.ResetSearchBT.Location = new System.Drawing.Point(222, 146);
+            this.ResetSearchBT.Location = new System.Drawing.Point(222, 165);
             this.ResetSearchBT.Name = "ResetSearchBT";
             this.ResetSearchBT.Size = new System.Drawing.Size(75, 23);
             this.ResetSearchBT.TabIndex = 20;
@@ -743,6 +745,16 @@ namespace CarReportSystem {
             this.imageDataGridViewImageColumn.Name = "imageDataGridViewImageColumn";
             this.imageDataGridViewImageColumn.Visible = false;
             // 
+            // orSearchBT
+            // 
+            this.orSearchBT.Location = new System.Drawing.Point(65, 154);
+            this.orSearchBT.Name = "orSearchBT";
+            this.orSearchBT.Size = new System.Drawing.Size(75, 23);
+            this.orSearchBT.TabIndex = 23;
+            this.orSearchBT.Text = "OR検索";
+            this.orSearchBT.UseVisualStyleBackColor = true;
+            this.orSearchBT.Click += new System.EventHandler(this.orSearchBT_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -870,6 +882,7 @@ namespace CarReportSystem {
         private System.Windows.Forms.DataGridViewTextBoxColumn carNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn reportDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewImageColumn imageDataGridViewImageColumn;
+        private System.Windows.Forms.Button orSearchBT;
     }
 }
 
