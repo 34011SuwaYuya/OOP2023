@@ -11,34 +11,89 @@ namespace SampleEntityFramework {
     class Program {
         static void Main(string[] args) {
 
-            #region
-            //InsertBooks ();
-            //AddAuthors ();
-            //AddBooks ();
-            //UpdateBook ( "銀河鉄道の夜" );
-            //DisplayAllBooks ();
-            //DeleteBook ();
+            Console.WriteLine ( "# 1.1" );
+            Exercise1_1 ();
 
-            //foreach (var book in GetBooks ( "夏目" )) {
-            //    Console.WriteLine ( $"{book.Title}:{book.Author.Name}" );
-            //}
+            Console.WriteLine ();
+            Console.WriteLine ( "# 1.2" );
+            Exercise1_2 ();
 
-            
+            Console.WriteLine ();
+            Console.WriteLine ( "# 1.3" );
+            Exercise1_3 ();
 
-            using (var db = new BooksDbContext()) {
-                db.Database.Log = sql => { Debug.Write ( sql ); };
+            Console.WriteLine ();
+            Console.WriteLine ( "# 1.4" );
+            Exercise1_4 ();
 
-                var count = db.Books.Count ();
-                Console.WriteLine ( count );
-            }
-
-            #endregion
+            Console.WriteLine ();
+            Console.WriteLine ( "# 1.5" );
+            Exercise1_5 ();
 
 
             Console.WriteLine ( "データを挿入しました。続けるにはEnterキーを押してください" );
             Console.ReadLine ();
             Console.WriteLine ();
 
+
+        }
+
+        private static void Exercise1_1() {
+            using (var db = new BooksDbContext ()) {
+
+                //Author追加
+                var author1 = new Author {
+                    Birthday = new DateTime ( 1888, 12, 26 ),
+                    Gender = "M",
+                    Name = "菊池寛",
+                };
+                db.Authors.Add ( author1 );
+
+                var author2 = new Author {
+                    Birthday = new DateTime ( 1899, 6, 14 ),
+                    Gender = "M",
+                    Name = "川端康成",
+                };
+                db.Authors.Add ( author2 );
+                db.SaveChanges ();
+
+
+                //Book追加
+                //var author1 = db.Authors.First ( a => a.Name == "与謝野晶子" );
+                //var book1 = new Book {
+                //    Title = "みだれ髪",
+                //    PublishedYear = 2000,
+                //    Author = author1,
+                //};
+                //db.Books.Add ( book1 );
+
+                //var author2 = db.Authors.First ( a => a.Name == "宮沢賢治" );
+                //var book2 = new Book {
+                //    Title = "銀河鉄道の夜",
+                //    PublishedYear = 1989,
+                //    Author = author2,
+                //};
+                //db.Books.Add ( book2 );
+
+                db.SaveChanges ();
+
+            }
+
+        }
+
+        private static void Exercise1_2() {
+
+        }
+
+        private static void Exercise1_3() {
+
+        }
+
+        private static void Exercise1_4() {
+
+        }
+
+        private static void Exercise1_5() {
 
         }
 
