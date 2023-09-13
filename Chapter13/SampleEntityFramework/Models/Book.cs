@@ -10,7 +10,6 @@ namespace SampleEntityFramework.Models {
         public int Id{ get; set; }
         public string Title{ get; set; }
         public int PublishedYear{ get; set; }
-            //dgvを書き換えるとcarReportsに反映される
         public virtual Author Author { get; set; }
     }
 }
