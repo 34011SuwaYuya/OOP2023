@@ -14,7 +14,7 @@ namespace SampleEntityFramework {
             //InsertBooks ();
             //AddAuthors ();
 
-            #region データの追加
+            #region 前提のデータの追加
             using (var db = new BooksDbContext ()) {
                 var book1 = new Book {
                     Title = "坊ちゃん",
@@ -171,9 +171,7 @@ namespace SampleEntityFramework {
         private static void Exercise1_3() {
             using (var db = new BooksDbContext()) {
                 int maxLength = db.Books.Max ( b => b.Title.Length );   //タイトルの長さの最大値
-
-                var longestBooks = db.Books.Where( b => b.Title.Length >= maxLength );
-                foreach (var book in longestBooks) {
+                foreach (var book in db.Books.Where ( b => b.Title.Length >= maxLength )) {
                     Console.WriteLine ( $"{book.Title}" );
                 }
 
