@@ -11,6 +11,10 @@ namespace SampleEntityFramework {
     class Program {
         static void Main(string[] args) {
 
+            //InsertBooks ();
+            //AddAuthors ();
+
+
             Console.WriteLine ( "# 1.1" );
             Exercise1_1 ();
 
@@ -59,21 +63,37 @@ namespace SampleEntityFramework {
 
 
                 //Book追加
-                //var author1 = db.Authors.First ( a => a.Name == "与謝野晶子" );
-                //var book1 = new Book {
-                //    Title = "みだれ髪",
-                //    PublishedYear = 2000,
-                //    Author = author1,
-                //};
-                //db.Books.Add ( book1 );
+                var author3 = db.Authors.First ( a => a.Name == "夏目漱石" );
+                var book1 = new Book {
+                    Title = "こころ",
+                    PublishedYear = 1991,
+                    Author = author3,
+                };
+                db.Books.Add ( book1 );
 
-                //var author2 = db.Authors.First ( a => a.Name == "宮沢賢治" );
-                //var book2 = new Book {
-                //    Title = "銀河鉄道の夜",
-                //    PublishedYear = 1989,
-                //    Author = author2,
-                //};
-                //db.Books.Add ( book2 );
+                var author4 = db.Authors.First ( a => a.Name == "川端康成" );
+                var book2 = new Book {
+                    Title = "伊豆の踊子",
+                    PublishedYear = 2003,
+                    Author = author4,
+                };
+                db.Books.Add ( book2 );
+
+                var author5 = db.Authors.First ( a => a.Name == "菊池寛" );
+                var book3 = new Book {
+                    Title = "真珠夫人",
+                    PublishedYear = 2002,
+                    Author = author5,
+                };
+                db.Books.Add ( book3 );
+
+                var author6 = db.Authors.First ( a => a.Name == "宮沢賢治" );
+                var book4 = new Book {
+                    Title = "注文の多い料理店",
+                    PublishedYear = 2000,
+                    Author = author6,
+                };
+                db.Books.Add ( book4 );
 
                 db.SaveChanges ();
 
@@ -82,18 +102,56 @@ namespace SampleEntityFramework {
         }
 
         private static void Exercise1_2() {
-
+            using (var db = new BooksDbContext()) {
+                foreach (var book in db.Books.Include ( nameof ( Author ) ).ToList ()) {
+                    Console.WriteLine ( $"{book.Title}:{book.PublishedYear}:{book.Author.Name}" );
+                }
+            }
         }
 
         private static void Exercise1_3() {
+            using (var db = new BooksDbContext()) {
+                var orderedByTitle = db.Books.OrderByDescending ( b => b.Title.Length ).ToList();//タイトルの長さで並び替え
+                int maxLength = db.Books.Max ( b => b.Title.Length );   //タイトルの長さの最大値
+
+                var longestBooks = orderedByTitle.TakeWhile ( b => b.Title.Length >= maxLength );
+                foreach (var book in longestBooks) {
+                    Console.WriteLine ( $"{book.Title}" );
+                }
+
+            }
+
 
         }
 
         private static void Exercise1_4() {
+            using (var db = new BooksDbContext ()) {
+                var orderedByPublishedyear= db.Books.Include(nameof( Author)).OrderBy( b => b.PublishedYear).ToList ();//古い順で並び替え
 
+                foreach (var book in orderedByPublishedyear.Take(3)) {
+                    Console.WriteLine ( $"{book.Title}:{book.Author.Name}" );
+                }
+            }
         }
 
         private static void Exercise1_5() {
+            using (var db = new BooksDbContext()) {
+                var orderedAuthors = db.Authors.OrderByDescending ( a => a.Birthday ).ToList();
+
+                foreach (var author in orderedAuthors) {
+
+                    var author_books = db.Books.Where ( b => b.Author.Name == author.Name ).ToList();
+
+                    foreach (var book in author_books) {
+                        Console.WriteLine ($"{author.Name}:{book.Title}");
+                    }
+                    Console.WriteLine ( "=================" );
+
+                }
+
+
+            }
+
 
         }
 
