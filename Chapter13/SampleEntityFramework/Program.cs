@@ -14,7 +14,9 @@ namespace SampleEntityFramework {
             //InsertBooks ();
             //AddAuthors ();
 
-            #region 前提のデータの追加
+
+            #region 前提のデータの追加 
+            /*
             using (var db = new BooksDbContext ()) {
                 var book1 = new Book {
                     Title = "坊ちゃん",
@@ -71,11 +73,12 @@ namespace SampleEntityFramework {
 
                 db.SaveChanges ();
             }
-            #endregion
+            */
+            #endregion 
 
 
             Console.WriteLine ( "# 1.1" );
-            Exercise1_1 ();
+            //Exercise1_1 ();
 
             Console.WriteLine ();
             Console.WriteLine ( "# 1.2" );
@@ -171,6 +174,8 @@ namespace SampleEntityFramework {
         private static void Exercise1_3() {
             using (var db = new BooksDbContext()) {
                 int maxLength = db.Books.Max ( b => b.Title.Length );   //タイトルの長さの最大値
+                //where内でmaxを使ってそのまま条件にもできる
+
                 foreach (var book in db.Books.Where ( b => b.Title.Length >= maxLength )) {
                     Console.WriteLine ( $"{book.Title}" );
                 }
@@ -183,6 +188,7 @@ namespace SampleEntityFramework {
         private static void Exercise1_4() {
             using (var db = new BooksDbContext ()) {
                 var orderedByPublishedyear= db.Books.Include(nameof( Author)).OrderBy( b => b.PublishedYear).ToList ();//古い順で並び替え
+                //上のところでtake(3)してもよい
 
                 foreach (var book in orderedByPublishedyear.Take(3)) {
                     Console.WriteLine ( $"{book.Title}:{book.Author.Name}" );
@@ -197,11 +203,21 @@ namespace SampleEntityFramework {
                 foreach (var author in orderedAuthors) {
 
                     var author_books = db.Books.Where ( b => b.Author.Name == author.Name ).ToList();
+                    
 
-                    foreach (var book in author_books) {
-                        Console.WriteLine ($"{author.Name}:{book.Title}");
+
+                    //foreach (var book in author_books) {
+                    //    Console.WriteLine ($"{author.Name}:{book.Title}");
+                    //}
+                        
+
+                    //授業での回答 
+                    foreach (var books in author.Books.ToArray ()) {
+                        Console.WriteLine ( $"{author.Name}:{books.Title}" );
                     }
+
                     Console.WriteLine ( "=================" );
+
                 }
             }
         }
