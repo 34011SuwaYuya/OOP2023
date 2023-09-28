@@ -13,6 +13,8 @@ using System.Xml.Linq;
 
 namespace RssReader {
     public partial class Form1 : Form {
+        IEnumerable<ItemData> nodes ;
+
         public Form1() {
             InitializeComponent ();
         }
@@ -22,18 +24,30 @@ namespace RssReader {
                 var url = wc.OpenRead ( tbUrl.Text );
 
                 XDocument xdoc = XDocument.Load ( url );
-                var nodes = xdoc.Root.Descendants ( "item" ).Select(x => new ItemData {
+
+
+                nodes = xdoc.Root.Descendants ( "item" ).Select(x => new ItemData {
                     Title = x.Element("title").Value,
-                    //link = x.Element("link").Value,
+                    link =(string) x.Element ( "link" ),
                 }
                 );
 
                 foreach (var item in nodes) {
                     lbRssTitle.Items.Add ( item.Title);
-                    //lbRssTitle.Items.Add ( item.link);
+                    //lbRssTitle.Items.Add ( item.link );
                 }
 
             }
+        }
+
+        private void lbRssTitle_SelectedIndexChanged(object sender, EventArgs e) {
+
+            //var targetUrl = lbRssTitle.SelectedItem.ToString();
+            var targetUrl = nodes.First ( n => n.Title == lbRssTitle.SelectedItem.ToString()).link.ToString();
+            wbBrowser.Navigate ( targetUrl);    //ここに対象のページのアドレスを入れる
+        }
+
+        private void lbRssTitle_MouseClick(object sender, MouseEventArgs e) {
         }
     }
 }

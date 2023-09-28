@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 namespace RssReader {
     public class ItemData {
         public string Title { get; set; }
-        //public string link { get; set; }
+        public string link { get; set; }
     }
 }
