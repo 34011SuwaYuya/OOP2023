@@ -24,7 +24,6 @@ namespace CarReportSystem {
         /// コード エディターで変更しないでください。
         /// </summary>
         private void InitializeComponent() {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.label1 = new System.Windows.Forms.Label();
             this.dtpDate = new System.Windows.Forms.DateTimePicker();
@@ -69,7 +68,7 @@ namespace CarReportSystem {
             this.tsInfo = new System.Windows.Forms.ToolStripStatusLabel();
             this.cdColor = new System.Windows.Forms.ColorDialog();
             this.btScaleChange = new System.Windows.Forms.Button();
-            this.tmTimeUpdate = new System.Windows.Forms.Timer(this.components);
+            this.tmTimeUpdate = new System.Windows.Forms.Timer();
             this.ofdCarReportOpen = new System.Windows.Forms.OpenFileDialog();
             this.sfdCarReportSave = new System.Windows.Forms.SaveFileDialog();
             this.gbMaker.SuspendLayout();
