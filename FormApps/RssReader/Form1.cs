@@ -14,14 +14,31 @@ using System.Xml.Linq;
 namespace RssReader {
     public partial class Form1 : Form {
         List<ItemData> nodes ;
-
+        Dictionary<string, string> titleAndUrl = new Dictionary<string, string> ();
         public Form1() {
             InitializeComponent ();
+            initilizeTitleUrl ();
             setCBGenre ();
+        }
+
+        private void initilizeTitleUrl() {
+            titleAndUrl.Add ( "主要", "https://news.yahoo.co.jp/rss/topics/top-picks.xml" );
+            titleAndUrl.Add ( "国内", "https://news.yahoo.co.jp/rss/topics/domestic.xml" );
+            titleAndUrl.Add ( "国際", "https://news.yahoo.co.jp/rss/topics/world.xml" );
+            titleAndUrl.Add ( "経済", "https://news.yahoo.co.jp/rss/topics/business.xml" );
+            titleAndUrl.Add ( "エンタメ", "https://news.yahoo.co.jp/rss/topics/entertainment.xml" );
+            titleAndUrl.Add ( "スポーツ", "https://news.yahoo.co.jp/rss/topics/sports.xml" );
+            titleAndUrl.Add ( "IT", "https://news.yahoo.co.jp/rss/topics/it.xml" );
+            titleAndUrl.Add ( "科学", "https://news.yahoo.co.jp/rss/topics/science.xml" );
+            titleAndUrl.Add ( "地域", "https://news.yahoo.co.jp/rss/topics/local.xml" );
         }
 
         private void btGet_Click(object sender, EventArgs e) {
             using (var wc = new WebClient()) {
+                if (tbUrl.Text =="") {
+                    return;
+                }
+
                 var url = wc.OpenRead ( tbUrl.Text );
 
                 XDocument xdoc = XDocument.Load ( url );
@@ -33,6 +50,7 @@ namespace RssReader {
                 }
                 ).ToList();
 
+                lbRssTitle.Items.Clear ();
                 foreach (var item in nodes) {
                     lbRssTitle.Items.Add ( item.Title);
                     //lbRssTitle.Items.Add ( item.link );
@@ -60,61 +78,25 @@ namespace RssReader {
         }
 
         private void setCBGenre() {
-            cbGenre.Items.Add ( "主要" );
-            cbGenre.Items.Add ( "国内" );
-            cbGenre.Items.Add ( "国際" );
-            cbGenre.Items.Add ( "経済" );
-            cbGenre.Items.Add ( "エンタメ" );
-            cbGenre.Items.Add ( "スポーツ" );
-            cbGenre.Items.Add ( "IT" );
-            cbGenre.Items.Add ( "科学" );
-            cbGenre.Items.Add ( "地域" );
+
+            foreach (var item in titleAndUrl) {
+                cbGenre.Items.Add ( item.Key );
+            }
         }
 
         private void btGenreGet_Click(object sender, EventArgs e) {
-            string genre = cbGenre.Text ;
             string genrePage = "";
+            bool comboboxAdd = false;
 
-            switch (genre) {
-                case "主要":
-                    genrePage = "https://news.yahoo.co.jp/rss/topics/top-picks.xml";
-                    break;
-                case "国内":
-                    genrePage = "https://news.yahoo.co.jp/rss/topics/domestic.xml";
-                    break;
-
-                case "国際":
-                    genrePage = "https://news.yahoo.co.jp/rss/topics/world.xml";
-                    break;
-
-                case "経済":
-                    genrePage = "https://news.yahoo.co.jp/rss/topics/business.xml";
-                    break;
-
-                case "エンタメ":
-                    genrePage = "https://news.yahoo.co.jp/rss/topics/entertainment.xml";
-                    break;
-
-                case "スポーツ":
-                    genrePage = "https://news.yahoo.co.jp/rss/topics/sports.xml";
-                    break;
-
-                case "IT":
-                    genrePage = "https://news.yahoo.co.jp/rss/topics/it.xml";
-                    break;
-
-                case "科学":
-                    genrePage = "https://news.yahoo.co.jp/rss/topics/science.xml";
-                    break;
-
-                case "地域":
-                    genrePage = "https://news.yahoo.co.jp/rss/topics/local.xml";
-                    break;
-
-                default:
-                    newPage ();
-                    break;
+            if (titleAndUrl.ContainsKey(cbGenre.Text)) {
+                genrePage = titleAndUrl[cbGenre.Text];
             }
+            else {
+                genrePage = cbGenre.Text;
+                comboboxAdd = true;
+            }
+
+            
             using (var wc = new WebClient ()) {
 
                 
@@ -132,13 +114,11 @@ namespace RssReader {
                 foreach (var item in nodes) {
                     lbRssTitle.Items.Add ( item.Title );
                 }
+                if (comboboxAdd) {
+                    cbGenre.Items.Add ( xdoc.Root.Element ( "channel" ).Element ( "title" ).Value );
+                }
 
             }
         }
-
-        private void newPage() {
-            
-        }
-
     }
 }

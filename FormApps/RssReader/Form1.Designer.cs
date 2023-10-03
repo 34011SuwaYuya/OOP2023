@@ -76,7 +76,7 @@ namespace RssReader {
             this.cbGenre.FormattingEnabled = true;
             this.cbGenre.Location = new System.Drawing.Point(111, 494);
             this.cbGenre.Name = "cbGenre";
-            this.cbGenre.Size = new System.Drawing.Size(121, 20);
+            this.cbGenre.Size = new System.Drawing.Size(498, 20);
             this.cbGenre.TabIndex = 4;
             // 
             // label_select
@@ -90,7 +90,7 @@ namespace RssReader {
             // 
             // btGenreGet
             // 
-            this.btGenreGet.Location = new System.Drawing.Point(238, 492);
+            this.btGenreGet.Location = new System.Drawing.Point(615, 492);
             this.btGenreGet.Name = "btGenreGet";
             this.btGenreGet.Size = new System.Drawing.Size(75, 23);
             this.btGenreGet.TabIndex = 6;
