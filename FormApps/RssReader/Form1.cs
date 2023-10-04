@@ -33,31 +33,31 @@ namespace RssReader {
             titleAndUrl.Add ( "地域", "https://news.yahoo.co.jp/rss/topics/local.xml" );
         }
 
-        private void btGet_Click(object sender, EventArgs e) {
-            using (var wc = new WebClient()) {
-                if (tbUrl.Text =="") {
-                    return;
-                }
+        //最初のテキストボックスを消した
+        //private void btGet_Click(object sender, EventArgs e) {
+        //    using (var wc = new WebClient()) {
+        //        if (tbUrl.Text =="") {
+        //            return;
+        //        }
 
-                var url = wc.OpenRead ( tbUrl.Text );
+        //        var url = wc.OpenRead ( tbUrl.Text );
+        //        XDocument xdoc = XDocument.Load ( url );
 
-                XDocument xdoc = XDocument.Load ( url );
 
+        //        nodes = xdoc.Root.Descendants ( "item" ).Select(x => new ItemData {
+        //            Title = x.Element("title").Value,
+        //            link =(string) x.Element ( "link" ),
+        //        }
+        //        ).ToList();
 
-                nodes = xdoc.Root.Descendants ( "item" ).Select(x => new ItemData {
-                    Title = x.Element("title").Value,
-                    link =(string) x.Element ( "link" ),
-                }
-                ).ToList();
+        //        lbRssTitle.Items.Clear ();
+        //        foreach (var item in nodes) {
+        //            lbRssTitle.Items.Add ( item.Title);
+        //            //lbRssTitle.Items.Add ( item.link );
+        //        }
 
-                lbRssTitle.Items.Clear ();
-                foreach (var item in nodes) {
-                    lbRssTitle.Items.Add ( item.Title);
-                    //lbRssTitle.Items.Add ( item.link );
-                }
-
-            }
-        }
+        //    }
+        //}
 
         private void lbRssTitle_SelectedIndexChanged(object sender, EventArgs e) {
 
@@ -88,6 +88,10 @@ namespace RssReader {
             string genrePage = "";
             bool comboboxAdd = false;
 
+            if (cbGenre.Text == "") {
+                return;
+            }
+
             if (titleAndUrl.ContainsKey(cbGenre.Text)) {
                 genrePage = titleAndUrl[cbGenre.Text];
             }
@@ -99,7 +103,6 @@ namespace RssReader {
             
             using (var wc = new WebClient ()) {
 
-                
                 var url = wc.OpenRead ( genrePage );
 
                 XDocument xdoc = XDocument.Load ( url );
@@ -114,8 +117,9 @@ namespace RssReader {
                 foreach (var item in nodes) {
                     lbRssTitle.Items.Add ( item.Title );
                 }
-                if (comboboxAdd) {
+                if (comboboxAdd && !titleAndUrl.ContainsKey(cbGenre.Text)) {
                     cbGenre.Items.Add ( xdoc.Root.Element ( "channel" ).Element ( "title" ).Value );
+                    titleAndUrl.Add ( xdoc.Root.Element ( "channel" ).Element ( "title" ).Value, cbGenre.Text );
                 }
 
             }
