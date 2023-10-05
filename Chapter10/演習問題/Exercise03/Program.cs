@@ -18,7 +18,7 @@ namespace Exercise03 {
             foreach (var item in texts) {
                 var matches = Regex.Matches (item, @"\btime\b", RegexOptions.IgnoreCase);
                 foreach (Match match in matches) {
-                    Console.WriteLine ( match.Index );
+                    Console.WriteLine ("{0} {1}", item, match.Index );
                 }
             }
             

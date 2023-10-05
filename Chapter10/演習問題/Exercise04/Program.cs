@@ -20,6 +20,8 @@ namespace Exercise04 {
 
             File.WriteAllLines ( "sample.txt", lines );
 
+
+
             // これ以降は確認用
             var text = File.ReadAllText("sample.txt");
             Console.WriteLine(text);

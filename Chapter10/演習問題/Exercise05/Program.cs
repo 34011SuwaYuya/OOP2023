@@ -16,21 +16,24 @@ namespace Exercise05 {
             var lines = File.ReadLines(file);
             var sb = new StringBuilder();
 
+            string thisLine;
             foreach (string line in lines) {
+                thisLine = line;
+                
+                var matches = Regex.Matches ( line, @"<.*>" );
 
-                var matches = Regex.Matches ( line, @"<([^<>]+)>" );
                 foreach (Match match in matches) {
-                    line = Regex.Replace ( line, match.Value, match.Value.ToLower () );
+                    thisLine = Regex.Replace ( line,  match.Value, match.Value.ToLower());
                 }
-
+                sb.AppendLine ( thisLine );
             }
 
 
-
+            Console.WriteLine ( sb.ToString () );
 
 
             //ファイル出力
-            File.WriteAllText(file, sb.ToString());
+            File.WriteAllText ( file, sb.ToString () );
         }
     }
 }
