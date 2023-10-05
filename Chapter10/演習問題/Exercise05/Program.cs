@@ -20,20 +20,25 @@ namespace Exercise05 {
             foreach (string line in lines) {
                 thisLine = line;
                 
-                var matches = Regex.Matches ( line, @"<.*>" );
-
-                foreach (Match match in matches) {
-                    thisLine = Regex.Replace ( line,  match.Value, match.Value.ToLower());
+                var matches = Regex.Matches ( line, @"<[^<>]+>" );
+                foreach (var item in matches) {
+                    Console.WriteLine ( item.ToString().ToLower() );
                 }
-                sb.AppendLine ( thisLine );
+                Console.WriteLine(@"---------------------------");
+
+
+                //foreach (Match match in matches) {
+                //    thisLine = Regex.Replace ( line,  match.Value, match.Value.ToLower());
+                //}
+                //sb.AppendLine ( thisLine );
             }
 
 
-            Console.WriteLine ( sb.ToString () );
+            //Console.WriteLine ( sb.ToString () );
 
 
             //ファイル出力
-            File.WriteAllText ( file, sb.ToString () );
+            //File.WriteAllText ( file, sb.ToString () );
         }
     }
 }
