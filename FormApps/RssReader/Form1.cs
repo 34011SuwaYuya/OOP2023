@@ -80,30 +80,28 @@ namespace RssReader {
         private void setCBGenre() {
 
             foreach (var item in titleAndUrl) {
-                cbGenre.Items.Add ( item.Key );
+                cbUrlOrGenre.Items.Add ( item.Key );
             }
         }
 
-        private void btGenreGet_Click(object sender, EventArgs e) {
-            string genrePage = "";
-            bool comboboxAdd = false;
+        private void btUrlOrGenreGet_Click(object sender, EventArgs e) {
+            string pageUrl = "";
 
-            if (cbGenre.Text == "") {
+            
+
+            if (titleAndUrl.ContainsKey ( cbUrlOrGenre.Text )) {//有効なジャンル名が入っている場合
+                pageUrl = titleAndUrl[cbUrlOrGenre.Text];
+            }
+            else if (ValidURL ( cbUrlOrGenre.Text )) {  //有効なurlが入っている
+                pageUrl = cbUrlOrGenre.Text;
+            }
+            else {
                 return;
             }
 
-            if (titleAndUrl.ContainsKey(cbGenre.Text)) {
-                genrePage = titleAndUrl[cbGenre.Text];
-            }
-            else {
-                genrePage = cbGenre.Text;
-                comboboxAdd = true;
-            }
-
-            
             using (var wc = new WebClient ()) {
 
-                var url = wc.OpenRead ( genrePage );
+                var url = wc.OpenRead ( pageUrl );
 
                 XDocument xdoc = XDocument.Load ( url );
 
@@ -117,12 +115,54 @@ namespace RssReader {
                 foreach (var item in nodes) {
                     lbRssTitle.Items.Add ( item.Title );
                 }
-                if (comboboxAdd && !titleAndUrl.ContainsKey(cbGenre.Text)) {
-                    cbGenre.Items.Add ( xdoc.Root.Element ( "channel" ).Element ( "title" ).Value );
-                    titleAndUrl.Add ( xdoc.Root.Element ( "channel" ).Element ( "title" ).Value, cbGenre.Text );
-                }
-
             }
         }
+
+        private static bool ValidURL(string url ) {
+            Uri resultURI;
+            if (Uri.TryCreate(url, UriKind.Absolute, out resultURI)) {
+                return ( resultURI.Scheme == Uri.UriSchemeHttp || resultURI.Scheme == Uri.UriSchemeHttps );
+            }
+            return false;
+        }
+
+        private void btFavorite_Click(object sender, EventArgs e) {
+            string genrePage = "";
+            bool comboboxAdd = false;
+
+            if (ValidURL ( cbUrlOrGenre.Text )) { //有効なURLが入力されている
+                genrePage = cbUrlOrGenre.Text;
+                comboboxAdd = true;
+            }
+            else {
+                return;
+            }
+
+
+            using (var wc = new WebClient ()) {
+
+                var url = wc.OpenRead ( genrePage );
+
+                XDocument xdoc = XDocument.Load ( url );
+
+                nodes = xdoc.Root.Descendants ( "item" ).Select ( x => new ItemData {
+                    Title = x.Element ( "title" ).Value,
+                    link = (string)x.Element ( "link" ),
+                }
+                ).ToList ();
+
+                lbRssTitle.Items.Clear ();
+
+                foreach (var item in nodes) {
+                    lbRssTitle.Items.Add ( item.Title );
+                }
+                if (comboboxAdd && !titleAndUrl.ContainsKey ( cbUrlOrGenre.Text )) {
+                    cbUrlOrGenre.Items.Add ( xdoc.Root.Element ( "channel" ).Element ( "title" ).Value );
+                    titleAndUrl.Add ( xdoc.Root.Element ( "channel" ).Element ( "title" ).Value, cbUrlOrGenre.Text );
+                }
+            }
+        }
+
+        
     }
 }
