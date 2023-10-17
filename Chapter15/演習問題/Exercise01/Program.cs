@@ -93,11 +93,11 @@ namespace Exercise01 {
                 Library.Categories,
                 id => id,
                 c => c.Id,
-                (id, c) => new { CategoryID = id , Categoryname = c.Name } ).
-                OrderBy(cn => cn.Categoryname);
+                (id, c) =>  c.Name  ).
+                OrderBy(cn => cn);
 
             foreach (var cName in cNames2016) {
-                Console.WriteLine ( cName.Categoryname );
+                Console.WriteLine ( cName);
             }
 
            
@@ -107,6 +107,8 @@ namespace Exercise01 {
 
         private static void Exercise1_6() {
 
+
+            //本来はGroupByを使う必要がある　joinしてからgroupByする
             var groups = Library.Categories.GroupJoin ( Library.Books, c => c.Id, b => b.CategoryId,
                 (c, books) => new { Category = c.Name, Books = books } ).OrderBy(g => g.Category);
 
@@ -127,6 +129,17 @@ namespace Exercise01 {
                     Console.WriteLine ( book.Title );
                 }
             }
+
+            //模範解答
+            //var catid = Library.Categories.Single ( c => c.Name == "Development" ).Id;
+            //var groups2 = Library.Books.Where ( b => b.CategoryId == catid ).GroupBy ( b => b.PublishedYear ).OrderBy ( g => g.Key );
+            //foreach (var group in groups2) {
+            //    Console.WriteLine ( "#{0}年", group.Key );
+            //    foreach (Book book in group) {
+            //        Console.WriteLine ( book.Title );
+            //    }
+            //}
+
         }
 
         private static void Exercise1_8() {

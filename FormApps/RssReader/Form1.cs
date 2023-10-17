@@ -87,12 +87,12 @@ namespace RssReader {
         private void btUrlOrGenreGet_Click(object sender, EventArgs e) {
             string pageUrl = "";
 
-            
+
 
             if (titleAndUrl.ContainsKey ( cbUrlOrGenre.Text )) {//有効なジャンル名が入っている場合
                 pageUrl = titleAndUrl[cbUrlOrGenre.Text];
             }
-            else if (ValidURL ( cbUrlOrGenre.Text )) {  //有効なurlが入っている
+            else if (ValidHttpURL( cbUrlOrGenre.Text, out Uri resultURI )) {  //有効なurlが入っている
                 pageUrl = cbUrlOrGenre.Text;
             }
             else {
@@ -118,19 +118,13 @@ namespace RssReader {
             }
         }
 
-        private static bool ValidURL(string url ) {
-            Uri resultURI;
-            if (Uri.TryCreate(url, UriKind.Absolute, out resultURI)) {
-                return ( resultURI.Scheme == Uri.UriSchemeHttp || resultURI.Scheme == Uri.UriSchemeHttps );
-            }
-            return false;
-        }
+        
 
         private void btFavorite_Click(object sender, EventArgs e) {
             string genrePage = "";
             bool comboboxAdd = false;
 
-            if (ValidURL ( cbUrlOrGenre.Text )) { //有効なURLが入力されている
+            if (ValidHttpURL ( cbUrlOrGenre.Text, out Uri uri )) { //有効なURLが入力されている
                 genrePage = cbUrlOrGenre.Text;
                 comboboxAdd = true;
             }
@@ -162,6 +156,19 @@ namespace RssReader {
                 }
             }
         }
+      
+
+        public static bool ValidHttpURL(string s, out Uri resultURI) {
+            //if (!Regex.IsMatch ( s, @"^https?:\/\/", RegexOptions.IgnoreCase ))
+            //    s = "http://" + s;
+
+            if (Uri.TryCreate ( s, UriKind.Absolute, out resultURI ))
+                return ( resultURI.Scheme == Uri.UriSchemeHttp ||
+                        resultURI.Scheme == Uri.UriSchemeHttps );
+
+            return false;
+        }
+
 
         
     }
