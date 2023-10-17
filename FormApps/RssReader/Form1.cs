@@ -119,7 +119,7 @@ namespace RssReader {
         }
 
         
-
+        //お気に入り登録
         private void btFavorite_Click(object sender, EventArgs e) {
             string genrePage = "";
             bool comboboxAdd = false;
@@ -169,7 +169,8 @@ namespace RssReader {
             return false;
         }
 
+        private void button1_Click(object sender, EventArgs e) {
 
-        
+        }
     }
 }

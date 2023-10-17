@@ -32,6 +32,8 @@ namespace RssReader {
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.lbUrl = new System.Windows.Forms.Label();
             this.lbFavoriteName = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // lbRssTitle
@@ -107,12 +109,32 @@ namespace RssReader {
             this.lbFavoriteName.TabIndex = 11;
             this.lbFavoriteName.Text = "お気に入り名称：";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(560, 542);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 13;
+            this.button1.Text = "有効チェック";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(454, 544);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 19);
+            this.textBox2.TabIndex = 12;
+            this.textBox2.Text = "url入力";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(965, 595);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.lbFavoriteName);
             this.Controls.Add(this.lbUrl);
             this.Controls.Add(this.textBox1);
@@ -137,6 +159,8 @@ namespace RssReader {
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label lbUrl;
         private System.Windows.Forms.Label lbFavoriteName;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }
 

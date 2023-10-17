@@ -8,27 +8,27 @@ namespace Exercise01 {
     class Program {
         static void Main(string[] args) {
 
-            //Console.WriteLine ( "1-2" );
-            //Exercise1_2 ();
-            //Console.WriteLine ();
-            //Console.WriteLine ( "1-3" );
-            //Exercise1_3 ();
-            //Console.WriteLine ();
-            //Console.WriteLine ( "1-4" );
-            //Exercise1_4 ();
-            //Console.WriteLine ();
-            //Console.WriteLine ( "1-5" );
-            //Exercise1_5 ();
-            //Console.WriteLine ();
-            //Console.WriteLine ( "1-6" );
-            //Exercise1_6 ();
-            //Console.WriteLine ();
-            //Console.WriteLine ( "1-7" );
-            //Exercise1_7 ();
-            //Console.WriteLine ();
-            //Console.WriteLine ( "1-8" );
-            //Exercise1_8 ();
-            //Console.WriteLine ();
+            Console.WriteLine ( "1-2" );
+            Exercise1_2 ();
+            Console.WriteLine ();
+            Console.WriteLine ( "1-3" );
+            Exercise1_3 ();
+            Console.WriteLine ();
+            Console.WriteLine ( "1-4" );
+            Exercise1_4 ();
+            Console.WriteLine ();
+            Console.WriteLine ( "1-5" );
+            Exercise1_5 ();
+            Console.WriteLine ();
+            Console.WriteLine ( "1-6" );
+            Exercise1_6 ();
+            Console.WriteLine ();
+            Console.WriteLine ( "1-7" );
+            Exercise1_7 ();
+            Console.WriteLine ();
+            Console.WriteLine ( "1-8" );
+            Exercise1_8 ();
+            Console.WriteLine ();
 
             Console.ReadLine ();
         }
