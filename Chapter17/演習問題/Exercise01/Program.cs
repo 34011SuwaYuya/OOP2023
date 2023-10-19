@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Exercise01 {
     class Program {
         static void Main(string[] args) {
-            TextProcessor.Run<NumberReplaceProcessor> ("filename");
+            TextProcessor.Run<ToHankakuProcessor> ( @"Sample.txt" );
         }
     }
 }
