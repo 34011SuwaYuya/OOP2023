@@ -184,6 +184,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exercise02", "Chapter17\演
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exercise03", "Chapter17\演習問題\Exercise03\Exercise03.csproj", "{6AE1EE0F-E931-4849-A398-074F0829B303}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WPF", "WPF", "{3A770D20-BC6B-4907-BCE0-9189277C737A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleApplication", "WPF\SampleApplication\SampleApplication.csproj", "{ED41BC1B-072A-480F-845C-DB486F3F88ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -422,6 +426,10 @@ Global
 		{6AE1EE0F-E931-4849-A398-074F0829B303}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6AE1EE0F-E931-4849-A398-074F0829B303}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6AE1EE0F-E931-4849-A398-074F0829B303}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED41BC1B-072A-480F-845C-DB486F3F88ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED41BC1B-072A-480F-845C-DB486F3F88ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED41BC1B-072A-480F-845C-DB486F3F88ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED41BC1B-072A-480F-845C-DB486F3F88ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -499,6 +507,7 @@ Global
 		{2AF4CAFA-6773-4FAC-AE32-906DAC531657} = {DC3262B9-5482-49AE-9FDC-4C494486CDBA}
 		{CCEE8450-2593-48A9-8233-00EC09A78FF4} = {DC3262B9-5482-49AE-9FDC-4C494486CDBA}
 		{6AE1EE0F-E931-4849-A398-074F0829B303} = {DC3262B9-5482-49AE-9FDC-4C494486CDBA}
+		{ED41BC1B-072A-480F-845C-DB486F3F88ED} = {3A770D20-BC6B-4907-BCE0-9189277C737A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9359DAC5-F795-40AA-9CEE-813EA798D837}

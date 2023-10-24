@@ -121,38 +121,34 @@ namespace RssReader {
         
         //お気に入り登録
         private void btFavorite_Click(object sender, EventArgs e) {
-            string genrePage = "";
-            bool comboboxAdd = false;
 
-            if (ValidHttpURL ( cbUrlOrGenre.Text, out Uri uri )) { //有効なURLが入力されている
-                genrePage = cbUrlOrGenre.Text;
-                comboboxAdd = true;
+            if (cbUrlOrGenre.Text == "" || textBox1.Text == "") {
+                return;
             }
-            else {
+
+            if (!ValidHttpURL(cbUrlOrGenre.Text, out Uri resultURI )) {
                 return;
             }
 
 
             using (var wc = new WebClient ()) {
-
-                var url = wc.OpenRead ( genrePage );
-
+                var url = wc.OpenRead ( cbUrlOrGenre.Text );
                 XDocument xdoc = XDocument.Load ( url );
-
                 nodes = xdoc.Root.Descendants ( "item" ).Select ( x => new ItemData {
                     Title = x.Element ( "title" ).Value,
                     link = (string)x.Element ( "link" ),
                 }
                 ).ToList ();
 
+                //ListBox更新
                 lbRssTitle.Items.Clear ();
-
                 foreach (var item in nodes) {
                     lbRssTitle.Items.Add ( item.Title );
                 }
-                if (comboboxAdd && !titleAndUrl.ContainsKey ( cbUrlOrGenre.Text )) {
-                    cbUrlOrGenre.Items.Add ( xdoc.Root.Element ( "channel" ).Element ( "title" ).Value );
-                    titleAndUrl.Add ( xdoc.Root.Element ( "channel" ).Element ( "title" ).Value, cbUrlOrGenre.Text );
+
+                if (titleAndUrl.ContainsKey ( cbUrlOrGenre.Text )) {
+                    cbUrlOrGenre.Items.Add ( textBox1.Text );
+                    titleAndUrl.Add ( textBox1.Text, cbUrlOrGenre.Text );
                 }
             }
         }
@@ -162,15 +158,11 @@ namespace RssReader {
             //if (!Regex.IsMatch ( s, @"^https?:\/\/", RegexOptions.IgnoreCase ))
             //    s = "http://" + s;
 
-            if (Uri.TryCreate ( s, UriKind.Absolute, out resultURI ))
-                return ( resultURI.Scheme == Uri.UriSchemeHttp ||
-                        resultURI.Scheme == Uri.UriSchemeHttps );
-
+            if (Uri.TryCreate ( s, UriKind.Absolute, out resultURI )) {
+                return ( resultURI.Scheme == Uri.UriSchemeHttp || resultURI.Scheme == Uri.UriSchemeHttps );
+            }
+                
             return false;
-        }
-
-        private void button1_Click(object sender, EventArgs e) {
-
         }
     }
 }
