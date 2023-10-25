@@ -26,10 +26,10 @@ namespace RssReader {
         private void InitializeComponent() {
             this.lbRssTitle = new System.Windows.Forms.ListBox();
             this.wbBrowser = new System.Windows.Forms.WebBrowser();
-            this.btUrlGet = new System.Windows.Forms.Button();
+            this.btGet = new System.Windows.Forms.Button();
             this.cbUrlOrGenre = new System.Windows.Forms.ComboBox();
             this.btFavorite = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.favoriteName = new System.Windows.Forms.TextBox();
             this.lbUrl = new System.Windows.Forms.Label();
             this.lbFavoriteName = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -42,7 +42,6 @@ namespace RssReader {
             this.lbRssTitle.Name = "lbRssTitle";
             this.lbRssTitle.Size = new System.Drawing.Size(920, 136);
             this.lbRssTitle.TabIndex = 2;
-            this.lbRssTitle.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lbRssTitle_MouseClick);
             this.lbRssTitle.SelectedIndexChanged += new System.EventHandler(this.lbRssTitle_SelectedIndexChanged);
             // 
             // wbBrowser
@@ -54,15 +53,15 @@ namespace RssReader {
             this.wbBrowser.Size = new System.Drawing.Size(920, 250);
             this.wbBrowser.TabIndex = 3;
             // 
-            // btUrlGet
+            // btGet
             // 
-            this.btUrlGet.Location = new System.Drawing.Point(618, 12);
-            this.btUrlGet.Name = "btUrlGet";
-            this.btUrlGet.Size = new System.Drawing.Size(75, 23);
-            this.btUrlGet.TabIndex = 6;
-            this.btUrlGet.Text = "取得";
-            this.btUrlGet.UseVisualStyleBackColor = true;
-            this.btUrlGet.Click += new System.EventHandler(this.btUrlOrGenreGet_Click);
+            this.btGet.Location = new System.Drawing.Point(618, 12);
+            this.btGet.Name = "btGet";
+            this.btGet.Size = new System.Drawing.Size(75, 23);
+            this.btGet.TabIndex = 6;
+            this.btGet.Text = "取得";
+            this.btGet.UseVisualStyleBackColor = true;
+            this.btGet.Click += new System.EventHandler(this.btGet_Click);
             // 
             // cbUrlOrGenre
             // 
@@ -82,12 +81,12 @@ namespace RssReader {
             this.btFavorite.UseVisualStyleBackColor = true;
             this.btFavorite.Click += new System.EventHandler(this.btFavorite_Click);
             // 
-            // textBox1
+            // favoriteName
             // 
-            this.textBox1.Location = new System.Drawing.Point(114, 52);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(187, 19);
-            this.textBox1.TabIndex = 9;
+            this.favoriteName.Location = new System.Drawing.Point(114, 52);
+            this.favoriteName.Name = "favoriteName";
+            this.favoriteName.Size = new System.Drawing.Size(187, 19);
+            this.favoriteName.TabIndex = 9;
             // 
             // lbUrl
             // 
@@ -115,9 +114,9 @@ namespace RssReader {
             this.ClientSize = new System.Drawing.Size(965, 595);
             this.Controls.Add(this.lbFavoriteName);
             this.Controls.Add(this.lbUrl);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.favoriteName);
             this.Controls.Add(this.btFavorite);
-            this.Controls.Add(this.btUrlGet);
+            this.Controls.Add(this.btGet);
             this.Controls.Add(this.cbUrlOrGenre);
             this.Controls.Add(this.wbBrowser);
             this.Controls.Add(this.lbRssTitle);
@@ -131,10 +130,10 @@ namespace RssReader {
         #endregion
         private System.Windows.Forms.ListBox lbRssTitle;
         private System.Windows.Forms.WebBrowser wbBrowser;
-        private System.Windows.Forms.Button btUrlGet;
+        private System.Windows.Forms.Button btGet;
         private System.Windows.Forms.ComboBox cbUrlOrGenre;
         private System.Windows.Forms.Button btFavorite;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox favoriteName;
         private System.Windows.Forms.Label lbUrl;
         private System.Windows.Forms.Label lbFavoriteName;
     }

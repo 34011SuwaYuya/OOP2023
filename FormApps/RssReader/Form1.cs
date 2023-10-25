@@ -11,6 +11,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 
+/*
+ * 取得ボタンを押すと[URL又はジャンル]のテキストのジャンルかurlの記事を取得する
+ * お気に入り登録ボタンは[URL又はジャンル]と[お気に入り名称]の両方にテキストが入っている場合、登録作業と記事の取得を行う
+ * お気に入りの名称が既存のものと被った場合は登録しない
+ */
+
+
+
 namespace RssReader {
     public partial class Form1 : Form {
         List<ItemData> nodes ;
@@ -33,36 +41,9 @@ namespace RssReader {
             titleAndUrl.Add ( "地域", "https://news.yahoo.co.jp/rss/topics/local.xml" );
         }
 
-        //最初のテキストボックスを消した
-        //private void btGet_Click(object sender, EventArgs e) {
-        //    using (var wc = new WebClient()) {
-        //        if (tbUrl.Text =="") {
-        //            return;
-        //        }
-
-        //        var url = wc.OpenRead ( tbUrl.Text );
-        //        XDocument xdoc = XDocument.Load ( url );
-
-
-        //        nodes = xdoc.Root.Descendants ( "item" ).Select(x => new ItemData {
-        //            Title = x.Element("title").Value,
-        //            link =(string) x.Element ( "link" ),
-        //        }
-        //        ).ToList();
-
-        //        lbRssTitle.Items.Clear ();
-        //        foreach (var item in nodes) {
-        //            lbRssTitle.Items.Add ( item.Title);
-        //            //lbRssTitle.Items.Add ( item.link );
-        //        }
-
-        //    }
-        //}
 
         private void lbRssTitle_SelectedIndexChanged(object sender, EventArgs e) {
 
-            //var targetUrl = lbRssTitle.SelectedItem.ToString();
-            //var targetUrl = nodes.First ( n => n.Title == lbRssTitle.SelectedItem.ToString()).link.ToString();
             string targetUrl;
             if (lbRssTitle.SelectedIndex < 0) {
                 targetUrl = nodes[0].link.ToString ();
@@ -71,34 +52,33 @@ namespace RssReader {
                 targetUrl = nodes[lbRssTitle.SelectedIndex].link.ToString ();
             }
 
-            wbBrowser.Navigate ( targetUrl);    //ここに対象のページのアドレスを入れる
+            wbBrowser.Navigate ( targetUrl);
         }
 
-        private void lbRssTitle_MouseClick(object sender, MouseEventArgs e) {
-        }
 
         private void setCBGenre() {
-
             foreach (var item in titleAndUrl) {
                 cbUrlOrGenre.Items.Add ( item.Key );
             }
         }
 
-        private void btUrlOrGenreGet_Click(object sender, EventArgs e) {
+        private void btGet_Click(object sender, EventArgs e) {
             string pageUrl = "";
-
-
 
             if (titleAndUrl.ContainsKey ( cbUrlOrGenre.Text )) {//有効なジャンル名が入っている場合
                 pageUrl = titleAndUrl[cbUrlOrGenre.Text];
             }
-            else if (ValidHttpURL( cbUrlOrGenre.Text, out Uri resultURI )) {  //有効なurlが入っている
+            else if (ValidHttpURL ( cbUrlOrGenre.Text, out Uri resultURI )) {  //有効なurlが入っている
                 pageUrl = cbUrlOrGenre.Text;
             }
             else {
                 return;
             }
 
+            openUrl ( pageUrl );
+        }
+
+        private void openUrl(string pageUrl) {
             using (var wc = new WebClient ()) {
 
                 var url = wc.OpenRead ( pageUrl );
@@ -109,7 +89,7 @@ namespace RssReader {
                     Title = x.Element ( "title" ).Value,
                     link = (string)x.Element ( "link" ),
                 }
-                ).ToList();
+                ).ToList ();
 
                 lbRssTitle.Items.Clear ();
                 foreach (var item in nodes) {
@@ -118,11 +98,11 @@ namespace RssReader {
             }
         }
 
-        
+
         //お気に入り登録
         private void btFavorite_Click(object sender, EventArgs e) {
 
-            if (cbUrlOrGenre.Text == "" || textBox1.Text == "") {
+            if (cbUrlOrGenre.Text == "" || favoriteName.Text == "") {
                 return;
             }
 
@@ -130,33 +110,16 @@ namespace RssReader {
                 return;
             }
 
+            openUrl ( cbUrlOrGenre.Text );
 
-            using (var wc = new WebClient ()) {
-                var url = wc.OpenRead ( cbUrlOrGenre.Text );
-                XDocument xdoc = XDocument.Load ( url );
-                nodes = xdoc.Root.Descendants ( "item" ).Select ( x => new ItemData {
-                    Title = x.Element ( "title" ).Value,
-                    link = (string)x.Element ( "link" ),
-                }
-                ).ToList ();
-
-                //ListBox更新
-                lbRssTitle.Items.Clear ();
-                foreach (var item in nodes) {
-                    lbRssTitle.Items.Add ( item.Title );
-                }
-
-                if (titleAndUrl.ContainsKey ( cbUrlOrGenre.Text )) {
-                    cbUrlOrGenre.Items.Add ( textBox1.Text );
-                    titleAndUrl.Add ( textBox1.Text, cbUrlOrGenre.Text );
-                }
+            if (!titleAndUrl.ContainsKey ( favoriteName.Text )) {
+                cbUrlOrGenre.Items.Add ( favoriteName.Text );
+                titleAndUrl.Add ( favoriteName.Text, cbUrlOrGenre.Text );
             }
         }
       
 
         public static bool ValidHttpURL(string s, out Uri resultURI) {
-            //if (!Regex.IsMatch ( s, @"^https?:\/\/", RegexOptions.IgnoreCase ))
-            //    s = "http://" + s;
 
             if (Uri.TryCreate ( s, UriKind.Absolute, out resultURI )) {
                 return ( resultURI.Scheme == Uri.UriSchemeHttp || resultURI.Scheme == Uri.UriSchemeHttps );
@@ -164,5 +127,6 @@ namespace RssReader {
                 
             return false;
         }
+
     }
 }
