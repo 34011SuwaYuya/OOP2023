@@ -12,9 +12,9 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Label x:Name="colorArea" Content=""  Margin="30,30,10,35" Width="224" Background="AliceBlue" HorizontalAlignment="Center" VerticalAlignment="Center" Height="354" RenderTransformOrigin="1.727,1.476"/>
+        <Label x:Name="colorArea" Content=""  Margin="30,30,10,35" Width="224" Background="{Binding ElementName=rValue }" HorizontalAlignment="Center" VerticalAlignment="Center" Height="354" RenderTransformOrigin="1.727,1.476"/>
 
-        <Grid Grid.Column="1" HorizontalAlignment="Left" Height="419" VerticalAlignment="Top" Width="264">
+        <Grid Grid.Column="1" HorizontalAlignment="Left" Height="419" VerticalAlignment="Top" Width="267">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -26,15 +26,15 @@
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <TextBlock x:Name="R" Grid.Row="0" Grid.Column="0" Text="R" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" />
-            <TextBlock x:Name="G" Grid.Row="1" Grid.Column="0" Text="G" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" />
-            <TextBlock x:Name="B" Grid.Row="2" Grid.Column="0" Text="B" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" />
-            <Slider x:Name="rSlider" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" />
-            <Slider x:Name="gSlider" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" />
-            <Slider x:Name="bSlider" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" />
-            <TextBlock x:Name="rValue" Grid.Row="0" Grid.Column="2" Text="{Binding ElementName=rSlider, Path=Value, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <TextBlock x:Name="gValue" Grid.Row="1" Grid.Column="2" Text="{Binding ElementName=gSlider, Path=Value, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <TextBlock x:Name="bValue" Grid.Row="2" Grid.Column="2" Text="{Binding ElementName=bSlider, Path=Value, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBlock x:Name="textR" Grid.Row="0" Grid.Column="0" Text="R" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" />
+            <Slider x:Name="rSlider" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Maximum="255" IsSnapToTickEnabled="True" TickFrequency="1" ValueChanged="Slider_ValueChanged"/>
+            <TextBox x:Name="rValue" Grid.Row="0" Grid.Column="2" Text="{Binding Value, ElementName=rSlider, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            <Slider x:Name="gSlider" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Maximum="255"  IsSnapToTickEnabled="True" TickFrequency="1" ValueChanged="Slider_ValueChanged"/>
+            <TextBlock x:Name="textG" Grid.Row="1" Grid.Column="0" Text="G" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" />
+            <TextBox x:Name="gValue" Grid.Row="1" Grid.Column="2" Text="{Binding Value, ElementName=gSlider, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBlock x:Name="textB" Grid.Row="2" Grid.Column="0" Text="B" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" />
+            <Slider x:Name="bSlider" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Maximum="255" IsSnapToTickEnabled="True" TickFrequency="1" ValueChanged="Slider_ValueChanged"/>
+            <TextBox x:Name="bValue" Grid.Row="2" Grid.Column="2" Text="{Binding ElementName=bSlider, Path=Value, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <ComboBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="70" />
         </Grid>
         <Grid Grid.Column="2" HorizontalAlignment="Left" Height="419" Margin="5,0,0,0" VerticalAlignment="Top" Width="259">
@@ -42,8 +42,9 @@
                 <RowDefinition/>
                 <RowDefinition Height="7*"/>
             </Grid.RowDefinitions>
-            <Button x:Name="stockButton" Content="Button" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <ListBox x:Name="stockList" Grid.Row="1" Margin="25,39,29,31"   />
+            <Button x:Name="stockButton" Content="Stock" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="200" FontSize="20" Click="stockButton_Click" />
+            <ListBox x:Name="stockList" Grid.Row="1" Margin="25,39,29,31" Height="200" Width="150
+                     "  VerticalAlignment="Center" Background="DarkSeaGreen" />
         </Grid>
 
     </Grid>
