@@ -35,7 +35,20 @@
             <TextBlock x:Name="textB" Grid.Row="2" Grid.Column="0" Text="B" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" />
             <Slider x:Name="bSlider" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Maximum="255" IsSnapToTickEnabled="True" TickFrequency="1" ValueChanged="Slider_ValueChanged"/>
             <TextBox x:Name="bValue" Grid.Row="2" Grid.Column="2" Text="{Binding ElementName=bSlider, Path=Value, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <ComboBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="70" />
+
+            <ComboBox x:Name="colorCB" Grid.Row="3" Grid.Column="1" ItemsSource="{Binding}" SelectedValue="{Binding Color}"  Height="24" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" Width="155" SelectionChanged="ComboBox_SelectionChanged_1">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border Width="80" Height="Auto" Margin="5,0" BorderThickness="1" BorderBrush="LightGray" >
+                            <Border.Background>
+                                <SolidColorBrush Color="{Binding Color}"/>
+                            </Border.Background>
+                            <TextBlock Text="{Binding Name}"></TextBlock>
+                        </Border>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
         </Grid>
         <Grid Grid.Column="2" HorizontalAlignment="Left" Height="419" Margin="5,0,0,0" VerticalAlignment="Top" Width="259">
             <Grid.RowDefinitions>
@@ -43,8 +56,7 @@
                 <RowDefinition Height="7*"/>
             </Grid.RowDefinitions>
             <Button x:Name="stockButton" Content="Stock" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="200" FontSize="20" Click="stockButton_Click" />
-            <ListBox x:Name="stockList" Grid.Row="1" Margin="25,39,29,31" Height="200" Width="150
-                     "  VerticalAlignment="Center" Background="DarkSeaGreen" />
+            <ListBox x:Name="stockList" Grid.Row="1" Margin="30,27,29,21" Height="319"  VerticalAlignment="Center" Background="AliceBlue" />
         </Grid>
 
     </Grid>
