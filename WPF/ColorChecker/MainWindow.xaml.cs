@@ -21,11 +21,16 @@ namespace ColorChecker {
     /// </summary>
     public partial class MainWindow : Window {
         ObservableCollection<MyColor> myColors = new ObservableCollection<MyColor> ();
+        public bool cbKeep;
+
+        MyColor[] allColor;
 
         public MainWindow() {
             InitializeComponent ();
             DataContext = GetColorList ();
+            allColor = GetColorList ();
             setColor ();
+            cbKeep = false;
         }
 
         private void setColor() {
@@ -34,10 +39,27 @@ namespace ColorChecker {
 
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
             setColor ();
+            if (!cbKeep) {
+                colorCB.SelectedIndex = -1;
+            }
         }
 
         private void stockButton_Click(object sender, RoutedEventArgs e) {
-            MyColor mc = new MyColor () {Color = Color.FromRgb ( byte.Parse ( rValue.Text ), byte.Parse ( gValue.Text ), byte.Parse ( bValue.Text ) )};
+
+            MyColor mc = new MyColor () {Color = Color.FromRgb ( byte.Parse ( rValue.Text ), byte.Parse ( gValue.Text ), byte.Parse ( bValue.Text ) ), Name = colorCB.Text };
+
+            string mcName = getColorName ( mc );
+            if (mcName != "None") {
+                mc.Name = mcName;
+            }
+            else {
+                mc.Name = "R:" + mc.Color.R + " G:" + mc.Color.G + " B:" + mc.Color.B;
+            }
+
+            //if (string.IsNullOrEmpty(mc.Name)) {
+            //    mc.Name = "R:" + mc.Color.R + " G:" + mc.Color.G + " B:" + mc.Color.B;
+            //}
+
             stockList.Items.Add ( mc );
         }
 
@@ -48,25 +70,57 @@ namespace ColorChecker {
         }
 
 
-        private void stockList_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-
-        }
-
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            if (colorCB.SelectedIndex == -1) {
+                return;
+            }
+            
+            cbKeep = true;
 
-        }
-
-        private void ComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e) {
             var selectedColor = (MyColor)( (ComboBox)sender ).SelectedItem;
             rValue.Text = selectedColor.Color.R.ToString ();
+            gValue.Text = selectedColor.Color.G.ToString ();
+            bValue.Text = selectedColor.Color.B.ToString ();
+
+            setColor ();
+            cbKeep = false;
         }
+
+        private void stockList_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
+            MyColor myColor = (MyColor)stockList.SelectedItem;
+            rValue.Text = myColor.Color.R.ToString();
+            gValue.Text = myColor.Color.G.ToString ();
+            bValue.Text = myColor.Color.B.ToString ();
+            setColor ();
+        }
+
+        public string getColorName(MyColor presentColor) {
+            MyColor targetColor = allColor.FirstOrDefault ( c => c.Equals ( presentColor ) );
+            if (targetColor == null) {
+                return "None";
+            }
+            else {
+                return targetColor.Name;
+            }
+        }
+
     }
     public class MyColor {
         public Color Color { get; set; }
         public string Name { get; set; }
 
         public override string ToString() {
-            return "Red:" + Color.R + " Green:" + Color.G + "Blue:" + Color.B;
+            return Name;            
+        }
+
+        public override bool Equals(object obj) {
+            if (!(obj is MyColor)) {
+                return false;
+            }
+
+            var objColor = (MyColor)obj;
+            return this.Color.R == objColor.Color.R && this.Color.G == objColor.Color.G && this.Color.B == objColor.Color.B;
         }
     }
+
 }
