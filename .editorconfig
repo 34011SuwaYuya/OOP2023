@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# CS0659: 型は Object.Equals(object o) をオーバーライドしますが、Object.GetHashCode() をオーバーライドしません
+dotnet_diagnostic.CS0659.severity = silent

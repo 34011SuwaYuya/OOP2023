@@ -30,7 +30,6 @@ namespace ColorChecker {
             DataContext = GetColorList ();
             allColor = GetColorList ();
             setColor ();
-            cbKeep = false;
         }
 
         private void setColor() {
@@ -39,10 +38,9 @@ namespace ColorChecker {
 
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
             setColor ();
-            if (!cbKeep) {
-                colorCB.SelectedIndex = -1;
-            }
+            setColorName ();
         }
+
 
         private void stockButton_Click(object sender, RoutedEventArgs e) {
 
@@ -71,11 +69,10 @@ namespace ColorChecker {
 
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            cbKeep = true;
             if (colorCB.SelectedIndex == -1) {
                 return;
             }
-            
-            cbKeep = true;
 
             var selectedColor = (MyColor)( (ComboBox)sender ).SelectedItem;
             rValue.Text = selectedColor.Color.R.ToString ();
@@ -88,10 +85,12 @@ namespace ColorChecker {
 
         private void stockList_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
             MyColor myColor = (MyColor)stockList.SelectedItem;
+
             rValue.Text = myColor.Color.R.ToString();
             gValue.Text = myColor.Color.G.ToString ();
             bValue.Text = myColor.Color.B.ToString ();
             setColor ();
+            colorCB.SelectedIndex = -1;
         }
 
         public string getColorName(MyColor presentColor) {
@@ -102,6 +101,18 @@ namespace ColorChecker {
             else {
                 return targetColor.Name;
             }
+        }
+
+        public void setColorName() {
+            //MyColor presentColor = new MyColor () { Color = Color.FromRgb ( byte.Parse ( rValue.Text ), byte.Parse ( gValue.Text ), byte.Parse ( bValue.Text ) ) };
+            //MyColor targetColor = allColor.FirstOrDefault ( c => c.Equals ( presentColor ) );
+            //if (targetColor == null) {
+            //    colorCB.SelectedIndex = -1;
+            //}
+            //else {
+            //    colorCB.SelectedItem =  targetColor;
+            //}
+
         }
 
     }
