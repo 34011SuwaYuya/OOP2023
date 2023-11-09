@@ -65,6 +65,8 @@ namespace RssReader {
         private void btGet_Click(object sender, EventArgs e) {
             string pageUrl = "";
 
+
+
             if (titleAndUrl.ContainsKey ( cbUrlOrGenre.Text )) {//有効なジャンル名が入っている場合
                 pageUrl = titleAndUrl[cbUrlOrGenre.Text];
             }
@@ -117,7 +119,6 @@ namespace RssReader {
                 titleAndUrl.Add ( favoriteName.Text, cbUrlOrGenre.Text );
             }
         }
-      
 
         public static bool ValidHttpURL(string s, out Uri resultURI) {
 

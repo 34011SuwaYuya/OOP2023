@@ -26,6 +26,7 @@ namespace ColorChecker {
         MyColor[] allColor;
 
         public MainWindow() {
+            cbKeep = false;
             InitializeComponent ();
             DataContext = GetColorList ();
             allColor = GetColorList ();
@@ -37,8 +38,11 @@ namespace ColorChecker {
         }
 
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
+            if (!cbKeep) {
+                colorCB.SelectedIndex = -1;
+            }
+
             setColor ();
-            setColorName ();
         }
 
 
@@ -53,27 +57,19 @@ namespace ColorChecker {
             else {
                 mc.Name = "R:" + mc.Color.R + " G:" + mc.Color.G + " B:" + mc.Color.B;
             }
-
-            //if (string.IsNullOrEmpty(mc.Name)) {
-            //    mc.Name = "R:" + mc.Color.R + " G:" + mc.Color.G + " B:" + mc.Color.B;
-            //}
-
             stockList.Items.Add ( mc );
         }
 
 
-        private MyColor[] GetColorList() {
-            return typeof ( Colors ).GetProperties ( BindingFlags.Public | BindingFlags.Static )
-                .Select ( i => new MyColor () { Color = (Color)i.GetValue ( null ), Name = i.Name } ).ToArray ();
-        }
 
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            cbKeep = true;
+            
             if (colorCB.SelectedIndex == -1) {
                 return;
             }
 
+            cbKeep = true;
             var selectedColor = (MyColor)( (ComboBox)sender ).SelectedItem;
             rValue.Text = selectedColor.Color.R.ToString ();
             gValue.Text = selectedColor.Color.G.ToString ();
@@ -103,16 +99,9 @@ namespace ColorChecker {
             }
         }
 
-        public void setColorName() {
-            //MyColor presentColor = new MyColor () { Color = Color.FromRgb ( byte.Parse ( rValue.Text ), byte.Parse ( gValue.Text ), byte.Parse ( bValue.Text ) ) };
-            //MyColor targetColor = allColor.FirstOrDefault ( c => c.Equals ( presentColor ) );
-            //if (targetColor == null) {
-            //    colorCB.SelectedIndex = -1;
-            //}
-            //else {
-            //    colorCB.SelectedItem =  targetColor;
-            //}
-
+        private MyColor[] GetColorList() {
+            return typeof ( Colors ).GetProperties ( BindingFlags.Public | BindingFlags.Static )
+                .Select ( i => new MyColor () { Color = (Color)i.GetValue ( null ), Name = i.Name } ).ToArray ();
         }
 
     }
