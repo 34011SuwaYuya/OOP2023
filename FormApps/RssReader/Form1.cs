@@ -66,7 +66,6 @@ namespace RssReader {
             string pageUrl = "";
 
 
-
             if (titleAndUrl.ContainsKey ( cbUrlOrGenre.Text )) {//有効なジャンル名が入っている場合
                 pageUrl = titleAndUrl[cbUrlOrGenre.Text];
             }
@@ -78,6 +77,9 @@ namespace RssReader {
             }
 
             openUrl ( pageUrl );
+
+
+            return;
         }
 
         private void openUrl(string pageUrl) {
@@ -108,16 +110,23 @@ namespace RssReader {
                 return;
             }
 
-            if (!ValidHttpURL(cbUrlOrGenre.Text, out Uri resultURI )) {
-                return;
-            }
+            try {
+                if (!ValidHttpURL ( cbUrlOrGenre.Text, out Uri resultURI )) {
+                    return;
+                }
 
-            openUrl ( cbUrlOrGenre.Text );
+                openUrl ( cbUrlOrGenre.Text );
 
-            if (!titleAndUrl.ContainsKey ( favoriteName.Text )) {
-                cbUrlOrGenre.Items.Add ( favoriteName.Text );
-                titleAndUrl.Add ( favoriteName.Text, cbUrlOrGenre.Text );
+                if (!titleAndUrl.ContainsKey ( favoriteName.Text )) {
+                    cbUrlOrGenre.Items.Add ( favoriteName.Text );
+                    titleAndUrl.Add ( favoriteName.Text, cbUrlOrGenre.Text );
+                }
             }
+            catch (Exception) {
+                
+            }
+            
+           
         }
 
         public static bool ValidHttpURL(string s, out Uri resultURI) {
