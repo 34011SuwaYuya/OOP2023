@@ -22,7 +22,7 @@ using System.Xml.Linq;
 namespace RssReader {
     public partial class Form1 : Form {
         List<ItemData> nodes ;
-        Dictionary<string, string> titleAndUrl = new Dictionary<string, string> ();
+        Dictionary<string, string> titleUrlDictionary = new Dictionary<string, string> ();
         public Form1() {
             InitializeComponent ();
             initilizeTitleUrl ();
@@ -30,15 +30,15 @@ namespace RssReader {
         }
 
         private void initilizeTitleUrl() {
-            titleAndUrl.Add ( "主要", "https://news.yahoo.co.jp/rss/topics/top-picks.xml" );
-            titleAndUrl.Add ( "国内", "https://news.yahoo.co.jp/rss/topics/domestic.xml" );
-            titleAndUrl.Add ( "国際", "https://news.yahoo.co.jp/rss/topics/world.xml" );
-            titleAndUrl.Add ( "経済", "https://news.yahoo.co.jp/rss/topics/business.xml" );
-            titleAndUrl.Add ( "エンタメ", "https://news.yahoo.co.jp/rss/topics/entertainment.xml" );
-            titleAndUrl.Add ( "スポーツ", "https://news.yahoo.co.jp/rss/topics/sports.xml" );
-            titleAndUrl.Add ( "IT", "https://news.yahoo.co.jp/rss/topics/it.xml" );
-            titleAndUrl.Add ( "科学", "https://news.yahoo.co.jp/rss/topics/science.xml" );
-            titleAndUrl.Add ( "地域", "https://news.yahoo.co.jp/rss/topics/local.xml" );
+            titleUrlDictionary.Add ( "主要", "https://news.yahoo.co.jp/rss/topics/top-picks.xml" );
+            titleUrlDictionary.Add ( "国内", "https://news.yahoo.co.jp/rss/topics/domestic.xml" );
+            titleUrlDictionary.Add ( "国際", "https://news.yahoo.co.jp/rss/topics/world.xml" );
+            titleUrlDictionary.Add ( "経済", "https://news.yahoo.co.jp/rss/topics/business.xml" );
+            titleUrlDictionary.Add ( "エンタメ", "https://news.yahoo.co.jp/rss/topics/entertainment.xml" );
+            titleUrlDictionary.Add ( "スポーツ", "https://news.yahoo.co.jp/rss/topics/sports.xml" );
+            titleUrlDictionary.Add ( "IT", "https://news.yahoo.co.jp/rss/topics/it.xml" );
+            titleUrlDictionary.Add ( "科学", "https://news.yahoo.co.jp/rss/topics/science.xml" );
+            titleUrlDictionary.Add ( "地域", "https://news.yahoo.co.jp/rss/topics/local.xml" );
         }
 
 
@@ -57,7 +57,7 @@ namespace RssReader {
 
 
         private void setCBGenre() {
-            foreach (var item in titleAndUrl) {
+            foreach (var item in titleUrlDictionary) {
                 cbUrlOrGenre.Items.Add ( item.Key );
             }
         }
@@ -66,8 +66,8 @@ namespace RssReader {
             string pageUrl = "";
 
 
-            if (titleAndUrl.ContainsKey ( cbUrlOrGenre.Text )) {//有効なジャンル名が入っている場合
-                pageUrl = titleAndUrl[cbUrlOrGenre.Text];
+            if (titleUrlDictionary.ContainsKey ( cbUrlOrGenre.Text )) {//有効なジャンル名が入っている場合
+                pageUrl = titleUrlDictionary[cbUrlOrGenre.Text];
             }
             else if (ValidHttpURL ( cbUrlOrGenre.Text, out Uri resultURI )) {  //有効なurlが入っている
                 pageUrl = cbUrlOrGenre.Text;
@@ -128,7 +128,7 @@ namespace RssReader {
 
                 favoriteName.Text = favoriteName.Text.Trim ();
 
-                if (titleAndUrl.ContainsKey(favoriteName.Text)) {
+                if (titleUrlDictionary.ContainsKey(favoriteName.Text)) {
                     MessageBox.Show ( "同じ名称が既に使われています。違う名称を入れてください " );
                     return;
                 }
@@ -137,7 +137,7 @@ namespace RssReader {
 
                 openUrl ( cbUrlOrGenre.Text );
                 cbUrlOrGenre.Items.Add ( favoriteName.Text );
-                titleAndUrl.Add ( favoriteName.Text, cbUrlOrGenre.Text );
+                titleUrlDictionary.Add ( favoriteName.Text, cbUrlOrGenre.Text );
                 
                
             }

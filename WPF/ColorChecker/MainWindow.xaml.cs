@@ -19,6 +19,9 @@ namespace ColorChecker {
     /// <summary>
     /// MainWindow.xaml の相互作用ロジック
     /// </summary>
+    /// <summary>
+    /// MainWindow.xaml の相互作用ロジック
+    /// </summary>
     public partial class MainWindow : Window {
         ObservableCollection<MyColor> myColors = new ObservableCollection<MyColor> ();
         public bool cbKeep;
@@ -34,13 +37,10 @@ namespace ColorChecker {
         }
 
         private void setColor() {
-            var currentBackGround = colorArea.Background;
-
             try {
                 colorArea.Background = new SolidColorBrush ( Color.FromRgb ( byte.Parse ( rValue.Text ), byte.Parse ( gValue.Text ), byte.Parse ( bValue.Text ) ) );
             }
             catch (Exception) {
-                colorArea.Background = currentBackGround;
             }
             
         }
@@ -56,7 +56,7 @@ namespace ColorChecker {
 
         private void stockButton_Click(object sender, RoutedEventArgs e) {
 
-            MyColor mc = new MyColor () {Color = Color.FromRgb ( byte.Parse ( rValue.Text ), byte.Parse ( gValue.Text ), byte.Parse ( bValue.Text ) ), Name = colorCB.Text };
+            MyColor mc = new MyColor () { Color = Color.FromRgb ( byte.Parse ( rValue.Text ), byte.Parse ( gValue.Text ), byte.Parse ( bValue.Text ) ), Name = colorCB.Text };
 
             string mcName = getColorName ( mc );
             if (mcName != "None") {
@@ -72,7 +72,7 @@ namespace ColorChecker {
 
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            
+
             if (colorCB.SelectedIndex == -1) {
                 return;
             }
@@ -90,7 +90,7 @@ namespace ColorChecker {
         private void stockList_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
             MyColor myColor = (MyColor)stockList.SelectedItem;
 
-            rValue.Text = myColor.Color.R.ToString();
+            rValue.Text = myColor.Color.R.ToString ();
             gValue.Text = myColor.Color.G.ToString ();
             bValue.Text = myColor.Color.B.ToString ();
             setColor ();
@@ -118,11 +118,11 @@ namespace ColorChecker {
         public string Name { get; set; }
 
         public override string ToString() {
-            return Name;            
+            return Name;
         }
 
         public override bool Equals(object obj) {
-            if (!(obj is MyColor)) {
+            if (!( obj is MyColor )) {
                 return false;
             }
 
