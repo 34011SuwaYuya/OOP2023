@@ -30,13 +30,13 @@
             </Grid.ColumnDefinitions>
             <TextBlock x:Name="textR" Grid.Row="0" Grid.Column="0" Text="R" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" />
             <Slider x:Name="rSlider" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Maximum="255" IsSnapToTickEnabled="True" TickFrequency="1" ValueChanged="Slider_ValueChanged"/>
-            <TextBox x:Name="rValue" Grid.Row="0" Grid.Column="2" Text="{Binding Value, ElementName=rSlider, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            <TextBox x:Name="rValue" Grid.Row="0" Grid.Column="2" Text="{Binding Value, ElementName=rSlider, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" VerticalAlignment="Center" HorizontalAlignment="Center" />
             <Slider x:Name="gSlider" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Maximum="255"  IsSnapToTickEnabled="True" TickFrequency="1" ValueChanged="Slider_ValueChanged"/>
             <TextBlock x:Name="textG" Grid.Row="1" Grid.Column="0" Text="G" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" />
-            <TextBox x:Name="gValue" Grid.Row="1" Grid.Column="2" Text="{Binding Value, ElementName=gSlider, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBox x:Name="gValue" Grid.Row="1" Grid.Column="2" Text="{Binding Value, ElementName=gSlider, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <TextBlock x:Name="textB" Grid.Row="2" Grid.Column="0" Text="B" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" />
             <Slider x:Name="bSlider" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Maximum="255" IsSnapToTickEnabled="True" TickFrequency="1" ValueChanged="Slider_ValueChanged"/>
-            <TextBox x:Name="bValue" Grid.Row="2" Grid.Column="2" Text="{Binding ElementName=bSlider, Path=Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBox x:Name="bValue" Grid.Row="2" Grid.Column="2" Text="{Binding ElementName=bSlider, Path=Value, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
             <ComboBox x:Name="colorCB" Grid.Row="3" Grid.Column="1" ItemsSource="{Binding}" SelectedValue="{Binding Color}"  Height="24" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" Width="155" SelectionChanged="ComboBox_SelectionChanged">
                 <ComboBox.ItemTemplate>

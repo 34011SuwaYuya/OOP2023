@@ -34,7 +34,15 @@ namespace ColorChecker {
         }
 
         private void setColor() {
-            colorArea.Background = new SolidColorBrush ( Color.FromRgb ( byte.Parse ( rValue.Text ), byte.Parse ( gValue.Text ), byte.Parse ( bValue.Text ) ) );
+            var currentBackGround = colorArea.Background;
+
+            try {
+                colorArea.Background = new SolidColorBrush ( Color.FromRgb ( byte.Parse ( rValue.Text ), byte.Parse ( gValue.Text ), byte.Parse ( bValue.Text ) ) );
+            }
+            catch (Exception) {
+                colorArea.Background = currentBackGround;
+            }
+            
         }
 
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {

@@ -73,10 +73,20 @@ namespace RssReader {
                 pageUrl = cbUrlOrGenre.Text;
             }
             else {
+                MessageBox.Show ( "正しいURLまたはジャンル名を入力してください。" );
                 return;
             }
 
-            openUrl ( pageUrl );
+
+            try {
+
+                openUrl ( pageUrl );
+            }
+            catch (Exception) {
+                cbUrlOrGenre.Text = "";
+                favoriteName.Text = "";
+                MessageBox.Show ( "有効なURLを入力してください。" );
+            }
 
 
             return;
@@ -99,6 +109,8 @@ namespace RssReader {
                 foreach (var item in nodes) {
                     lbRssTitle.Items.Add ( item.Title );
                 }
+
+                wbBrowser.Navigate ( "about:blank" );
             }
         }
 
@@ -107,23 +119,33 @@ namespace RssReader {
         private void btFavorite_Click(object sender, EventArgs e) {
 
             if (cbUrlOrGenre.Text == "" || favoriteName.Text == "") {
+                MessageBox.Show ( "URLと名称を入れてください" );
                 return;
             }
 
             try {
-                if (!ValidHttpURL ( cbUrlOrGenre.Text, out Uri resultURI )) {
+                
+
+                favoriteName.Text = favoriteName.Text.Trim ();
+
+                if (titleAndUrl.ContainsKey(favoriteName.Text)) {
+                    MessageBox.Show ( "同じ名称が既に使われています。違う名称を入れてください " );
                     return;
                 }
 
-                openUrl ( cbUrlOrGenre.Text );
+                
 
-                if (!titleAndUrl.ContainsKey ( favoriteName.Text )) {
-                    cbUrlOrGenre.Items.Add ( favoriteName.Text );
-                    titleAndUrl.Add ( favoriteName.Text, cbUrlOrGenre.Text );
-                }
+                openUrl ( cbUrlOrGenre.Text );
+                cbUrlOrGenre.Items.Add ( favoriteName.Text );
+                titleAndUrl.Add ( favoriteName.Text, cbUrlOrGenre.Text );
+                
+               
             }
             catch (Exception) {
-                
+                MessageBox.Show ( "有効なURLを入力してください。" );
+                cbUrlOrGenre.Text = "";
+                favoriteName.Text = "";
+                lbRssTitle.Items.Clear ();
             }
             
            
