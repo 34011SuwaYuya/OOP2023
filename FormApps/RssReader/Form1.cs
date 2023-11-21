@@ -27,6 +27,7 @@ namespace RssReader {
             InitializeComponent ();
             initilizeTitleUrl ();
             setCBGenre ();
+            MessageBox.Show ( "①URL又はお気に入り名称を入力して取得ボタンを押す" + Environment.NewLine + "②URLとお気に入り名称を入力してから登録ボタンを押す" );
         }
 
         private void initilizeTitleUrl() {
@@ -73,7 +74,7 @@ namespace RssReader {
                 pageUrl = cbUrlOrGenre.Text;
             }
             else {
-                MessageBox.Show ( "正しいURLまたはジャンル名を入力してください。" );
+                MessageBox.Show ( "正しいURLまたはお気に入り名称を入力してください。" );
                 return;
             }
 
@@ -124,31 +125,36 @@ namespace RssReader {
             }
 
             try {
-                
+
 
                 favoriteName.Text = favoriteName.Text.Trim ();
 
-                if (titleUrlDictionary.ContainsKey(favoriteName.Text)) {
+                if (titleUrlDictionary.ContainsKey ( favoriteName.Text )) {
                     MessageBox.Show ( "同じ名称が既に使われています。違う名称を入れてください " );
                     return;
                 }
 
-                
 
-                openUrl ( cbUrlOrGenre.Text );
+
                 cbUrlOrGenre.Items.Add ( favoriteName.Text );
                 titleUrlDictionary.Add ( favoriteName.Text, cbUrlOrGenre.Text );
-                
-               
+                MessageBox.Show ( "お気に入り登録完了" );
+                resetDisp ();
+
             }
             catch (Exception) {
                 MessageBox.Show ( "有効なURLを入力してください。" );
-                cbUrlOrGenre.Text = "";
-                favoriteName.Text = "";
-                lbRssTitle.Items.Clear ();
+                resetDisp ();
             }
             
            
+        }
+
+        private void resetDisp() {
+            favoriteName.Text = "";
+            cbUrlOrGenre.Text = "";
+            lbRssTitle.Items.Clear ();
+            wbBrowser.Navigate ( "about:blank" );
         }
 
         public static bool ValidHttpURL(string s, out Uri resultURI) {

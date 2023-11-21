@@ -36,6 +36,7 @@ namespace RssReader {
             // 
             // lbRssTitle
             // 
+            this.lbRssTitle.Font = new System.Drawing.Font("ＭＳ Ｐゴシック", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.lbRssTitle.FormattingEnabled = true;
             this.lbRssTitle.ItemHeight = 12;
             this.lbRssTitle.Location = new System.Drawing.Point(21, 107);
@@ -55,7 +56,8 @@ namespace RssReader {
             // 
             // btGet
             // 
-            this.btGet.Location = new System.Drawing.Point(618, 12);
+            this.btGet.Font = new System.Drawing.Font("ＭＳ Ｐ明朝", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.btGet.Location = new System.Drawing.Point(661, 12);
             this.btGet.Name = "btGet";
             this.btGet.Size = new System.Drawing.Size(75, 23);
             this.btGet.TabIndex = 6;
@@ -66,24 +68,25 @@ namespace RssReader {
             // cbUrlOrGenre
             // 
             this.cbUrlOrGenre.FormattingEnabled = true;
-            this.cbUrlOrGenre.Location = new System.Drawing.Point(114, 14);
+            this.cbUrlOrGenre.Location = new System.Drawing.Point(157, 14);
             this.cbUrlOrGenre.Name = "cbUrlOrGenre";
             this.cbUrlOrGenre.Size = new System.Drawing.Size(498, 20);
             this.cbUrlOrGenre.TabIndex = 4;
             // 
             // btFavorite
             // 
-            this.btFavorite.Location = new System.Drawing.Point(307, 50);
+            this.btFavorite.Font = new System.Drawing.Font("ＭＳ Ｐゴシック", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.btFavorite.Location = new System.Drawing.Point(359, 50);
             this.btFavorite.Name = "btFavorite";
-            this.btFavorite.Size = new System.Drawing.Size(106, 23);
+            this.btFavorite.Size = new System.Drawing.Size(75, 23);
             this.btFavorite.TabIndex = 8;
-            this.btFavorite.Text = "お気に入り登録";
+            this.btFavorite.Text = "登録";
             this.btFavorite.UseVisualStyleBackColor = true;
             this.btFavorite.Click += new System.EventHandler(this.btFavorite_Click);
             // 
             // favoriteName
             // 
-            this.favoriteName.Location = new System.Drawing.Point(114, 52);
+            this.favoriteName.Location = new System.Drawing.Point(157, 52);
             this.favoriteName.Name = "favoriteName";
             this.favoriteName.Size = new System.Drawing.Size(187, 19);
             this.favoriteName.TabIndex = 9;
@@ -91,20 +94,22 @@ namespace RssReader {
             // lbUrl
             // 
             this.lbUrl.AutoSize = true;
+            this.lbUrl.Font = new System.Drawing.Font("ＭＳ Ｐゴシック", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.lbUrl.Location = new System.Drawing.Point(21, 17);
             this.lbUrl.Name = "lbUrl";
-            this.lbUrl.Size = new System.Drawing.Size(92, 12);
+            this.lbUrl.Size = new System.Drawing.Size(136, 12);
             this.lbUrl.TabIndex = 10;
-            this.lbUrl.Text = "URL又はジャンル：";
+            this.lbUrl.Text = "URL又はお気に入り名称：";
             // 
             // lbFavoriteName
             // 
             this.lbFavoriteName.AutoSize = true;
-            this.lbFavoriteName.Location = new System.Drawing.Point(21, 55);
+            this.lbFavoriteName.Font = new System.Drawing.Font("ＭＳ Ｐゴシック", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.lbFavoriteName.Location = new System.Drawing.Point(43, 55);
             this.lbFavoriteName.Name = "lbFavoriteName";
-            this.lbFavoriteName.Size = new System.Drawing.Size(86, 12);
+            this.lbFavoriteName.Size = new System.Drawing.Size(114, 12);
             this.lbFavoriteName.TabIndex = 11;
-            this.lbFavoriteName.Text = "お気に入り名称：";
+            this.lbFavoriteName.Text = "登録お気に入り名称：";
             // 
             // Form1
             // 
@@ -120,8 +125,8 @@ namespace RssReader {
             this.Controls.Add(this.cbUrlOrGenre);
             this.Controls.Add(this.wbBrowser);
             this.Controls.Add(this.lbRssTitle);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Form1";
-            this.Text = "Form1";
             this.ResumeLayout(false);
             this.PerformLayout();
 
